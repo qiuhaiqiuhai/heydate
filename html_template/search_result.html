@@ -14,10 +14,8 @@
 </nav>
 
 
-
-
 <div id="search">
-    
+    <h2>Advanced Search</h2>
     <form action="results.php" method="post">
     Gender:<br />
     <input type="radio" name="gender" value="male" checked> Male
@@ -26,6 +24,12 @@
     Age:<br />
     <input type="number" name="age" size="40" value = 20>
     <br />
+    Height:<br />
+    <input type="number" name="age" size="40" value = 170>
+    <br />
+    Education:<br />
+    <input type=text name="age" value="education">
+    <br/>
     City:<br />
     <select name="city" >
       <option value="volvo">Volvo</option>
@@ -34,30 +38,23 @@
       <option value="audi">Audi</option>
     </select>
     <br />
+    Description:<br />
+    <textarea name='description' rows="4" cols="50">beautiful
+    </textarea>
+    <br />
         
     <input type="submit" name="submit" value="Search">
-    
-    </form>
-    
-
-    
+    </form>    
 </div>
+
     
 <div id="users_group">
-    <div id="users_group_gender">
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
+    <h2>Search Result</h2>
+ 
 
-
-
-    </div>
-    <div id="users_group_gender">
         <a href="http://www.w3schools.com">
         <div id = "users">
-            <img src="users_profile_photo/1.jpg" height="80">
+            <img src="/users_profile_photo/1.jpg" height="80">
         asdasdas</div>
         </a>
         <div id = "users"></div>
@@ -66,7 +63,6 @@
         <div id = "users"></div>
 
 
-    </div>
 </div>
 <footer>
 Copyright © heydate.com
