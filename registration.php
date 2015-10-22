@@ -66,7 +66,7 @@
 	<input type=text name="education" required="required" placeholder="your education" value = 'test'><br /><br />
 	
 	Update your photo (Optional):
-	<input type="file" name="photo" accept="image/*" onchange="loadFile(event)">
+	<input type="file" name="profilePhoto" accept="image/*" onchange="loadFile(event)">
 	<img id="output"/>
 	<script>
 	  var loadFile = function(event) {

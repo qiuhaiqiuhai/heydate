@@ -61,12 +61,10 @@ footer {
     
 }
 
-p {
-    word-wrap: break-word;
-}
-
-aside {
-    width: 200px;
-    margin-right: 5px;
-    float: right;
+#search {
+   
+    background-color: antiquewhite;
+    padding: 10px;
+    float: left;
+   
 }

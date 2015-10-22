@@ -14,7 +14,16 @@ create table users_account
 );
 
 insert into users_account values
- 	(NULL, 'Beauty', md5('Beauty'), 'beauty@beauty.com','2000-01-01','Female', 'Singapore', 170,'MBA', '1.jpg');
+ 	(NULL, 'Beauty', md5('Beauty'), 'Beauty@gmail.com','2000-01-01','Female', 'Singapore', 170,'MBA', '1.jpg'),
+ 	(NULL, 'Noah', md5('Noah'), 'Noah@gmail.com','2000-01-01','Female', 'Singapore', 170,'MBA', '2.jpg'),
+ 	(NULL, 'James', md5('James'), 'James@gmail.com','2000-01-01','Female', 'Singapore', 170,'MBA', '3.jpg'),
+ 	(NULL, 'Zhao', md5('Zhao'), 'Zhao@gmail.com','2000-01-01','Female', 'Singapore', 170,'MBA', '4.jpg'),
+ 	(NULL, 'Ethan', md5('Ethan'), 'Ethan@gmail.com','2000-01-01','Female', 'Singapore', 170,'MBA', '5.jpg'),
+ 	(NULL, 'David', md5('David'), 'David@gmail.com','2000-01-01','Male', 'Singapore', 170,'MBA', '6.jpg'),
+ 	(NULL, 'Lucas', md5('Lucas'), 'Lucas@gmail.com','2000-01-01','Male', 'Singapore', 170,'MBA', '7.jpg'),
+ 	(NULL, 'Leon', md5('Leon'), 'Leon@gmail.com','2000-01-01','Male', 'Singapore', 170,'MBA', '8.jpg'),
+ 	(NULL, 'Zoey', md5('Zoey'), 'Zoey@gmail.com','2000-01-01','Male', 'Singapore', 170,'MBA', '9.jpg'),
+ 	(NULL, 'Model', md5('Model'), 'Model@gmail.com','2000-01-01','Male', 'Singapore', 170,'MBA', '10.jpg');
 
 
 -- create table users_profile_photo
@@ -33,7 +42,10 @@ create table users_photo
 );
 
 insert into users_photo values
- 	(NULL, 1, '1_1445437781.jpg');
+ 	(NULL, 1, '1_1.jpg'),
+ 	(NULL, 1, '1_2.jpg'),
+ 	(NULL, 1, '1_3.jpg'),
+ 	(NULL, 2, '2_1.jpg');
 
 
 create table users_description
@@ -41,6 +53,12 @@ create table users_description
 	userID int unsigned not null,
 	description text
 );
+
+insert into users_description values
+ 	(NULL, 1, "I'm pretty"),
+ 	(NULL, 2, "I'm sexy"),
+ 	(NULL, 5, "I'm handsome"),
+ 	(NULL, 6, "I'm rich");
 
 
 

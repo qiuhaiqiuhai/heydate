@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+
 <html>
 <head>
-    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="css/search_result.css">
 </head>
 <body>
 
@@ -13,22 +13,9 @@
 <a href="registration.php">Register</a>
 </nav>
 
-<section>
-<h1>Please log in.</h1>
-<form method="post" action="index.php">
-     <table>
-     <tr><td>Username:</td>
-     <td><input type="text" name="name"></td></tr> 
-     <tr><td>Password:</td> 
-     <td><input type="password" name="password"></td></tr> 
-     <tr><td colspan="2" align="center"> 
-     <input type="submit" value="Log in"></td></tr> 
-     </table></form>
-</section>
-
 
 <div id="search">
-    
+    <h2>Advanced Search</h2>
     <form action="results.php" method="post">
     Gender:<br />
     <input type="radio" name="gender" value="male" checked> Male
@@ -37,6 +24,12 @@
     Age:<br />
     <input type="number" name="age" size="40" value = 20>
     <br />
+    Height:<br />
+    <input type="number" name="age" size="40" value = 170>
+    <br />
+    Education:<br />
+    <input type=text name="age" value="education">
+    <br/>
     City:<br />
     <select name="city" >
       <option value="volvo">Volvo</option>
@@ -45,30 +38,28 @@
       <option value="audi">Audi</option>
     </select>
     <br />
+    Description:<br />
+    <textarea name='description' rows="4" cols="50">beautiful
+    </textarea>
+    <br />
         
     <input type="submit" name="submit" value="Search">
-    
-    </form>
-    
-
-    
+    </form>    
 </div>
+
     
 <div id="users_group">
-    <div id="users_group_gender">
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
+    <h2>Search Result</h2>
+ 
 
-
-
-    </div>
-    <div id="users_group_gender">
         <a href="http://www.w3schools.com">
         <div id = "users">
-            <img src="../users_profile_photo/1.jpg" height="80">
+            <img src="/users_profile_photo/1.jpg" height="80">
+        asdasdas</div>
+        </a>
+        <a href="http://www.w3schools.com">
+        <div id = "users">
+            <img src="/users_profile_photo/1.jpg" height="80">
         asdasdas</div>
         </a>
         <div id = "users"></div>
@@ -77,7 +68,6 @@
         <div id = "users"></div>
 
 
-    </div>
 </div>
 <footer>
 Copyright © heydate.com

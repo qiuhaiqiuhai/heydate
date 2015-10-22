@@ -7,15 +7,8 @@ if (isset($_POST['name']) && isset($_POST['password']))
   // if the user has just tried to log in
   $name = $_POST['name'];
   $password = $_POST['password'];
-/*
-  $db_conn = new mysqli('localhost', 'webauth', 'webauth', 'auth');
 
-  if (mysqli_connect_errno()) {
-   echo 'Connection to database failed:'.mysqli_connect_error();
-   exit();
-  }
-*/
-$password = md5($password);
+  $password = md5($password);
   $query = 'select * from users_account '
            ."where name='$name' "
            ." and password='$password'";
@@ -24,7 +17,9 @@ $password = md5($password);
   if ($result->num_rows >0 )
   {
     // if they are in the database register the user id
-    $_SESSION['valid_user'] = $name;    
+    $row = $result->fetch_assoc();
+    $_SESSION['valid_user'] = $name;
+    $_SESSION['valid_userID'] = $row['userID'];     
   }
   
 }
@@ -43,41 +38,47 @@ $password = md5($password);
 
 <nav>
 <a href="registration.php">Register</a>
+<?php 
+    if (isset($_SESSION['valid_user']))
+        echo '<a href="logout.php">Log out</a><br />';?>
 </nav>
 
 <section>
 <?php
   if (isset($_SESSION['valid_user']))
   {
-    echo 'You are logged in as: '.$_SESSION['valid_user'].' <br />';
-    
-// echo "<br>" .$query. "<br>";
-    $query = 'select * from users_account '
-           ."where name='".$_SESSION['valid_user']."'" ;
-// echo "<br>" .$query. "<br>";
-    $result = $db->query($query);
-    $row = $result->fetch_assoc();
-    echo $row['name'].'<br/>'.
-         $row['email'].'<br/>'.
-         $row['birthdate'].'<br/>'.
-         $row['gender'].'<br/>'.
-         $row['city'].'<br/>'.
-         $row['height'].'<br/>'.
-         $row['education'].'<br/>';
+    print_basic_info( $_SESSION['valid_user'], $db);
 
     
-
-    if ($row['profilePhoto']!=Null )
-    {
-        echo '<img src=users_profile_photo/'.$row['profilePhoto'].' height="100">';
-    }elseif($row['gender'] == 'Male'){
-        echo '<img src=users_profile_photo/default_male.jpg>';
-    }else{
-        echo '<img src=users_profile_photo/default_female.jpg>';
-    }
+    echo '<a href="profile.php">profile</a>';
+    echo '</section>';
+      
+    echo '<div id="search">
+    
+    <form action="search_result.php" method="post">
+    Gender:<br />
+    <input type="radio" name="gender" value="male" checked>       Male
+    <input type="radio" name="gender" value="female"> Female
+    <br />
+    Age:<br />
+    <input type="number" name="age" size="40" value = 20>
+    <br />
+    City:<br />
+    <select name="city" >
+      <option value="volvo">Volvo</option>
+      <option value="saab">Saab</option>
+      <option value="opel">Opel</option>
+      <option value="audi">Audi</option>
+    </select>
+    <br />
+        
+    <input type="submit" name="submit" value="Search">
+    
+    </form>
+    </div>';
 
     
-    echo '<a href="logout.php">Log out</a><br />';
+    
   }
   else
   {
@@ -101,37 +102,65 @@ $password = md5($password);
            <td><input type="password" name="password"></td></tr> 
            <tr><td colspan="2" align="center"> 
            <input type="submit" value="Log in"></td></tr> 
-           </table></form> ';
+           </table></form></section> ';
   
 
   }
 ?>
 
-</section>
 <div id="users_group">
     <div id="users_group_gender">
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
+    <?php
+      
+      $query = 'SELECT * FROM users_account WHERE gender="Female"'
+              .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
+      $result = $db->query($query);
+
+      $num_results = $result->num_rows;  
+
+      for ($i=0; $i <$num_results; $i++) {
+         $row = $result->fetch_assoc();
+         echo '<a href="http://www.w3schools.com">';
+         echo '<div id = "users">';
+         echo '<img src="users_profile_photo/'.
+              ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_female.jpg').'" height="80">';
+         echo  $row['name'].'<br/>'.
+               $row['city'].'<br/>'.
+               $row['height'].'<br/>'.
+               $row['education'].'<br/>';
+         echo "</div></a>";
+
+      }
 
 
-
+    ?>
     </div>
+    
     <div id="users_group_gender">
-        <a href="http://www.w3schools.com">
-        <div id = "users">
-            <img src="users_profile_photo/1.jpg" height="80">
-        asdasdas</div>
-        </a>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
+    <?php
+      
+      $query = 'SELECT * FROM users_account WHERE gender="Male"'
+              .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
+      $result = $db->query($query);
+
+      $num_results = $result->num_rows;  
+
+      for ($i=0; $i <$num_results; $i++) {
+         $row = $result->fetch_assoc();
+         echo '<a href="http://www.w3schools.com">';
+         echo '<div id = "users">';
+         echo '<img src="users_profile_photo/'.
+              ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';
+         echo  $row['name'].'<br/>'.
+               $row['city'].'<br/>'.
+               $row['height'].'<br/>'.
+               $row['education'].'<br/>';
+         echo "</div></a>";
+
+      }
 
 
-
+    ?>
     </div>
 </div>
 <footer>
