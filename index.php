@@ -29,9 +29,23 @@ $password = md5($password);
   
 }
 ?>
+
+
 <html>
+<head>
+    <link rel="stylesheet" href="css/index.css">
+</head>
 <body>
-<h1>Home page</h1>
+
+<header>
+<h1>heydate</h1>
+</header>
+
+<nav>
+<a href="registration.php">Register</a>
+</nav>
+
+<section>
 <?php
   if (isset($_SESSION['valid_user']))
   {
@@ -55,7 +69,7 @@ $password = md5($password);
 
     if ($row['profilePhoto']!=Null )
     {
-        echo '<img src=users_profile_photo/'.$row['profilePhoto'].' >';
+        echo '<img src=users_profile_photo/'.$row['profilePhoto'].' height="100">';
     }elseif($row['gender'] == 'Male'){
         echo '<img src=users_profile_photo/default_male.jpg>';
     }else{
@@ -70,32 +84,67 @@ $password = md5($password);
     if (isset($name))
     {
       // if they've tried and failed to log in
-      echo 'Your username or password is invalid.<br />';
+      echo '<h1>Your username or password is invalid.</h1>';
     }
     else 
     {
       // they have not tried to log in yet or have logged out
-      echo 'Please log in.<br />';
+      echo '<h1>Please log in.</h1>';
     }
 
     // provide form to log in 
-    echo '<form method="post" action="index.php">';
-    echo '<table>';
-    echo '<tr><td>Username:</td>';
-    echo '<td><input type="text" name="name"></td></tr>';
-    echo '<tr><td>Password:</td>';
-    echo '<td><input type="password" name="password"></td></tr>';
-    echo '<tr><td colspan="2" align="center">';
-    echo '<input type="submit" value="Log in"></td></tr>';
-    echo '</table></form>';
+    echo '<form method="post" action="index.php">
+           <table>
+           <tr><td>Username:</td>
+           <td><input type="text" name="name"></td></tr> 
+           <tr><td>Password:</td> 
+           <td><input type="password" name="password"></td></tr> 
+           <tr><td colspan="2" align="center"> 
+           <input type="submit" value="Log in"></td></tr> 
+           </table></form> ';
+  
+
   }
 ?>
+
+</section>
+<div id="users_group">
+    <div id="users_group_gender">
+        <div id = "users"></div>
+        <div id = "users"></div>
+        <div id = "users"></div>
+        <div id = "users"></div>
+        <div id = "users"></div>
+
+
+
+    </div>
+    <div id="users_group_gender">
+        <a href="http://www.w3schools.com">
+        <div id = "users">
+            <img src="users_profile_photo/1.jpg" height="80">
+        asdasdas</div>
+        </a>
+        <div id = "users"></div>
+        <div id = "users"></div>
+        <div id = "users"></div>
+        <div id = "users"></div>
+
+
+
+    </div>
+</div>
+<footer>
+Copyright © heydate.com
+</footer>
+
+
 <br />
 <a <?php if (isset($_SESSION['valid_user']))
             echo 'href="members_only.php"';?>>
-  Members section</a>
+Members section</a>
 
-<a href="registration.php">Register</a>
+
 </body>
 </html>
 
