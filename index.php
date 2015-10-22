@@ -47,19 +47,19 @@ $password = md5($password);
          $row['email'].'<br/>'.
          $row['birthdate'].'<br/>'.
          $row['gender'].'<br/>'.
-         $row['city'].'<br/>';
+         $row['city'].'<br/>'.
+         $row['height'].'<br/>'.
+         $row['education'].'<br/>';
 
-    $query = 'select * from users_profile_photo where userID='.$row['userID'];
-// echo "<br>" .$query. "<br>";
-    $result = $db->query($query);
-    if ($result->num_rows >0 )
+    
+
+    if ($row['profilePhoto']!=Null )
     {
-        $row = $result->fetch_assoc();  
-        echo '<img src=users_photo/'.$row['photo'].' >';
+        echo '<img src=users_profile_photo/'.$row['profilePhoto'].' >';
     }elseif($row['gender'] == 'Male'){
-        echo '<img src=users_photo/default_male.jpg>';
+        echo '<img src=users_profile_photo/default_male.jpg>';
     }else{
-        echo '<img src=users_photo/default_female.jpg>';
+        echo '<img src=users_profile_photo/default_female.jpg>';
     }
 
     
@@ -95,6 +95,7 @@ $password = md5($password);
             echo 'href="members_only.php"';?>>
   Members section</a>
 
-<a href="registration.html">Register</a>
+<a href="registration.php">Register</a>
 </body>
 </html>
+
