@@ -45,9 +45,9 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
 <section>
 <?php
-  if (isset($_SESSION['valid_user']))
+  if (isset($_SESSION['valid_userID']))
   {
-    print_basic_info( $_SESSION['valid_user'], $db);
+    print_basic_info( $_SESSION['valid_userID'], $db);
 
     
     echo '<a href="profile.php">profile</a>';
@@ -120,7 +120,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
       for ($i=0; $i <$num_results; $i++) {
          $row = $result->fetch_assoc();
-         echo '<a href="http://www.w3schools.com">';
+         echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
          echo '<div id = "users">';
          echo '<img src="users_profile_photo/'.
               ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_female.jpg').'" height="80">';
@@ -147,7 +147,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
       for ($i=0; $i <$num_results; $i++) {
          $row = $result->fetch_assoc();
-         echo '<a href="http://www.w3schools.com">';
+         echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
          echo '<div id = "users">';
          echo '<img src="users_profile_photo/'.
               ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';

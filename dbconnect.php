@@ -10,12 +10,10 @@ if ($db->connect_error){
 if (!$db->select_db ("heydatedb"))
 	exit("<p>Unable to locate the heydatedb database</p>");
 
-function print_basic_info($username, $db) {
-    echo 'You are logged in as: '.$username.' <br />';
-    
+function print_basic_info($userID, $db) {
 // echo "<br>" .$query. "<br>";
     $query = 'select * from users_account '
-           ."where name='".$username."'" ;
+           ."where userID=".$userID;
 // echo "<br>" .$query. "<br>";
     $result = $db->query($query);
     $row = $result->fetch_assoc();
