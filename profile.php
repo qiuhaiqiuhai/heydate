@@ -33,7 +33,7 @@ include "members_only.php"
       $action = "profile_action.php";
       $action_postfix = '?';
     
-    if(isset($_GET['edit'])){
+      if(isset($_GET['edit'])){
 
       if(isset($_GET['username_exist']))
         echo 'username exist';

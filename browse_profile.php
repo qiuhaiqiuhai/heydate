@@ -26,16 +26,7 @@ Hello, <?php echo $_SESSION['valid_user']; ?>
 <?php 
 
       if(isset($_GET['customerID']))
-         $customerID=$_GET['customerID'];
-  // echo "<br>" .$query. "<br>";
-      $query = 'select * from users_account '
-             ."where userID=".$customerID;
-  // echo "<br>" .$query. "<br>";
-      $result = $db->query($query);
-      $row = $result->fetch_assoc();
-      
-      $action = "profile_action.php";
-      $action_postfix = '?';    
+         $customerID=$_GET['customerID'];    
     
       print_basic_info($customerID, $db);
 
@@ -44,9 +35,8 @@ Hello, <?php echo $_SESSION['valid_user']; ?>
 description: <br/>
 <p>
 <?php 
-$query = 'select * from users_description '
+    $query = 'select * from users_description '
            ."where userID=".$customerID;
-// echo "<br>" .$query. "<br>";
 
     $result = $db->query($query);
     $description = NULL;
@@ -59,8 +49,48 @@ $query = 'select * from users_description '
     if($description!=NULL){
       echo $description;
     }else{
-      echo 'N/A';
+      echo 'N/A<br/>';
     }
+// check active relation
+    $status_active = 'no status';
+    $query = 'select status from users_relationship '
+           ."where userID1=".$_SESSION['valid_userID'].
+           ' and userID2='.$customerID;
+
+    $result = $db->query($query);    
+    if($result->num_rows >0 ){
+      $row = $result->fetch_assoc();
+      $status_active = $row['status'];
+      $query = 'Update users_relationship set statusTime=CURRENT_TIMESTAMP '
+           ."where userID1=".$_SESSION['valid_userID'].
+           ' and userID2='.$customerID;
+    }else{
+      $query = 'insert into users_relationship (userID1, userID2, status) '
+           ."values (".$_SESSION['valid_userID'].','.$customerID.',"Viewed")';
+    }
+    $result = $db->query($query);
+    if (!$result) 
+      echo $query." failed.";
+  
+
+    echo 'You '.$status_active.' He/she<br/>';
+
+// check passive relation
+    $status_passive = 'no status';
+    $query = 'select status from users_relationship '
+           ."where userID2=".$_SESSION['valid_userID'].
+           ' and userID1='.$customerID;
+
+    $result = $db->query($query);    
+    if($result->num_rows >0 ){
+      $row = $result->fetch_assoc();
+      $status_passive = $row['status'];
+    }
+
+    echo 'He/She '.$status_passive.'You<br/>';
+
+    if($status_active=='Like'&&$status_passive=='Like')
+        echo 'Match!<br/>';
 
 ?>
 </p>
@@ -75,15 +105,28 @@ photos:
 
   for ($i=0; $i <$num_results; $i++) {
      $row = $result->fetch_assoc();
-     echo '<img src="users_photo/'.$row['photo'].'" height="100">';
-     
+     echo '<img src="users_photo/'.$row['photo'].'" height="100">';     
   }
+
+
 ?>
 
     
 </section>
-    
-    
+
+<form action="browse_action.php?" method="post">
+  <input type="hidden" name="customerID" value=<?php echo $customerID; ?>>
+  <button type="submit" name="status_change" value= <?php 
+  
+  if($status_active=='Like'){
+      echo '"Dislike" >Dislike';
+  }else{
+      echo '"Like" >Like';
+  }
+
+  ?></button>
+</form> 
+
 <aside>
     
         <a href="http://www.w3schools.com">

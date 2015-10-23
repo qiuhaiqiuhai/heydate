@@ -114,11 +114,9 @@ include "members_only.php"
 
           $result = $db->query($query);
 
-          if($result!=Null){
-             $num_results = $result->num_rows;  
-
-            for ($i=0; $i <$num_results; $i++) {
-             $row = $result->fetch_assoc();
+          if($result->num_rows >0 ){
+             
+             while($row = $result->fetch_assoc()) {
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
              echo '<div id = "users">';
              echo '<img src="users_profile_photo/'.
