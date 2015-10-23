@@ -1,6 +1,6 @@
 <?php 
 include "dbconnect.php";
-include "members_only.php"
+include "members_only.php";
 ?>
 
 <html>
@@ -112,21 +112,7 @@ include "members_only.php"
       
           $query = 'SELECT * FROM users_account WHERE birthdate>="'.$bday_lowbound.'" and birthdate<="'.$bday_upbound.'"';
 
-          $result = $db->query($query);
-
-          if($result->num_rows >0 ){
-             
-             while($row = $result->fetch_assoc()) {
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-             echo '<div id = "users">';
-             echo '<img src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_female.jpg').'" height="80">';
-             echo  $row['name'].'<br/>'.
-                   $row['city'].'<br/>'.
-                   $row['height'].'<br/>'.
-                   $row['education'].'<br/>';
-             echo "</div></a>";
-            }
+          include "display_smallprofile.php";
 
           }else{
             echo 'Found nothing';
