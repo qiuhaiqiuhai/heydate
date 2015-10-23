@@ -10,18 +10,17 @@ if ($db->connect_error){
 if (!$db->select_db ("heydatedb"))
 	exit("<p>Unable to locate the heydatedb database</p>");
 
-function print_basic_info($username, $db) {
-    echo 'You are logged in as: '.$username.' <br />';
-    
+function print_basic_info($userID, $db) {
 // echo "<br>" .$query. "<br>";
     $query = 'select * from users_account '
-           ."where name='".$username."'" ;
+           ."where userID=".$userID;
 // echo "<br>" .$query. "<br>";
     $result = $db->query($query);
     $row = $result->fetch_assoc();
     echo $row['name'].'<br/>'.
          $row['email'].'<br/>'.
          $row['birthdate'].'<br/>'.
+         'Age:'.cal_age($row['birthdate']).'<br/>'.
          $row['gender'].'<br/>'.
          $row['city'].'<br/>'.
          $row['height'].'<br/>'.
@@ -37,6 +36,14 @@ function print_basic_info($username, $db) {
     }else{
         echo '<img src=users_profile_photo/default_female.jpg>';
     }
+}
+
+function cal_age($birthdate) {
+// echo "<br>" .$query. "<br>";
+    $bday=date_create($birthdate);
+    $today=date_create();
+    $diff=date_diff($bday,$today);
+    return $diff->y;
 }
 
 

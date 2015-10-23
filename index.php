@@ -45,9 +45,9 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
 <section>
 <?php
-  if (isset($_SESSION['valid_user']))
+  if (isset($_SESSION['valid_userID']))
   {
-    print_basic_info( $_SESSION['valid_user'], $db);
+    print_basic_info( $_SESSION['valid_userID'], $db);
 
     
     echo '<a href="profile.php">profile</a>';
@@ -62,17 +62,32 @@ if (isset($_POST['name']) && isset($_POST['password']))
     <br />
     Age:<br />
     <input type="number" name="age" size="40" value = 20>
-    <br />
-    City:<br />
-    <select name="city" >
-      <option value="volvo">Volvo</option>
-      <option value="saab">Saab</option>
-      <option value="opel">Opel</option>
-      <option value="audi">Audi</option>
-    </select>
-    <br />
-        
-    <input type="submit" name="submit" value="Search">
+    <br />';
+
+    
+    $Cities = array(
+       "Tokyo",
+       "Mexico City",
+       "New York City",
+       "Mumbai",
+       "Seoul",
+       "Shanghai",
+       "Lagos",
+       "Sao Paulo",
+       "Cairo",
+       "London",
+       "Singapore"
+    );
+    
+
+    echo 'City:
+    <select name="city" id="listBox" required="required">';
+    foreach($Cities as $city){
+       echo '<option value='.$city.'>'.$city.'</option>';
+    }
+    
+    echo '</select><br />        
+    <input type="submit" name="search" value="Search">
     
     </form>
     </div>';
@@ -120,7 +135,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
       for ($i=0; $i <$num_results; $i++) {
          $row = $result->fetch_assoc();
-         echo '<a href="http://www.w3schools.com">';
+         echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
          echo '<div id = "users">';
          echo '<img src="users_profile_photo/'.
               ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_female.jpg').'" height="80">';
@@ -147,7 +162,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
       for ($i=0; $i <$num_results; $i++) {
          $row = $result->fetch_assoc();
-         echo '<a href="http://www.w3schools.com">';
+         echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
          echo '<div id = "users">';
          echo '<img src="users_profile_photo/'.
               ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';

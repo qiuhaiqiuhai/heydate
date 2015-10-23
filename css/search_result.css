@@ -29,7 +29,7 @@ footer {
 #users_group{
     background-color:grey;
     color:white;
-    clear:both;
+    min-width: 70%;
     text-align:center;
     padding:1%; 
     overflow: auto;
@@ -68,3 +68,9 @@ footer {
     float: left;
    
 }
+aside {
+    width: 200px;
+    margin-right: 5px;
+    float: right;
+}
+

@@ -23,27 +23,32 @@ include "members_only.php"
 
 <section>
 <?php 
-    if(isset($_GET['edit'])){
-      echo 'You are logged in as: '.$_SESSION['valid_user'].' <br />';
-      if(isset($_GET['username_exist']))
-        echo 'username exist';
+
   // echo "<br>" .$query. "<br>";
       $query = 'select * from users_account '
              ."where userID=".$_SESSION['valid_userID'];
   // echo "<br>" .$query. "<br>";
       $result = $db->query($query);
       $row = $result->fetch_assoc();
+      $action = "profile_action.php";
+      $action_postfix = '?';
+    
+      if(isset($_GET['edit'])){
 
+      if(isset($_GET['username_exist']))
+        echo 'username exist';
+      
+      $action = $action.'?edit=Edit+Profile';
+      $action_postfix = '&';
       echo 'Name:
             <input type=text name="name" id="name" required="required" form="submit_edit" value = "'.$row['name'].'"><br />';
-      echo 'E-mail:
-            <input type=email name="email" id="email" required="required" form="submit_edit" value = "'.$row['email'].'"><br />';
+     
       echo 'E-mail:
             <input type=email name="email" id="email" required="required" form="submit_edit" value = "'.$row['email'].'"><br />';
       echo 'Password:
-            <input type=password name=password id="password" form="submit_edit" required="required" ><br />';
+            <input type=password name=password id="password" form="submit_edit" required="required" value = "'.$row['name'].'"><br />';
       echo 'Password confirmation:
-            <input type=password name=password2 id="password2" required="required" onkeyup="checkPass();" >
+            <input type=password name=password2 id="password2" required="required" value = "'.$row['name'].'" onkeyup="checkPass();" >
             <span id="confirmMessage" class="confirmMessage"></span><br />';
       echo 'Gender:
             <select name="gender" required="required" form="submit_edit" value= "'.$row['gender'].'">
@@ -87,11 +92,11 @@ include "members_only.php"
       }
 
     }else{
-    print_basic_info( $_SESSION['valid_user'], $db);
+    print_basic_info( $_SESSION['valid_userID'], $db);
     }
 
 ?>
-<form action="profile_action.php" method=POST enctype="multipart/form-data">
+<form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
     <input type="file" name=profilePhoto accept="image/*">
     <input type=submit name=profilePhoto value="Change Profile photo" >
 </form>
@@ -104,18 +109,21 @@ $query = 'select * from users_description '
 // echo "<br>" .$query. "<br>";
 
     $result = $db->query($query);
-    $description = "N/A";
+    $description = NULL;
 
     if($result->num_rows >0 ){
         $row = $result->fetch_assoc();
         $description = $row['description'];
+    }else{
+
     }
 
     if(isset($_GET['edit'])){
-      echo '<textarea name="description" form="submit_edit" rows="4" cols="50">'.$row['description'].'
-            </textarea>';
-    }else{
+      echo '<textarea name="description" form="submit_edit" rows="4" cols="50">'.$description.'</textarea>';
+    }else if($description!=NULL){
       echo $description;
+    }else{
+      echo 'N/A';
     }
 
 ?>
@@ -132,21 +140,24 @@ photos:
   for ($i=0; $i <$num_results; $i++) {
      $row = $result->fetch_assoc();
      echo '<img src="users_photo/'.$row['photo'].'" height="100">';
-     echo '<a href="profile_action.php?delete='.$row['photo'].'">delete</a>';
+     echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
 
   }
 ?>
 
 
-<form action="profile_action.php" method=POST enctype="multipart/form-data">
+<form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
     <input type="file" name="photo" accept="image/*" >
     <input type=submit name=photo value=Upload >
 </form>
     
 </section>
     
-<?php if(isset($_GET['edit'])){
-        echo '<form action="profile_action.php" method=POST id="submit_edit" onclick="return checkOnSubmit();">
+<?php 
+      if(isset($_GET['edit'])){
+        echo '<form action="profile_action.php'.
+              (($description==NULL)?'?description=null':'')
+              .'" method=POST id="submit_edit" onclick="return checkOnSubmit();">
               <input type=submit name="submit_edit" value="submit" >
               </form>';
       }else{

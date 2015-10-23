@@ -67,8 +67,8 @@ create table users_relationship
 ( 	relationID int unsigned not null auto_increment primary key,
 	userID1 int unsigned not null,
 	userID2 int unsigned not null,
-	status set('View','Like','Match') not null
-    
+	status set('Viewed','Like') not null,
+	statusTime TIMESTAMP NOT NULL
 );
 
 
