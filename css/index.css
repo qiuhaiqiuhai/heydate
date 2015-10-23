@@ -44,7 +44,7 @@ footer {
     padding:1%; 
     overflow: auto;
     width: 48%;
-    float:right
+    float:left;
     
 
     
@@ -59,4 +59,12 @@ footer {
     float:left;
     border:  1px solid black;
     
+}
+
+#search {
+   
+    background-color: antiquewhite;
+    padding: 10px;
+    float: left;
+   
 }
