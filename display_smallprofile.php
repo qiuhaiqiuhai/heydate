@@ -1,7 +1,6 @@
 
 <?php
-      $result = $db->query($query);
-      $num_results = $result->num_rows; 
+      
 
       while($row = $result->fetch_assoc()){
          

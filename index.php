@@ -57,11 +57,11 @@ if (isset($_POST['name']) && isset($_POST['password']))
     
     <form action="search_result.php" method="post">
     Gender:<br />
-    <input type="radio" name="gender" value="male" checked>       Male
-    <input type="radio" name="gender" value="female"> Female
+    <input type="radio" name="gender" value="Male" checked>       Male
+    <input type="radio" name="gender" value="Female"> Female
     <br />
     Age:<br />
-    <input type="number" name="age" size="40" value = 20>
+    <input type="number" name="age" size="40" value = 15>
     <br />';
 
     
@@ -129,9 +129,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
       
       $query = 'SELECT * FROM users_account WHERE gender="Female"'
               .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
-      $result = $db->query($query);
-
-      $num_results = $result->num_rows;  
+      $result = $db->query($query); 
 
       include "display_smallprofile.php";
 
@@ -145,6 +143,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
       $query = 'SELECT * FROM users_account WHERE gender="Male"'
               .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
       
+      $result = $db->query($query);
       include "display_smallprofile.php";
 
 

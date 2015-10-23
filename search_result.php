@@ -14,6 +14,7 @@ include "members_only.php";
 </header>
 
 <nav>
+<a href="index.php">Main</a>
 <a href="registration.php">Register</a>
 <a href="profile.php">profile</a>
 <a href="logout.php">logout</a>
@@ -47,11 +48,11 @@ include "members_only.php";
     <h2>Advanced Search</h2>
     <form action="search_result.php?advanced_search=1" method="post">
     Gender:<br />
-    <input type="radio" name="gender" value="male" checked> Male
-    <input type="radio" name="gender" value="female"> Female
+    <input type="radio" name="gender" value="Male" <?php echo $gender=='Male'?'checked':''; ?>> Male
+    <input type="radio" name="gender" value="Female" <?php echo $gender=='Female'?'checked':''; ?>> Female
     <br />
     Age:<br />
-    <input type="number" name="age" size="40" value = 15>
+    <input type="number" name="age" size="40" value = <?php echo $age; ?>>
     <br />
     Height:<br />
     <input type="number" name="height" size="40" value = 170>
@@ -78,9 +79,9 @@ include "members_only.php";
 
     City:
     <select name="city" id="listBox" required="required">
-       <?php foreach($Cities as $city){?>
-       <option value=<?php echo $city; ?>> <?php echo $city; ?></option>
-       <?php } ?>
+       <?php foreach($Cities as $citytmp){
+        echo '<option value='.$citytmp.(($citytmp==$city)?' selected':'').'>'.$citytmp.'</option>';
+       } ?>
     </select>
     <br />
     Description:<br />
@@ -92,17 +93,7 @@ include "members_only.php";
     </form>    
 </div>
 
-<aside>
-    
-        <a href="http://www.w3schools.com">
-        <div id = "users">
-            <img src="users_profile_photo/1.jpg" height="80">
-        asdasdas</div>
-        </a>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-</aside>
+<?php include "right_record_bar.php"; ?>
     
 <div id="users_group">
     <h2>Search Result</h2>
@@ -112,11 +103,14 @@ include "members_only.php";
       
           $query = 'SELECT * FROM users_account WHERE birthdate>="'.$bday_lowbound.'" and birthdate<="'.$bday_upbound.'"';
 
-          include "display_smallprofile.php";
-
+          $result = $db->query($query);
+          if($result->num_rows>0){          
+            include "display_smallprofile.php";
           }else{
-            echo 'Found nothing';
+              echo 'Found nothing';            
           }
+
+          
 
         ?>
 

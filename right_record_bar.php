@@ -39,6 +39,7 @@
                 
       echo 'Match!<br/>';
 
+      $result = $db->query($query);
       include "display_smallprofile.php";
 
     }else{
@@ -56,6 +57,7 @@
                 
       echo 'you like!<br/>';
 
+      $result = $db->query($query);
       include "display_smallprofile.php";
 
     }else{
@@ -73,6 +75,7 @@
                 
       echo 'like you!<br/>';
 
+      $result = $db->query($query);
       include "display_smallprofile.php";
 
     }else{
