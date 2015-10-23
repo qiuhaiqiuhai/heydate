@@ -1,0 +1,102 @@
+body {
+	margin: 0;
+	font-family: "arial"
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.bottom {
+	position: absolute;
+	bottom: 0;
+}
+
+.clear_right {
+	clear: right;
+}
+
+.clear_left {
+	clear: left;
+}
+
+.banner {
+	width: 100%;
+	position: relative;
+}
+
+#banner_top {
+	height: 90px;
+	background-color: #ec407a;
+}
+
+nav {
+	position: absolute;
+	bottom: 20px;
+	right: 10px;
+	margin-right: 150px;
+}
+
+a{
+	text-decoration: none;
+	margin-top: 20px;
+}
+
+nav a{
+	color: white;
+}
+
+nav a:hover{
+	text-decoration: underline;
+}
+
+.container {
+	padding: 0px 150px 0px 150px;
+}
+
+.sub_container {
+	padding: 15px 15px 15px 10px;
+	margin-top: 20px;
+	background-color: #fafafa;
+	min-height: 180px;
+	min-width: 46.5%;
+}
+
+.profile_summary {
+	margin-left: 20px;
+	color: black;
+	position: relative;
+	height: 180;
+}
+
+#quick_search {
+	width: 400px;
+	height: 180px;
+	background-image: url("../img/search_background.png");
+	background-size: 240px 180px;
+	background-position: right;
+	background-repeat: no-repeat;
+	margin-right: 30px;
+	position: relative;
+}
+
+#profile_name {
+	font-weight: bold;
+	color: #ec407a;
+	font-size: 40;
+	margin-bottom: 10px;
+}
+
+button {
+	background-color: #ec407a;
+	color: white;
+	height: 30px;
+	border-radius: 20px;
+	margin-top: 15px;
+	min-width: 80px;
+}
+

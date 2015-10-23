@@ -1,63 +1,55 @@
-<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="css/index.css">
+	<title>heydate</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-
-<header>
-<h1>heydate</h1>
-</header>
-
-<nav>
-<a href="registration.php">Register</a>
-</nav>
-
-<section>
-<h1>Please log in.</h1>
-<form method="post" action="index.php">
-     <table>
-     <tr><td>Username:</td>
-     <td><input type="text" name="name"></td></tr> 
-     <tr><td>Password:</td> 
-     <td><input type="password" name="password"></td></tr> 
-     <tr><td colspan="2" align="center"> 
-     <input type="submit" value="Log in"></td></tr> 
-     </table></form> 
-    
-    
-</section>
-    
-    
-<div id="users_group">
-    <div id="users_group_gender">
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-
-
-
-    </div>
-    <div id="users_group_gender">
-        <a href="http://www.w3schools.com">
-        <div id = "users">
-            <img src="users_profile_photo/1.jpg" height="80">
-        asdasdas</div>
-        </a>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-
-
-
-    </div>
-</div>
-<footer>
-Copyright © heydate.com
-</footer>
-
+	<div class="banner" id="banner_top">
+		<img src="img/logo.png" height="90" width="120" style="margin-left: 150px">
+		<nav>
+			<a href="">Home</a>&nbsp&nbsp
+			<a href="">My heydate</a>&nbsp&nbsp
+			<a href="">Search</a>
+		</nav>
+	</div>
+	<!-- main body -->
+	<div class="container">
+		<div class="sub_container"> <!-- profile summary and search -->
+			<div class="left"> <!-- profile summary -->
+				<img src="img/male.jpg" height="180"> <!-- profile photo -->
+				<div class="profile_summary right"> <!-- profile words -->
+					<div id="profile_name">PSY</div>
+					<div>Age: 22<br>City: Singapore<br>Education: Bachelor<br>Height: 180cm</div>
+					<div class="bottom">
+						<button>Enter my heydate</button>
+					</div>
+				</div>
+			</div>
+			<form class="right" id="quick_search"> <!-- search form -->
+				<div class="right" style="margin-top:60px">
+					Age: from 
+					<select>
+						<option value="20">20</option>
+					</select>
+					to
+					<select>
+						<option value="23">23</option>
+					</select>
+					City:
+					<select>
+						<optgroup label="China">
+							<option>Shanghai</option>
+						</optgroup>
+					</select>
+				</div>
+				<button class="clear_right right" value="submit">Search</button>
+				<a href="" class="right" style="margin-right:10px;text-decoration:underline;font-size:12">Advanced Search</a>
+			</form>
+		</div>
+		<div> <!-- recommend section -->
+			<div class="sub_container left" style="height:500;background-color:fce4ec"></div>
+			<div class="sub_container right" style="height:500;background-color:e3f2fd"></div>
+		</div>
+	</div>
 </body>
 </html>
