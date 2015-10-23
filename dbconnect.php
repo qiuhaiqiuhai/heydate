@@ -20,6 +20,7 @@ function print_basic_info($userID, $db) {
     echo $row['name'].'<br/>'.
          $row['email'].'<br/>'.
          $row['birthdate'].'<br/>'.
+         'Age:'.cal_age($row['birthdate']).'<br/>'.
          $row['gender'].'<br/>'.
          $row['city'].'<br/>'.
          $row['height'].'<br/>'.
@@ -35,6 +36,14 @@ function print_basic_info($userID, $db) {
     }else{
         echo '<img src=users_profile_photo/default_female.jpg>';
     }
+}
+
+function cal_age($birthdate) {
+// echo "<br>" .$query. "<br>";
+    $bday=date_create($birthdate);
+    $today=date_create();
+    $diff=date_diff($bday,$today);
+    return $diff->y;
 }
 
 
