@@ -30,6 +30,8 @@ if($status_change=='Dislike'){
 $result = $db->query($query);
     if (!$result) 
       echo $query." failed.";
+
+header('Location: browse_profile.php?customerID='.$customerID);
 	
 ?>
 

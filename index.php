@@ -57,11 +57,11 @@ if (isset($_POST['name']) && isset($_POST['password']))
     
     <form action="search_result.php" method="post">
     Gender:<br />
-    <input type="radio" name="gender" value="male" checked>       Male
-    <input type="radio" name="gender" value="female"> Female
+    <input type="radio" name="gender" value="Male" checked>       Male
+    <input type="radio" name="gender" value="Female"> Female
     <br />
     Age:<br />
-    <input type="number" name="age" size="40" value = 20>
+    <input type="number" name="age" size="40" value = 15>
     <br />';
 
     
@@ -129,23 +129,9 @@ if (isset($_POST['name']) && isset($_POST['password']))
       
       $query = 'SELECT * FROM users_account WHERE gender="Female"'
               .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
-      $result = $db->query($query);
+      $result = $db->query($query); 
 
-      $num_results = $result->num_rows;  
-
-      for ($i=0; $i <$num_results; $i++) {
-         $row = $result->fetch_assoc();
-         echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-         echo '<div id = "users">';
-         echo '<img src="users_profile_photo/'.
-              ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_female.jpg').'" height="80">';
-         echo  $row['name'].'<br/>'.
-               $row['city'].'<br/>'.
-               $row['height'].'<br/>'.
-               $row['education'].'<br/>';
-         echo "</div></a>";
-
-      }
+      include "display_smallprofile.php";
 
 
     ?>
@@ -156,23 +142,9 @@ if (isset($_POST['name']) && isset($_POST['password']))
       
       $query = 'SELECT * FROM users_account WHERE gender="Male"'
               .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
+      
       $result = $db->query($query);
-
-      $num_results = $result->num_rows;  
-
-      for ($i=0; $i <$num_results; $i++) {
-         $row = $result->fetch_assoc();
-         echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-         echo '<div id = "users">';
-         echo '<img src="users_profile_photo/'.
-              ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';
-         echo  $row['name'].'<br/>'.
-               $row['city'].'<br/>'.
-               $row['height'].'<br/>'.
-               $row['education'].'<br/>';
-         echo "</div></a>";
-
-      }
+      include "display_smallprofile.php";
 
 
     ?>

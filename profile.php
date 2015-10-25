@@ -1,6 +1,6 @@
 <?php 
 include "dbconnect.php";
-include "members_only.php"
+include "members_only.php";
 ?>
 
 
@@ -170,17 +170,9 @@ photos:
 ?>
     
     
-<aside>
-    
-        <a href="http://www.w3schools.com">
-        <div id = "users">
-            <img src="users_profile_photo/1.jpg" height="80">
-        asdasdas</div>
-        </a>
-        <div id = "users"></div>
-        <div id = "users"></div>
-        <div id = "users"></div>
-</aside>
+<?php 
+include "right_record_bar.php";
+?> 
     
 <footer>
 Copyright © heydate.com
