@@ -2,22 +2,127 @@
 <head>
 	<title>my heydate</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	
+	<style type="text/css">
+	.profile{
+		width: 64.4%;
+		min-height: 580px;
+	}
+	.sidebar{
+		width: 28.5%;
+		min-height: 90px;
+	}
+	.findlover_box{
+		width: 99%;
+	}
+	.recommend .profile_summary{
+		margin-left: 20px;
+	}
+	.recommend img{
+		margin-left: 10px;
+	}
+	.section_container .img_small{
+		margin: 0 0 5 0;
+	}
+	</style>
 </head>
 <body>
 	<!-- top banner -->
 	<div class="banner" id="banner_top">
-		<img src="img/logo.png" height="120" width="160" style="margin-left: 150px">
+		<a href="index.html"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
 		<nav>
-			<a href="">Home</a>
+			<a href="index.html">Home</a>
 			<a href="">Inbox</a>
 			<a href="">My heydate</a>
 			<a href="">Search</a>
 		</nav>
 	</div>
+	<!-- main body -->
 	<div class="container">
-		<div class="sub_container">
-			<div class="sub_container right"></div>
+		<!-- profile part -->
+		<div class="sub_container left profile">
+			<div class="clear section_container">
+				<img class="left" src="img/male.jpg" height="190"> <!-- profile photo -->
+				<div class="left column_container">
+					<img class="left clear_left img_small" src="img/male2.jpg">
+					<img class="left clear_left img_small" src="img/male3.jpg">
+					<img class="left clear_left img_small" src="img/male3.jpg">
+				</div>
+				<div class="left column_container" style="height:190; margin-left:20px">
+					<div class="left" id="profile_name" style="font-size:40;width:240">PSY</div>
+					<div class="right">
+						<button>edit my profile</button>
+					</div>
+					<div class="left clear bottom" style="width:100%;">
+						<li><grey>Age: </grey>22</li>
+						<li><grey>Education: </grey>Bachelor</li>
+						<li><grey>Height: </grey>180cm</li>
+						<li><grey>City: </grey>Singapore</li>
+						<li><grey>Constallation: </grey>Cancer</li>
+						<li><grey>Blood Type: </grey>O</li>
+						<li><grey>Salary: </grey>10000~15000</li>
+						<li><grey>Nationality: </grey>Chinese</li>
+					</div>
+				</div>
+			</div>
+			<!-- profile description -->
+			<div class="clear section_container">
+				<label class="clear">Self-Introduction</label>
+				<p>My name is PSY. I am a Korean pop star. Looking forward to meeting you. :)My name is PSY. I am a Korean pop star. Looking forward to meeting you. :)My name is PSY. I am a Korean pop star. Looking forward to meeting you. :)</p>
+			</div>
+			<div class="clear section_container">
+				<label class="clear">Self-Introduction</label>
+				<p>My name is PSY. I am a Korean pop star. Looking forward to meeting you. :)</p>
+			</div>
+			<div class="clear section_container">
+				<label class="clear">Self-Introduction</label>
+				<p>My name is PSY. I am a Korean pop star. Looking forward to meeting you. :)</p>
+			</div>
+		</div>
+		<!-- sidebars -->
+		<div class="sub_container right clear_right sidebar">
+			<label>Matched</label>
+			<div class="clear">
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+			</div>
+		</div>
+		<div class="sub_container right clear_right sidebar">
+			<label>They Viewed Me</label>
+			<div class="clear">
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+				<a href="http://www.google.com"><img class="left img_small" src="img/female.jpg"></a>
+			</div>
+		</div>
+		<div class="sub_container right clear_right sidebar recommend">
+			<label>Recommend</label>
+			<div class="clear">
+				<div class="findlover_box left">
+					<img class="left" src="img/female2.jpg">
+					<div class="left profile_summary">
+						<label class="left" id="profile_name">Hyejeong</label>
+						<div class="clear_left">22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+				<div class="findlover_box left">
+					<img class="left" src="img/female2.jpg">
+					<div class="left profile_summary">
+						<label class="left" id="profile_name">Hyejeong</label>
+						<div class="clear_left">22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<!-- footer -->

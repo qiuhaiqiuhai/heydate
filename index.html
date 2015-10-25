@@ -11,6 +11,7 @@
 			background-position: center;
 			background-repeat: no-repeat;
 			margin-right: 30px;
+			margin-bottom: 0;
 			position: relative;
 		}
 
@@ -19,7 +20,7 @@
 		}
 
 		.recommend .sub_container{
-			width: 47%;
+			width: 46.2%;
 			padding-top: 0px;
 			padding-bottom: 0px;
 			margin-top: 10px;
@@ -29,29 +30,30 @@
 <body>
 	<!-- top banner -->
 	<div class="banner" id="banner_top">
-		<img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%">
+		<a href="index.html"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
 		<nav>
 			<a href="">Home</a>
 			<a href="">Inbox</a>
-			<a href="">My heydate</a>
+			<a href="profile.html">My heydate</a>
 			<a href="">Search</a>
 		</nav>
 	</div>
 	<!-- main body -->
 	<div class="container">
 		<div class="sub_container"> <!-- profile summary and search -->
+			<div class="section_container">
 			<div class="left homepage_profile"> <!-- profile summary -->
 				<img class="left" src="img/male.jpg" height="180"> <!-- profile photo -->
 				<div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
 					<div id="profile_name" style="font-size:40;">PSY</div>
 					<div>Age: 22<br>City: Singapore<br>Education: Bachelor<br>Height: 180cm</div>
 					<div class="bottom">
-						<button>Enter my heydate</button>
+						<button onclick="location.href = 'profile.html'">Enter my heydate</button>
 					</div>
 				</div>
 			</div>
 			<form class="right" id="quick_search"> <!-- search form -->
-				<div class="right clear" style="margin-top: 30px"><label>Find your love here</label></div>
+				<div class="right clear" style="margin-top:30px"><label>Find your love here</label></div>
  				<div class="right" style="margin-top: 25px">
 					<cat>Gender:</cat>
 					<select>
@@ -77,9 +79,10 @@
 						</optgroup>
 					</select>
 				</div>
-				<button class="clear_right right" value="submit" style="margin-top:20">Search</button>
-				<a href="" class="right" style="margin-right:10px;text-decoration:underline;font-size:12;margin-top:30">Advanced Search</a>
+				<button class="clear_right right" value="submit" style="margin-top:25">Search</button>
+				<a href="" class="right" style="margin-right:10px;text-decoration:underline;font-size:12;margin-top:35">Advanced Search</a>
 			</form>
+			</div>
 		</div>
 		<div class="recommend"> <!-- recommend section -->
 			<div class="sub_container left">

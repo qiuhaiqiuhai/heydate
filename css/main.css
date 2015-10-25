@@ -1,6 +1,6 @@
 body {
 	margin: 0;
-	font-family: "arial"
+	font-family: "arial";
 }
 
 .left {
@@ -49,9 +49,8 @@ body {
 }
 
 label {
-	font-weight: bold;
-	font-size: 24;
-	color: #ec407a;
+	font-size: 18;
+	color: #bdbdbd;
 }
 
 select {
@@ -80,27 +79,37 @@ nav a:hover{
 }
 
 .container {
-	padding: 0px 11.5% 30px 11.5%;
+	padding: 30px 11.5% 30px 11.5%;
 	width: 77%;
+	min-width: 964px;
 	position: relative;
 	overflow: auto;
 	background-color: #eeeeee;
 }
 
 .sub_container {
-	padding: 15px 10px 15px 10px;
-	margin-top: 30px;
+	padding: 10px 10px 10px 10px;
+	margin: 5px;
 	background-color: #fafafa;
-	min-height: 180px;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #e0e0e0;
 	overflow: auto;
 }
 
-.sub_container .sub_container {
-	margin-top: 0;
-	margin-bottom: 10px;
+.section_container {
+	margin-bottom: 20px;
+	padding: 10px;
+	position: relative;
+	overflow: auto;
+}
+
+.column_container {
+	margin-left: 10px;
+	overflow: auto;
+	top: 0;
+	position: relative;
+	display: inline-block;
 }
 
 .profile_summary {
@@ -113,7 +122,7 @@ nav a:hover{
 .recommend .profile_summary {
 	height: 100;
 	max-width: 50%;
-	font-size: 14;
+	font-size: 12;
 }
 
 button {
@@ -121,13 +130,19 @@ button {
 	color: white;
 	height: 30px;
 	border-radius: 20px;
-	margin-top: 15px;
+	border-width: 0;
 	min-width: 80px;
+	cursor: pointer;
+}
+
+button:focus{
+	outline: 0;
 }
 
 .recommend button {
 	height: 20px;
 	min-width: 40px;
+	margin-top: 15px;
 }
 
 #profile_name {
@@ -148,6 +163,10 @@ mistral {
 	font-size: 30;
 }
 
+grey {
+	color: grey;
+}
+
 .findlover_box {
 	padding:12 0 12 0;
 	width: 49%;
@@ -160,4 +179,17 @@ mistral {
 .findlover_box img {
 	height: 100px;
 	width: 100px;
+}
+
+.img_small {
+	height: 60px;
+	width: 60px;
+	margin: 5 0 0 8;
+}
+
+li {
+	width: 50%;
+	float: left;
+	padding-top: 5px;
+	font-size: 12;
 }
