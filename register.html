@@ -1,0 +1,87 @@
+<html>
+<head>
+	<title>Register</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<style>
+	h1{
+		margin-bottom: 0;
+	}
+	li{
+		height: 40;
+		font-size: 15;
+		width: 65%;
+		margin-bottom: 10;
+		padding-left: 10;
+	}
+	.text_right{
+		width: 25%;
+	}
+	button {
+		margin-left: 10;
+		margin-right: 10;
+	}
+	.column_container{
+		width: 40%;
+		vertical-align: top;
+	}
+	</style>
+</head>
+<body>
+	<!-- top banner -->
+	<div class="banner" id="banner_top">
+		<a href="index.html"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+		<nav>
+			<a href="index.html">Home</a>
+			<a href="">Inbox</a>
+			<a href="">My heydate</a>
+			<a href="">Search</a>
+		</nav>
+	</div>
+	<!-- main body -->
+	<div class="container">
+		<form class="sub_container clear" style="text-align:center">
+			<div class="section_container"><h1>Welcome to <mistral>heydate</mistral></h1></div>
+			<div class="section_container">
+				<div class="column_container" style="width:37%">
+					<!-- <div class="section_container"><label class="left">Login information</label></div> -->
+					<li class="text_right"><grey>Email </grey></li>
+					<li><input type="text"></li>
+					<li class="text_right"><grey>Password </grey></li>
+					<li><input type="password"></li>
+					<li class="text_right"><grey>Retype Password </grey></li>
+					<li><input type="password"></li>
+					<li class="text_right"><grey>Name </grey></li>
+					<li><input type="text"></li>
+					<li class="text_right"><grey>Gender </grey></li>
+					<li>
+						<input name="gender" type="radio">Male
+						<input name="gender" type="radio">Female
+					</li>
+				</div>
+				<div class="column_container">
+					<!-- <div class="section_container"><label class="left">Self Detail</label></div> -->
+					<li class="text_right"><grey>Birthday </grey></li>
+					<li><input type="date"></li>
+					<li class="text_right"><grey>City </grey></li>
+					<li><input type="text"></li>
+					<li class="text_right"><grey>Education </grey></li>
+					<li><input type="text"></li>
+					<li class="text_right"><grey>Height </grey></li>
+					<li><input type="text"></li>
+					<li class="text_right"><grey>Photo </grey></li>
+					<li><input type="file" accept="image/"></li>
+				</div>
+			</div>
+			<div class="section_container">
+				<button>Register</button>
+				<button>Reset</button>
+			</div>
+		</form>
+	</div>
+	<!-- footer -->
+	<div class="banner" id="banner_footer">
+		<mistral>"We accept the love we think we deserve."</mistral><br>
+		copyright &copy heydate.com 2015
+	</div>
+</body>
+</html>
