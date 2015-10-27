@@ -1,0 +1,132 @@
+<html>
+<head>
+	<title>Search Results</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<style>
+	#search_bar{
+		text-align: center;
+	}
+	.findlover_box{
+		width: 99%;
+	}
+	.recommend .profile_summary{
+		margin-left: 20px;
+	}
+	.recommend img{
+		margin-left: 10px;
+	}
+	#search_selector{
+		height: 30;
+		border-bottom-width: 1px;
+		border-bottom-style: dotted;
+		border-bottom-color: #e0e0e0;
+	}
+	.result_box{
+		width: 20%;
+		text-align: center;
+	}
+	.result_box div{
+		margin: 0 auto;
+	}
+	.result_box img{
+		text-align: center;
+		width: 96%;
+		overflow: auto;
+		background-color: black;
+	}
+	</style>
+</head>
+<body>
+	<!-- top banner -->
+	<div class="banner" id="banner_top">
+		<a href="index.html"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+		<nav>
+			<a href="index.html">Home</a>
+			<a href="">Inbox</a>
+			<a href="profile.html">My heydate</a>
+			<a href="search_results.html">Search</a>
+		</nav>
+	</div>
+	<!-- main body -->
+	<div class="container">
+		<div class="section_container" id="search_bar">Search Bar Here</div>
+		<div class="sub_container left main">
+			<!-- search selector -->
+			<form class="section_container" id="search_selector">
+				<div class="left" style="margin-top:5">
+					<select>
+						<option value="m">Male</option>
+						<option value="f">Female</option>
+					</select>
+					from
+					<select>
+						<option value="20">20</option>
+						<option value="21">21</option>
+						<option value="22">22</option>
+					</select>
+					to
+					<select>
+						<option value="21">21</option>
+						<option value="22">22</option>
+						<option value="23">23</option>
+					</select>
+					in
+					<select>
+						<optgroup label="China">
+							<option>Shanghai</option>
+						</optgroup>
+					</select>
+				</div>
+				<button class="right">Search</button>
+			</form>
+			<!-- search results -->
+			<div class="section_container">
+					<div class="result_box left">
+						<img src="img/female2.jpg">
+						<div class="profile_summary">
+							<label id="profile_name">Hyejeong</label>
+							<div>22, Singapore, Bachelor, 165cm</div>
+							<div class="bottom">
+								<button>Like</button>
+								<button>View</button>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<!-- Recommend -->
+		<div class="sub_container right sidebar recommend">
+			<label>Recommend</label>
+			<div class="clear">
+				<div class="findlover_box left">
+					<img class="left" src="img/female2.jpg">
+					<div class="left profile_summary">
+						<label class="left" id="profile_name">Hyejeong</label>
+						<div class="clear_left">22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+				<div class="findlover_box left">
+					<img class="left" src="img/female2.jpg">
+					<div class="left profile_summary">
+						<label class="left" id="profile_name">Hyejeong</label>
+						<div class="clear_left">22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- footer -->
+	<div class="banner" id="banner_footer">
+		<mistral>"We accept the love we think we deserve."</mistral><br>
+		copyright &copy heydate.com 2015
+	</div>
+</body>
+</html>
