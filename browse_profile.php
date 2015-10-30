@@ -39,17 +39,37 @@ description: <br/>
            ."where userID=".$customerID;
 
     $result = $db->query($query);
-    $description = NULL;
+    $Intro = NULL;
+    $Mate_Criteria = NULL;
+    $Life_Style = NULL;
 
-    if($result->num_rows >0 ){
-        $row = $result->fetch_assoc();
-        $description = $row['description'];
+
+    while($row = $result->fetch_assoc()){
+
+        switch ($row['type']) {
+          case "Intro":
+              $Intro = $row['description'];
+              break;
+          case "Mate_Criteria":
+              $Mate_Criteria = $row['description'];
+              break;
+          case "Life_Style":
+              $Life_Style = $row['description'];
+              break;
+          default:
+              $Intro = $row['description'];//default type is intro
+      }
     }
 
-    if($description!=NULL){
-      echo $description;
-    }else{
-      echo 'N/A<br/>';
+    $Types = array("Intro"=>$Intro, "Mate_Criteria"=>$Mate_Criteria, "Life_Style"=>$Life_Style);
+
+    foreach($Types as $type => $type_value){
+      
+      if($type_value!=NULL){
+        echo $type.":<br/><p>".$type_value;
+      }
+
+      echo "</p>";
     }
 // check active relation
     $status_active = 'no status';
@@ -126,6 +146,31 @@ photos:
 
   ?></button>
 </form> 
+
+<form action="browse_action.php" method="post">
+  <input type="hidden" name="customerID" value=<?php echo $customerID; ?>>
+  <textarea name="message" ows="4" cols="50" placeholder></textarea>
+  <input type=submit name="send" value="Send Message">
+</form> 
+
+Message History:
+<?php 
+
+    $query= 'select * from users_message '
+           ."where (senderID=".$_SESSION['valid_userID']." and receiverID =".$customerID.")or".
+            "(receiverID=".$_SESSION['valid_userID']." and senderID =".$customerID.")".
+           'order by time desc';     
+    $message_history= $db->query($query);
+
+    while($row = $message_history->fetch_assoc()){
+         
+         echo  $row['senderID'].' '.
+               $row['receiverID'].' '.
+               $row['message'].' '.
+               $row['time'].'<br/>';
+    }
+?>
+
 <?php 
 include "right_record_bar.php";
 ?>  
