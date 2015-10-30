@@ -37,8 +37,10 @@ if(isset($_POST['submit_edit'])){
 		$city = $_POST['city'];
 		$height = $_POST['height'];
 		$education = addslashes($_POST['education']);
-		$description = addslashes($_POST['description']);
-	    
+
+		$Intro = addslashes($_POST['Intro']);
+		$Mate_Criteria = addslashes($_POST['Mate_Criteria']);
+		$Life_Style = addslashes($_POST['Life_Style']);
     }
 
 
@@ -49,7 +51,7 @@ if(isset($_POST['submit_edit'])){
 
 		if ($result->num_rows >0 )
 		  {
-		  	header('Location: profile.php?profile.php?edit=Edit+Profile&username_exist=1');
+		  	header('Location: profile.php?edit=Edit+Profile&username_exist=1');
 		  	exit();
 
 		  }
@@ -69,21 +71,29 @@ if(isset($_POST['submit_edit'])){
 	else
 		echo $name . ", Your information was changed";
 
-	if(isset($_GET['description'])){//description=null
-		$sql = "INSERT INTO users_description (userID, description) 
-				VALUES ('$userID', '$description')";
-	}else{
-		$sql = "UPDATE users_description SET description='$description'
-				where userID = '$userID'";
-	}
-	echo $sql;
-	//	echo "<br>". $sql. "<br>";
-	$result = $db->query($sql);
 
-	if (!$result) 
-		echo "Your description query failed.";
-	else
-		echo $name . ", Your description was changed";
+	$Types = array("Intro"=>$Intro, "Mate_Criteria"=>$Mate_Criteria, "Life_Style"=>$Life_Style);
+	
+	foreach($Types as $type => $type_value){
+		if($type_value==Null){
+			$sql = "DELETE FROM users_description where userID=$userID and type='$type'";
+		}elseif(isset($_GET[$type])){//the original description is null, need to insert
+			$sql = "INSERT into users_description (userID, description, type) 
+					values ( $userID , '$type_value','$type' )";
+		}else{
+			$sql = "UPDATE users_description SET description='$type_value'
+					where userID = '$userID' and type='$type' ";
+		}
+
+		echo $sql;
+		//	echo "<br>". $sql. "<br>";
+		$result = $db->query($sql);
+
+		if (!$result) 
+			echo "Your description query failed.";
+		else
+			echo $name . ", Your description was changed";
+	}
 
 
 	
@@ -98,7 +108,7 @@ if(isset($_POST['submit_edit'])){
 		$action = $action.'?edit=Edit+Profile';
 	}
 		
-	header('Location: '.$action);
+	//header('Location: '.$action);
 
 }	
 

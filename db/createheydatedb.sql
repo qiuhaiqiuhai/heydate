@@ -51,7 +51,8 @@ insert into users_photo values
 create table users_description
 ( 	descriptionID int unsigned not null auto_increment primary key,
 	userID int unsigned not null,
-	description text
+	description text,
+	type set('Intro','Mate_Criteria','Life_Style') not null,
 );
 
 insert into users_description values
@@ -69,6 +70,14 @@ create table users_relationship
 	userID2 int unsigned not null,
 	status set('Viewed','Like') not null,
 	statusTime TIMESTAMP NOT NULL
+);
+
+create table users_message
+( 	mesageID int unsigned not null auto_increment primary key,
+	senderID int unsigned not null,
+	receiverID int unsigned not null,
+	message text,
+	time TIMESTAMP NOT NULL
 );
 
 

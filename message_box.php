@@ -101,54 +101,33 @@ include "members_only.php";
     <input type=submit name=profilePhoto value="Change Profile photo" >
 </form>
 
-
+description: <br/>
+<p>
 <?php 
-    
-    $query = 'select * from users_description '
-           ."where userID=".$_SESSION['valid_userID'];
+$query = 'select * from users_description '
+           ."where userID=".$_SESSION['valid_userID'] ;
+// echo "<br>" .$query. "<br>";
 
     $result = $db->query($query);
-    $Intro = NULL;
-    $Mate_Criteria = NULL;
-    $Life_Style = NULL;
+    $description = NULL;
 
+    if($result->num_rows >0 ){
+        $row = $result->fetch_assoc();
+        $description = $row['description'];
+    }else{
 
-    while($row = $result->fetch_assoc()){
-
-        switch ($row['type']) {
-          case "Intro":
-              $Intro = $row['description'];
-              break;
-          case "Mate_Criteria":
-              $Mate_Criteria = $row['description'];
-              break;
-          case "Life_Style":
-              $Life_Style = $row['description'];
-              break;
-          default:
-              $Intro = $row['description'];//default type is intro
-      }
     }
 
-    $Types = array("Intro"=>$Intro, "Mate_Criteria"=>$Mate_Criteria, "Life_Style"=>$Life_Style);
-
-    foreach($Types as $type => $type_value){
-      echo $type.":<br/><p>";
-
-      if(isset($_GET['edit'])){
-        echo '<textarea name="'.$type.'" form="submit_edit" rows="4" cols="50">'.$type_value.'</textarea>';
-      }else if($type_value!=NULL){
-        echo $type_value;
-      }else{
-        echo 'N/A';
-      }
-
-      echo "</p>";
+    if(isset($_GET['edit'])){
+      echo '<textarea name="description" form="submit_edit" rows="4" cols="50">'.$description.'</textarea>';
+    }else if($description!=NULL){
+      echo $description;
+    }else{
+      echo 'N/A';
     }
-  
 
 ?>
-
+</p>
 photos:
 
 <?php 
@@ -176,18 +155,17 @@ photos:
     
 <?php 
       if(isset($_GET['edit'])){
-        echo '<form action="profile_action.php?'.
-              (($Intro==NULL)?'&Intro=null':'').
-              (($Mate_Criteria==NULL)?'&Mate_Criteria=null':'').
-              (($Life_Style==NULL)?'&Life_Style=null':'')
+        echo '<form action="profile_action.php'.
+              (($description==NULL)?'?description=null':'')
               .'" method=POST id="submit_edit" onclick="return checkOnSubmit();">
               <input type=submit name="submit_edit" value="submit" >
               </form>';
       }else{
         echo '<form action="profile.php" method=GET >
               <input type=submit name="edit" value="Edit Profile">
-              </form>';     
+              </form>';
       }
+
 
 ?>
     

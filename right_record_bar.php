@@ -4,7 +4,7 @@
     //query who you like    
     $query= 'select userID2 from users_relationship '
            ."where userID1=".$_SESSION['valid_userID'].
-           ' and status="Like" order by statusTime';     
+           ' and status="Like" order by statusTime desc';     
     $result1_who_you_like = $db->query($query);
 
     $array1_who_you_like=[];
@@ -16,7 +16,7 @@
     //query who likes you
     $query= 'select userID1 from users_relationship '
            ."where userID2=".$_SESSION['valid_userID'].
-           ' and status="Like" order by statusTime';     
+           ' and status="Like" order by statusTime desc';     
     $result2_who_like_you = $db->query($query);
 
     $array2_who_like_you=[];
@@ -48,12 +48,13 @@
 
     //display you like
     if($array1_who_you_like!=Null){
-      $query = 'SELECT * FROM users_account WHERE ';
-      
+      $query = 'SELECT * FROM users_account WHERE userID IN (';
+      $temp = null;
       foreach ($array1_who_you_like as $userID) {
-          $query=$query.'userID = '.$userID.' or ';
+          $temp.=$userID.',';
       }
-      $query = substr($query, 0, -3); 
+      $temp = substr($temp,0,-1);
+      $query = $query.$temp.') ORDER BY FIELD(userId,'.$temp.')'; 
                 
       echo 'you like!<br/>';
 
@@ -66,12 +67,13 @@
 
     //display like you
     if($array2_who_like_you!=Null){
-      $query = 'SELECT * FROM users_account WHERE ';
-      
+      $query = 'SELECT * FROM users_account WHERE userID IN (';
+      $temp = null;
       foreach ($array2_who_like_you as $userID) {
-          $query=$query.'userID = '.$userID.' or ';
+          $temp.=$userID.',';
       }
-      $query = substr($query, 0, -3); 
+      $temp = substr($temp,0,-1);
+      $query = $query.$temp.') ORDER BY FIELD(userId,'.$temp.')'; 
                 
       echo 'like you!<br/>';
 
