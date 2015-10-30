@@ -1,0 +1,21 @@
+h1{
+	margin-bottom: 0;
+}
+li{
+	height: 40;
+	font-size: 15;
+	width: 65%;
+	margin-bottom: 10;
+	padding-left: 10;
+}
+.text_right{
+	width: 25%;
+}
+button {
+	margin-left: 10;
+	margin-right: 10;
+}
+.column_container{
+	width: 40%;
+	vertical-align: top;
+}

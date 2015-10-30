@@ -1,70 +1,22 @@
-
-header {
-    background-color:black;
-    color:white;
-    text-align:center;
-    padding:5px; 
-}
-nav {
-    
-    background-color:#eeeeee;
-    height:30px;
-
-
-    padding:5px; 
-}
-section {
-    width:350px;
-    float:left;
-    padding:10px; 
-}
-footer {
-    background-color:black;
-    color:white;
-    clear:both;
-    text-align:center;
-    padding:5px; 
+#quick_search {
+    width: 55%;
+    height: 180px;
+    background-image: url("img/search_background.png");
+    background-size: 240px 180px;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-right: 30px;
+    margin-bottom: 0;
+    position: relative;
 }
 
-#users_group{
-    background-color:grey;
-    color:white;
-    clear:both;
-    text-align:center;
-    padding:1%; 
-    overflow: auto;
-        
-    
+.homepage_profile {
+    width: 40%;
 }
 
-#users_group_gender {
-    background-color:pink;
-    color:white;
-    border-color: #000000;
-    padding:1%; 
-    overflow: auto;
-    width: 48%;
-    float:left;
-    
-
-    
-}
-
-
-#users {
-    height: 150px;
-    width: 150px;
-    border-color: #181e21;
-    background-color: #69c8e7;
-    float:left;
-    border:  1px solid black;
-    
-}
-
-#search {
-   
-    background-color: antiquewhite;
-    padding: 10px;
-    float: left;
-   
-}
+.recommend .sub_container{
+    width: 46.2%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-top: 10px;
+}   

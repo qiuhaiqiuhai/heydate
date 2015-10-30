@@ -1,74 +1,12 @@
-
-header {
-    background-color:black;
-    color:white;
-    text-align:center;
-    padding:5px; 
+.findlover_box{
+    width: 99%;
 }
-nav {
-    
-    background-color:#eeeeee;
-    height:30px;
-
-
-    padding:5px; 
+.recommend .profile_summary{
+    margin-left: 20px;
 }
-section {
-    width:350px;
-    float:left;
-    padding:10px; 
+.recommend img{
+    margin-left: 10px;
 }
-footer {
-    background-color:black;
-    color:white;
-    clear:both;
-    text-align:center;
-    padding:5px; 
-}
-
-#users_group{
-    background-color:grey;
-    color:white;
-    clear:both;
-    text-align:center;
-    padding:1%; 
-    overflow: auto;
-        
-    
-}
-
-#users_group_gender {
-    background-color:pink;
-    color:white;
-    border-color: #000000;
-    padding:1%; 
-    overflow: auto;
-    width: 48%;
-    float:left;
-    
-
-    
-}
-
-
-#users {
-    height: 150px;
-    width: 150px;
-    border-color: #181e21;
-    background-color: #69c8e7;
-    float:left;
-    border:  1px solid black;
-    
-}
-
-p {
-    word-wrap: break-word;
-}
-
-aside {
-    background-color: #aaaaaa;
-    width: 150px;
-    margin-right: 5px;
-    padding: 5px;
-    float: right;
+.section_container .img_small{
+	margin: 0 0 5 0;
 }
