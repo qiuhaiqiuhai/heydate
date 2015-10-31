@@ -63,7 +63,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
         echo '   
         <!-- profile summary -->
         <div class="left homepage_profile"> 
-          <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="180"> <!-- profile photo -->
+          <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="180" width="180"> <!-- profile photo -->
           <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
             <div id="profile_name" style="font-size:40;">'.$row['name'].'</div>
             <div><grey>Age: </grey>'.cal_age($row['birthdate']).'<br><grey>City: </grey>'.$row['city'].'<br><grey>Education: </grey>'.$row['education'].'<br><grey>Height: </grey>'.$row['height'].'cm</div>

@@ -20,6 +20,7 @@ include "members_only.php";
       <a href="">Inbox</a>
       <a href="profile.php">My heydate</a>
       <a href="search_results.php">Search</a>
+      <a href="logout.php">Log out</a>
     </nav>
   </div>
 
@@ -45,7 +46,7 @@ include "members_only.php";
 
               echo '
               <div class="clear section_container">
-                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="190"> <!-- profile photo -->
+                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="190" width="190"> <!-- profile photo -->
                 <div class="left column_container">
                   <img class="left clear_left img_small" src="img/male2.jpg">
                   <img class="left clear_left img_small" src="img/male3.jpg">
@@ -79,10 +80,6 @@ include "members_only.php";
                     </li>
                     <li><grey>Height: </grey><input type=number name="height" value='.$row['height'].' min=0 max=250 form="submit_edit" required="required">cm</li>
                     <li><grey>Education: </grey><input type=text name="education" form="submit_edit" required="required" value = "'.$row['education'].'"></li>';
-                    // <li><grey>Constallation: </grey>Cancer</li>
-                    // <li><grey>Blood Type: </grey>O</li>
-                    // <li><grey>Salary: </grey>10000~15000</li>
-                    // <li><grey>Nationality: </grey>Chinese</li>
 
               echo '<li><form action="profile_action.php" method=POST id="submit_edit" onclick="return checkOnSubmit();">
                 <button type=submit name="submit_edit" value="submit" >Submit</button>
@@ -93,53 +90,69 @@ include "members_only.php";
                 </div>
               </div>';
 
-              // echo 'Name:
-              //       <input type=text name="name" id="name" required="required" form="submit_edit" value = "'.$row['name'].'"><br />';
-              
-              // echo 'E-mail:
-              //       <input type=email name="email" id="email" required="required" form="submit_edit" value = "'.$row['email'].'"><br />';
-              // echo 'Password:
-              //       <input type=password name=password id="password" form="submit_edit" required="required" value = "'.$row['name'].'"><br />';
-              // echo 'Password confirmation:
-              //       <input type=password name=password2 id="password2" required="required" value = "'.$row['name'].'" onkeyup="checkPass();" >
-              //       <span id="confirmMessage" class="confirmMessage"></span><br />';
-              // echo 'Gender:
-              //       <select name="gender" required="required" form="submit_edit" value= "'.$row['gender'].'">
-              //           <option value="Male">Male</option>
-              //           <option value="Female" '.(("Female"==$row['gender'])?' selected':'').'>Female</option>
-              //       </select>
-              //       <br>';
-              // echo 'Birthday:
-              //       <input type="date" name="birthdate" required="required" form="submit_edit" value="'.$row['birthdate'].'"
-              //       ><br />';
+              // description
+              $query = 'select * from users_description '
+                     ."where userID=".$_SESSION['valid_userID'];
 
-              // echo 'City:
-              //       <select name="city" id="listBox" required="required" form="submit_edit" value="'.$row['city'].'">';
-              // foreach($Cities as $city){
-              //       echo '<option value='.$city.(($city==$row['city'])?' selected':'').'>'.$city.'</option>';
-              //       }
-              // echo '</select><br/>';
+              $result = $db->query($query);
+              $Intro = Null;
+              $Mate_Criteria = Null;
+              $Life_Style = Null;
 
-              // echo 'Height(cm)<input type=number name="height" value='.$row['height'].' min=0 max=250 form="submit_edit" required="required"><br />';
-              // echo 'Education:<input type=text name="education" form="submit_edit" required="required" value = "'.$row['education'].'"><br />';
 
-              // if ($row['profilePhoto']!=Null )
-              // {
-              //     echo '<img src=users_profile_photo/'.$row['profilePhoto'].' height="100">';
-              // }elseif($row['gender'] == 'Male'){
-              //     echo '<img src=users_profile_photo/default_male.jpg>';
-              // }else{
-              //     echo '<img src=users_profile_photo/default_female.jpg>';
-              // }
+              while($row = $result->fetch_assoc()){
+
+                  switch ($row['type']) {
+                    case "Intro":
+                        $Intro = $row['description'];
+                        break;
+                    case "Mate_Criteria":
+                        $Mate_Criteria = $row['description'];
+                        break;
+                    case "Life_Style":
+                        $Life_Style = $row['description'];
+                        break;
+                    default:
+                        $Intro = $row['description'];//default type is intro
+                }
+              }
+              echo '
+              <!-- profile description -->
+              <div class="clear section_container">
+                <label class="clear">Self-Introduction</label>
+                <textarea name="Intro" id="Intro" form="submit_edit" value = "'.$Intro.'">'.$Intro.'</textarea>
+              </div>
+              <div class="clear section_container">
+                <label class="clear">Life Style</label>
+                <textarea name="Life_Style" id="Life_Style" form="submit_edit" value = "'.$Life_Style.'">'.$Life_Style.'</textarea>
+              </div>
+              <div class="clear section_container">
+                <label class="clear">Mate Criteria</label>
+                <textarea name="Mate_Criteria" id="Mate_Criteria" form="submit_edit" value = "'.$Mate_Criteria.'">'.$Mate_Criteria.'</textarea>
+              </div>
+              ';
+
             }else{
               // print 
               echo '
               <div class="clear section_container">
-                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="190"> <!-- profile photo -->
-                <div class="left column_container">
-                  <img class="left clear_left img_small" src="img/male2.jpg">
-                  <img class="left clear_left img_small" src="img/male3.jpg">
-                  <img class="left clear_left img_small" src="img/male3.jpg">
+                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="190" width="190"> <!-- profile photo -->
+                <div class="left column_container">';
+
+              // user other photos
+              $query = 'select * from users_photo '
+                       ."where userID=".$_SESSION['valid_userID']." LIMIT 3";
+              $result = $db->query($query);
+
+              $num_results = $result->num_rows;
+
+              for ($i=0; $i <$num_results; $i++) {
+                 $photo = $result->fetch_assoc();
+                 echo '<img class="left clear_left img_small" src="users_photo/'.$photo['photo'].'" height="100">';
+                 //echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
+              }
+
+              echo '
                 </div>
                 <div class="left column_container" style="height:190; margin-left:20px">
                   <div class="left" id="profile_name" style="font-size:40;width:240">'.$row['name'].'</div>
@@ -155,10 +168,6 @@ include "members_only.php";
                     <li><grey>Education: </grey>'.$row['education'].'</li>
                     <li><grey>Height: </grey>'.$row['height'].'cm</li>
                     <li><grey>City: </grey>'.$row['city'].'</li>'.
-                    // <li><grey>Constallation: </grey>Cancer</li>
-                    // <li><grey>Blood Type: </grey>O</li>
-                    // <li><grey>Salary: </grey>10000~15000</li>
-                    // <li><grey>Nationality: </grey>Chinese</li>
                   '</div>
                 </div>
               </div>';
@@ -190,22 +199,6 @@ include "members_only.php";
                 }
               }
 
-              // $Types = array("Intro"=>$Intro, "Mate_Criteria"=>$Mate_Criteria, "Life_Style"=>$Life_Style);
-
-              // foreach($Types as $type => $type_value){
-              //   echo $type.":<br/><p>";
-
-              //   if(isset($_GET['edit'])){
-              //     echo '<textarea name="'.$type.'" form="submit_edit" rows="4" cols="50">'.$type_value.'</textarea>';
-              //   }else if($type_value!=NULL){
-              //     echo $type_value;
-              //   }else{
-              //     echo 'N/A';
-              //   }
-
-              //   echo "</p>";
-              // }
-
               echo '
               <!-- profile description -->
               <div class="clear section_container">
@@ -235,46 +228,12 @@ include "members_only.php";
       <input type=submit name=profilePhoto value="Change Profile photo" >
   </form>  
 
-  <!--  -->
-  photos:
-
-  <?php 
-    $query = 'select * from users_photo '
-             ."where userID=".$_SESSION['valid_userID'] ;
-    $result = $db->query($query);
-
-    $num_results = $result->num_rows;
-
-    for ($i=0; $i <$num_results; $i++) {
-       $row = $result->fetch_assoc();
-       echo '<img src="users_photo/'.$row['photo'].'" height="100">';
-       echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
-
-    }
-  ?>
-
 
   <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
       <input type="file" name="photo" accept="image/*" >
       <input type=submit name=photo value=Upload >
   </form>
       
-  <?php 
-        // if(isset($_GET['edit'])){
-        //   echo '<form action="profile_action.php?'.
-        //         (($Intro==NULL)?'&Intro=null':'').
-        //         (($Mate_Criteria==NULL)?'&Mate_Criteria=null':'').
-        //         (($Life_Style==NULL)?'&Life_Style=null':'')
-        //         .'" method=POST id="submit_edit" onclick="return checkOnSubmit();">
-        //         <input type=submit name="submit_edit" value="submit" >
-        //         </form>';
-        // }else{
-        //   echo '<form action="profile.php" method=GET >
-        //         <input type=submit name="edit" value="Edit Profile">
-        //         </form>';     
-        // }
-
-  ?>
       
     <!-- sidebars -->
     <div class="sub_container right clear_right sidebar">
