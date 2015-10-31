@@ -77,22 +77,29 @@ if(isset($_POST['submit_edit'])){
 	foreach($Types as $type => $type_value){
 		if($type_value==Null){
 			$sql = "DELETE FROM users_description where userID=$userID and type='$type'";
-		}elseif(isset($_GET[$type])){//the original description is null, need to insert
-			$sql = "INSERT into users_description (userID, description, type) 
-					values ( $userID , '$type_value','$type' )";
-		}else{
+			$result = $db->query($sql);
+
+			if (!$result) 
+				echo "Your description query failed.";
+			else
+				echo $name . ", Your description was changed";
+		}else{//the original description is null, need to insert
+			
 			$sql = "UPDATE users_description SET description='$type_value'
 					where userID = '$userID' and type='$type' ";
+
+			$db->query($sql);
+			if(mysqli_affected_rows($db)==0){
+				$sql = "INSERT into users_description (userID, description, type) 
+					values ( $userID , '$type_value','$type' )";
+				$result = $db->query($sql);
+
+			}
+				
+
 		}
 
-		echo $sql;
-		//	echo "<br>". $sql. "<br>";
-		$result = $db->query($sql);
-
-		if (!$result) 
-			echo "Your description query failed.";
-		else
-			echo $name . ", Your description was changed";
+		
 	}
 
 
