@@ -6,6 +6,8 @@ include "dbconnect.php";
 // 	echo "All records to be filled in";
 // 	exit;}
 // 	}
+session_start();
+
 $name = $_POST['name'];
 $password = md5($_POST['password']);
 $email = $_POST['email'];
@@ -27,7 +29,8 @@ $result = $db->query($query);
 
 if ($result->num_rows >0 )
   {
-  	header('Location: registration.php?username_exist=1');
+  	$_SESSION['username_exist'] = true;
+  	header('Location: registration.php');
   	exit();
 
   }
@@ -44,7 +47,6 @@ if (!$result)
 else
 	echo "Welcome ". $name . ". You are now registered";
 
-session_start();
 
 $query = 'select * from users_account '
            ."where name='$name' ";
