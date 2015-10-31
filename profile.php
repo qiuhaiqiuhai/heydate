@@ -11,6 +11,7 @@ include "members_only.php";
   <link rel="stylesheet" type="text/css" href="css/profile.css">
 </head>
 <body>
+
   <!-- top banner -->
   <div class="banner" id="banner_top">
     <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
@@ -222,7 +223,8 @@ include "members_only.php";
               ';
             }
 
-        ?>
+      ?>
+
     </div> 
     <!-- profile part end -->
 

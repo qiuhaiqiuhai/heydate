@@ -8,3 +8,15 @@ function showHide(elementID){
         document.getElementById('search_selector').style.height=30;
     }
 }
+
+function showHide_inbox(elementID){
+    var content = document.getElementById(elementID);
+
+    if (content.style.display=="block") {
+        content.style.display="none";
+    } else {
+    	content.style.display="block";
+
+    }
+}
+
