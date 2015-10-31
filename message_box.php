@@ -32,30 +32,49 @@ include "members_only.php";
     
 ?>
 
-Message History:
 <?php 
 
-    $query= 'select * from users_message '
-           ."where receiverID= ".$_SESSION['valid_userID'].
-           ' order by time desc';     
-    $message_history= $db->query($query);
+    $query = 'select * from users_account right join(select receiverID from
+              (SELECT receiverID, time FROM `users_message` WHERE senderID='.$_SESSION['valid_userID'].'
+              UNION
+              SELECT senderID, time  FROM `users_message` WHERE receiverID='.$_SESSION['valid_userID'].') 
+              as X group by receiverID order by time DESC)as Y on userID=receiverID';
+    $Contacters = $db->query($query);
 
-    while($row = $message_history->fetch_assoc()){
-         
-         echo  $row['senderID'].' '.
-               $row['receiverID'].' '.
-               $row['message'].' '.
-               $row['time'].'<br/>';
-         echo  '<button type="button" id="reply" >reply</button>';
+    while($row1 = $Contacters->fetch_assoc()){
 
-         echo  '<div id="reply_area"> ';
-         echo  '<form  action="inbox_action.php" method="post">'.
-                  '<input type="hidden" name="customerID" value='.$row['senderID'].' >
-                  <textarea name="message" required></textarea>
-                  <input type=submit name="send" value="Send Message">
-                </form>'; 
+        $contact=$row1['receiverID'];
+        $contact_name=$row1['name'];
 
-         echo   '</div>';
+        $query= 'select * from users_message '
+           ."where (senderID=".$_SESSION['valid_userID']." and receiverID =".$contact.")or".
+            "(receiverID=".$_SESSION['valid_userID']." and senderID =".$contact.")".
+           'order by time desc';     
+        $message_history= $db->query($query);
+        echo 'contactID: '.$contact_name;
+        echo  '<button type="button" id="reply" onclick="showHide_inbox(\'reply_area_'.$contact.'\');">reply</button>';
+        $row2 = $message_history->fetch_assoc();
+        echo  $row2['senderID'].' '.
+                   $row2['receiverID'].' '.
+                   $row2['message'].' '.
+                   $row2['time'].'<br/>';
+
+        echo  '<div id="reply_area_'.$contact.'" class="clear" style="display:none">';
+
+        
+        while($row2 = $message_history->fetch_assoc()){
+             
+             echo  $row2['senderID'].' '.
+                   $row2['receiverID'].' '.
+                   $row2['message'].' '.
+                   $row2['time'].'<br/>';
+        }
+        echo  '<form  action="inbox_action.php" method="post">'.
+                '<input type="hidden" name="customerID" value='.$contact.' >
+                <textarea name="message" required></textarea>
+                <input type=submit name="send" value="Send Message">
+              </form>'; 
+        echo  '</div>';
 
     }
 
