@@ -1,88 +1,58 @@
 <aside>
 <?php 
     
-    //query who you like    
-    $query= 'select userID2 from users_relationship '
-           ."where userID1=".$_SESSION['valid_userID'].
-           ' and status="Like" order by statusTime desc';     
-    $result1_who_you_like = $db->query($query);
-
-    $array1_who_you_like=[];
-    while($row = mysqli_fetch_array($result1_who_you_like))
-    {
-        $array1_who_you_like[] = $row['userID2'];
-    }
-    
-    //query who likes you
-    $query= 'select userID1 from users_relationship '
-           ."where userID2=".$_SESSION['valid_userID'].
-           ' and status="Like" order by statusTime desc';     
-    $result2_who_like_you = $db->query($query);
-
-    $array2_who_like_you=[];
-    while($row = mysqli_fetch_array($result2_who_like_you))
-    {
-        $array2_who_like_you[] = $row['userID1'];
-    }
-
-    //find match
-    $matches=array_intersect($array2_who_like_you,$array1_who_you_like);
+    //query match    
+    $query = 'select * from users_account where userID in'.
+             '(SELECT userID2 from users_relationship AS X where(userID1 = '.$_SESSION['valid_userID'].' and status="Like")'.
+             ' and userID2 IN (select userID1 from users_relationship where userID2= '.$_SESSION['valid_userID'].' and status="Like") order by statusTime desc)';
 
     //display match
-    if($matches!=Null){
-      $query = 'SELECT * FROM users_account WHERE ';
-      
-      foreach ($matches as $userID) {
-          $query=$query.'userID = '.$userID.' or ';
-      }
-      $query = substr($query, 0, -3); 
+    $result = $db->query($query);
+    if($result->num_rows>0){
                 
-      echo 'Match!<br/>';
-
-      $result = $db->query($query);
+      echo 'Match!<br/>';      
       include "display_smallprofile.php";
 
     }else{
       echo 'no match<br/>';
     }
 
-    //display you like
-    if($array1_who_you_like!=Null){
-      $query = 'SELECT * FROM users_account WHERE userID IN (';
-      $temp = null;
-      foreach ($array1_who_you_like as $userID) {
-          $temp.=$userID.',';
-      }
-      $temp = substr($temp,0,-1);
-      $query = $query.$temp.') ORDER BY FIELD(userId,'.$temp.')'; 
+    //recommend
+    $query = 'select * from users_account where city in (select city from users_account where userID='.$_SESSION['valid_userID'].')';
+    $result = $db->query($query);
+    if($result->num_rows>0){
                 
-      echo 'you like!<br/>';
-
-      $result = $db->query($query);
+      echo 'recommend!<br/>';
       include "display_smallprofile.php";
 
     }else{
-      echo 'you like nobody<br/>';
+      echo 'no recommend<br/>';
     }
 
-    //display like you
-    if($array2_who_like_you!=Null){
-      $query = 'SELECT * FROM users_account WHERE userID IN (';
-      $temp = null;
-      foreach ($array2_who_like_you as $userID) {
-          $temp.=$userID.',';
-      }
-      $temp = substr($temp,0,-1);
-      $query = $query.$temp.') ORDER BY FIELD(userId,'.$temp.')'; 
+    //display who you viewed
+    $query = 'select * from users_account where userID in (select userID2 from users_relationship where userID1='.$_SESSION['valid_userID'].')';
+    $result = $db->query($query);
+    if($result->num_rows>0){
                 
-      echo 'like you!<br/>';
-
-      $result = $db->query($query);
+      echo 'you viewed!<br/>';
       include "display_smallprofile.php";
 
     }else{
-      echo 'nobody like you<br/>';
+      echo 'you viewed nobody<br/>';
     }
+
+    //display who viewed you
+    $query = 'select * from users_account where userID in (select userID1 from users_relationship where userID2='.$_SESSION['valid_userID'].')';
+    $result = $db->query($query);
+    if($result->num_rows>0){
+                
+      echo 'viewed you!<br/>';
+      include "display_smallprofile.php";
+
+    }else{
+      echo 'nobody viewed you<br/>';
+    }
+
 
 
 

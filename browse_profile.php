@@ -144,7 +144,7 @@ photos:
       echo '"Like" >Like';
   }
 
-  ?></button>
+?></button>
 </form> 
 
 <form action="browse_action.php" method="post">
