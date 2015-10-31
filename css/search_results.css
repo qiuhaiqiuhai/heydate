@@ -31,6 +31,7 @@
 .result_box{
     background-color: #eeeeee;
 	width: 21%;
+    height: 200;
     margin: 0 5 10 5;
 	text-align: center;
     padding: 15 5 15 5;
@@ -42,9 +43,11 @@
 	margin: 0 auto;
     padding-top: 5px;
 }
-.result_box img{
+.result_box .image_container_100{
 	text-align: center;
 	width: 96%;
+    margin-left: 2.5px;
+    margin-bottom: 10px;
 	overflow: auto;
 	background-color: black;
 }
@@ -56,7 +59,7 @@
 }
 .result_box .profile_summary{
     font-size: 14;
-    height: 90;
+    height: 200;
 }
 .result_box .profile_summary .bottom{
     margin-left: 20;

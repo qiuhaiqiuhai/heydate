@@ -26,41 +26,109 @@ include "members_only.php";
 
   <!-- main body -->
   <div class="container">
-    <div class="section_container" id="search_bar">Search Bar Here</div>
+    <!-- <div class="section_container" id="search_bar">Search Bar Here</div> -->
     <div class="sub_container left main">
-<?php 
+      <!-- search selector -->
+      <form class="section_container" id="search_selector" action="search_results.php?advanced_search=1" method="post">
+        <div class="wrapper">
+          <div class="left" style="margin-top:5">
+            <select name="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            from
+            <select name="min_age">
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+            </select>
+            to
+            <select name="max_age">
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>
+            in
+            <select name="city" id="listBox" required="required">
+              <?php foreach($Cities as $citytmp){
+               echo '<option value='.$citytmp.(($citytmp==$city)?' selected':'').'>'.$citytmp.'</option>';
+              } ?>
+            </select>
+          </div>
+          <button class="right" type="submit" name="search">Search</button>
+          <button type="button" class="right" id="more_button" onclick="showHide('expand')">more</button>
+        </div>
+        <div id="expand" class="clear" style="display:none">
+          Height from
+          <select name="min_height">
+            <option value=0>Any</option>
+            <option value=150>150</option>
+            <option value=160>160</option>
+            <option value=170>170</option>
+            <option value=180>180</option>
+            <option value=190>190</option>
+          </select>
+          cm to
+          <select name="max_height">
+            <option value=0>Any</option>
+            <option value=150>150</option>
+            <option value=160>160</option>
+            <option value=170>170</option>
+            <option value=180>180</option>
+            <option value=190>190</option>
+          </select>
+          cm  Education
+          <select name="education" id="listBox" required="required">
+            <?php foreach($Educations as $edutmp){
+             echo '<option value='.$edutmp.(($edutmp==$education)?' selected':'').'>'.$edutmp.'</option>';
+            } ?>
+          </select>
+        </div>  
+      </form>
+
+
+    <?php 
     if(isset($_POST['search'])){
         $gender = $_POST['gender'];
-        $age = $_POST['age'];
+        $min_age = $_POST['min_age'];
+        $max_age = $_POST['max_age'];
         $city = $_POST['city'];
         
         $date=date_create();
-        date_add($date,date_interval_create_from_date_string('-'.$age.' years'));
+        date_add($date,date_interval_create_from_date_string('-'.$max_age.' years'));
         $bday_upbound = date_format($date, "Y-m-d");
-        date_add($date,date_interval_create_from_date_string('-1 years'));
+        date_add($date,date_interval_create_from_date_string('-'.$min_age.' years'));
         $bday_lowbound = date_format($date, "Y-m-d");
 
-        echo $bday_upbound.'  '.$bday_lowbound;
-
-    }
-
-    if(isset($_GET['advanced_search'])){
-        $height = $_POST['height'];
+        // expand part
+        $min_height = $_POST['min_height'];
+        $query_min_height = ($min_height==0)?'':' AND height>'.$min_height;
+        $max_height = $_POST['max_height'];
+        $query_max_height = ($max_height==0)?'':' AND height<'.$max_height;
         $education = $_POST['education'];
-        $description = $_POST['description'];
+        $query_education = ($education=="Any")?'':' AND education="'.$education.'"';
+
+        $query = 'SELECT * FROM users_account WHERE gender="'.$gender.'" AND city="'.$city.'"'.$query_min_height.$query_max_height.$query_education;
+
+    } else {
+        $row = get_basic_info($_SESSION["valid_userID"], $db);
+        $gender = ($row['gender']=="Male")?"Female":"Male";
+        $query = 'SELECT * FROM users_account WHERE gender="'.$gender.'"';
     }
+    ?>       
 
-?>
-
-<div id="search">
+<!-- <div id="search">
     <h2>Advanced Search</h2>
     <form action="search_results.php?advanced_search=1" method="post">
     Gender:<br />
-    <input type="radio" name="gender" value="Male" <?php echo $gender=='Male'?'checked':''; ?>> Male
-    <input type="radio" name="gender" value="Female" <?php echo $gender=='Female'?'checked':''; ?>> Female
+    <input type="radio" name="gender" value="Male" <?php 
+    // echo $gender=='Male'?'checked':''; ?>> Male
+    <input type="radio" name="gender" value="Female" <?php 
+    // echo $gender=='Female'?'checked':''; ?>> Female
     <br />
     Age:<br />
-    <input type="number" name="age" size="40" value = <?php echo $age; ?>>
+    <input type="number" name="age" size="40" value = <?php 
+    // echo $age; ?>>
     <br />
     Height:<br />
     <input type="number" name="height" size="40" value = 170>
@@ -68,28 +136,12 @@ include "members_only.php";
     Education:<br />
     <input type=text name="education" value="education">
     <br/>
-    
-    <?php
-    $Cities = array(
-       "Tokyo",
-       "Mexico City",
-       "New York City",
-       "Mumbai",
-       "Seoul",
-       "Shanghai",
-       "Lagos",
-       "Sao Paulo",
-       "Cairo",
-       "London",
-       "Singapore"
-    );
-    ?>
 
     City:
     <select name="city" id="listBox" required="required">
-       <?php foreach($Cities as $citytmp){
-        echo '<option value='.$citytmp.(($citytmp==$city)?' selected':'').'>'.$citytmp.'</option>';
-       } ?>
+       <?php 
+        // foreach($Cities as $citytmp){
+        // echo '<option value='.$citytmp.(($citytmp==$city)?' selected':'').'>'.$citytmp.'</option>';} ?>
     </select>
     <br />
     Description:<br />
@@ -99,14 +151,10 @@ include "members_only.php";
         
     <input type="submit" name="search" value="Search">
     </form>    
-</div>
-
-<?php include "right_record_bar.php"; ?>
+</div> -->
     
       <div class="section_container">
         <?php
-          $query = 'SELECT * FROM users_account WHERE birthdate>="'.$bday_lowbound.'" and birthdate<="'.$bday_upbound.'"';
-
           $result = $db->query($query);
           if($result->num_rows>0){          
             while($row = $result->fetch_assoc()){
@@ -123,8 +171,7 @@ include "members_only.php";
 
                echo '
                <div class="result_box left">
-                <a href="browse_profile.php?customerID='.$row['userID'].'"><img src="users_profile_photo/'.
-                    ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"></a>
+                <a href="browse_profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
                 <div class="profile_summary">
                   <label id="profile_name">'.$row['name'].'</label>
                   <div>'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['education'].', '.$row['height'].'cm</div>

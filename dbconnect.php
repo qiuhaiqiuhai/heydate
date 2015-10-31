@@ -23,6 +23,17 @@ $Cities = array(
    "London",
    "Singapore");
 
+$Educations = array(
+    "Any",
+    "Primary School",
+    "Secendary School",
+    "High School",
+    "Bachelor",
+    "Master",
+    "PhD",
+    "MBA"
+    );
+
 function print_basic_info($userID, $db) {
 // echo "<br>" .$query. "<br>";
     $query = 'select * from users_account '
