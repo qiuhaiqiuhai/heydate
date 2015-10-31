@@ -222,15 +222,15 @@ h1 {
 	width: 28.5%;
 	min-height: 90px;
 }
-.image_container_180 {
-    height: 180px;
-    width: 180px;
+
+.image_container_190 {
+    height: 190px;
+    width: 190px;
     background-size: cover;
     background-repeat: no-repeat;
     float:left;
     background-position: center; 
 }
-
 .image_container_100 {
     height: 100px;
     width: 100px;
@@ -238,4 +238,14 @@ h1 {
     background-repeat: no-repeat;
     float:left;
     background-position: center; 
+}
+
+.image_container_60 {
+    height: 60px;
+    width: 60px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    float:left;
+    background-position: center; 
+    margin: 5 0 0 8;
 }
