@@ -1,0 +1,32 @@
+#profile{
+    width: 20%;
+}
+
+#message_container{
+    width: 72%;
+}
+.section_container{
+    border-bottom-width: 2px;
+    border-bottom-style: dashed;
+    border-bottom-color: #e0e0e0;
+    height: 100;
+}
+.profile_summary{
+    height: 100;
+    margin-left: 110;
+    width: 450;
+}
+#profile_name{
+    font-size: 20;
+    margin-bottom: 20;
+}
+#profile_brief{
+    padding-top: 10;
+    padding-bottom: 10;
+}
+#read{
+    position: absolute;
+    right: 10;
+    width: 100;
+    top: 45;
+}

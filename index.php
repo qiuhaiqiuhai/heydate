@@ -39,11 +39,11 @@ if (isset($_POST['name']) && isset($_POST['password']))
     <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
     <nav>
       <a href="index.php">Home</a>
-      <a href="search_results.php">Search</a>
       <?php
       if (isset($_SESSION['valid_user'])) {
         echo '<a href="">Inbox</a>';
         echo '<a href="profile.php">My heydate</a>';
+        echo '<a href="search_results.php">Search</a>';
         echo '<a href="logout.php">Log out</a>';
       } else {
         echo "<a href='registration.php'>Register</a>";

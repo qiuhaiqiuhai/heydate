@@ -1,0 +1,46 @@
+<html>
+<head>
+  <title>Search Results</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="css/inbox.css">
+  <script src="JS/showHide.js"></script>
+</head>
+<body>
+  <!-- top banner -->
+  <div class="banner" id="banner_top">
+    <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+    <nav>
+      <a href="index.php">Home</a>
+      <a href="inbox.php">Inbox</a>
+      <a href="profile.php">My heydate</a>
+      <a href="search_results.php">Search</a>
+      <a href="logout.php">Log out</a>
+    </nav>
+  </div>
+    
+  <!-- main body -->
+  <div class="container">
+    <div class="sub_container left" id="profile">
+        <a><div class="image_container_190" style="background-image: url(img/male.jpg);"></div></a>
+    </div>
+    <div class="sub_container right" id="message_container">
+        <div class="section_container" id=1>
+            <a><div class="image_container_100 left" style="background-image: url(img/male.jpg);"></div></a>
+            <div class="profile_summary">
+              <label id="profile_name">PSY</label>
+              <div id="profile_brief">22, Singapore, 160cm, MBA</div>
+              <div><grey>I am a great guy.</grey></div>
+            </div>
+            <button id="read" onclick="showHide_inbox(1)">Read Message</button>
+        </div>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <div class="banner" id="banner_footer">
+    <mistral>"We accept the love we think we deserve."</mistral><br>
+    copyright &copy heydate.com 2015
+  </div>
+
+</body>
+</html>
