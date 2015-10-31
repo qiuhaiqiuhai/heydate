@@ -47,7 +47,7 @@ include "members_only.php";
 
               echo '
               <div class="clear section_container">
-                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="190" width="190"> <!-- profile photo -->
+                <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
                 <div class="left column_container">
                   <img class="left clear_left img_small" src="img/male2.jpg">
                   <img class="left clear_left img_small" src="img/male3.jpg">
