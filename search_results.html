@@ -3,6 +3,7 @@
 	<title>Search Results</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" href="css/search_results.css">
+    <script src="JS/showHide.js"></script>
 </head>
 <body>
 	<!-- top banner -->
@@ -21,45 +22,127 @@
 		<div class="sub_container left main">
 			<!-- search selector -->
 			<form class="section_container" id="search_selector">
-				<div class="left" style="margin-top:5">
-					<select>
-						<option value="m">Male</option>
-						<option value="f">Female</option>
-					</select>
-					from
-					<select>
-						<option value="20">20</option>
-						<option value="21">21</option>
-						<option value="22">22</option>
-					</select>
-					to
-					<select>
-						<option value="21">21</option>
-						<option value="22">22</option>
-						<option value="23">23</option>
-					</select>
-					in
-					<select>
-						<optgroup label="China">
-							<option>Shanghai</option>
-						</optgroup>
-					</select>
+				<div class="wrapper">
+					<div class="left" style="margin-top:5">
+						<select>
+							<option value="m">Male</option>
+							<option value="f">Female</option>
+						</select>
+						from
+						<select>
+							<option value="20">20</option>
+							<option value="21">21</option>
+							<option value="22">22</option>
+						</select>
+						to
+						<select>
+							<option value="21">21</option>
+							<option value="22">22</option>
+							<option value="23">23</option>
+						</select>
+						in
+						<select>
+							<optgroup label="China">
+								<option>Shanghai</option>
+							</optgroup>
+						</select>
+					</div>
+					<button class="right">Search</button>
+					<button type="button" class="right" id="more_button" onclick="showHide('expand')">more</button>
 				</div>
-				<button class="right">Search</button>
+                <div id="expand" class="clear" style="display:none">
+                	<select>
+                		<option value="m">Male</option>
+                		<option value="f">Female</option>
+                	</select>
+                	from
+                	<select>
+                		<option value="20">20</option>
+                		<option value="21">21</option>
+                		<option value="22">22</option>
+                	</select>
+                	to
+                	<select>
+                		<option value="21">21</option>
+                		<option value="22">22</option>
+                		<option value="23">23</option>
+                	</select>
+                	in
+                	<select>
+                		<optgroup label="China">
+                			<option>Shanghai</option>
+                		</optgroup>
+                	</select>
+                </div>
 			</form>
 			<!-- search results -->
 			<div class="section_container">
-					<div class="result_box left">
-						<img src="img/female2.jpg">
-						<div class="profile_summary">
-							<label id="profile_name">Hyejeong</label>
-							<div>22, Singapore, Bachelor, 165cm</div>
-							<div class="bottom">
-								<button>Like</button>
-								<button>View</button>
-							</div>
+				<div class="result_box left">
+					<img src="img/female2.jpg">
+					<div class="profile_summary">
+						<label id="profile_name">Hyejeong</label>
+						<div>22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
 						</div>
 					</div>
+				</div>
+                <div class="result_box left">
+					<img src="img/female2.jpg">
+					<div class="profile_summary">
+						<label id="profile_name">Hyejeong</label>
+						<div>22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+                <div class="result_box left">
+					<img src="img/female2.jpg">
+					<div class="profile_summary">
+						<label id="profile_name">Hyejeong</label>
+						<div>22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+                <div class="result_box left">
+					<img src="img/female2.jpg">
+					<div class="profile_summary">
+						<label id="profile_name">Hyejeong</label>
+						<div>22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+                <div class="result_box left">
+					<img src="img/female2.jpg">
+					<div class="profile_summary">
+						<label id="profile_name">Hyejeong</label>
+						<div>22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
+                <div class="result_box left">
+					<img src="img/female2.jpg">
+					<div class="profile_summary">
+						<label id="profile_name">Hyejeong</label>
+						<div>22, Singapore, Bachelor, 165cm</div>
+						<div class="bottom">
+							<button>Like</button>
+							<button>View</button>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- Recommend -->

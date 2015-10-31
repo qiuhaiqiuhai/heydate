@@ -28,6 +28,10 @@ body {
 	clear: left;
 }
 
+.wrapper {
+	overflow: auto;
+}
+
 .banner {
 	width: 100%;
 	position: relative;

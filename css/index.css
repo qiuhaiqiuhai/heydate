@@ -1,7 +1,7 @@
 #quick_search {
     width: 55%;
     height: 180px;
-    background-image: url("img/search_background.png");
+    background-image: url("../img/search_background.png");
     background-size: 240px 180px;
     background-position: center;
     background-repeat: no-repeat;
@@ -19,4 +19,11 @@
     padding-top: 0px;
     padding-bottom: 0px;
     margin-top: 10px;
-}   
+} 
+
+.additional_button{
+    margin-right:10px;
+    text-decoration:underline;
+    font-size:12;
+    margin-top:35
+}

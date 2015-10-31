@@ -1,4 +1,5 @@
 <?php //authmain.php
+
 include "dbconnect.php";
 session_start();
 
@@ -28,23 +29,139 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
 <html>
 <head>
-    <link rel="stylesheet" href="css/index.css">
+  <title>heydate</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+  <!-- top banner -->
+  <div class="banner" id="banner_top">
+    <a href="index.html"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+    <nav>
+      <a href="index.html">Home</a>
+      <?php
+      if (isset($_SESSION['valid_user'])) {
+        echo '<a href="logout.php">Log out</a>';
+      } else {
+        echo "<a href='register.html'>Register</a>";
+      }
+      ?>
+      <a href="">Inbox</a>
+      <a href="profile.html">My heydate</a>
+      <a href="search_results.html">Search</a>
+    </nav>
+  </div>
 
-<header>
-<h1>heydate</h1>
-</header>
+  <!-- main body -->
+  <div class="container">
+    <!-- profile summary and search -->
+    <div class="sub_container"> 
+      <div class="section_container">
+      <?php
+      if (isset($_SESSION['valid_user'])) {
+        echo '   
+        <!-- profile summary -->
+        <div class="left homepage_profile"> 
+          <img class="left" src="img/male.jpg" height="180"> <!-- profile photo -->
+          <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
+            <div id="profile_name" style="font-size:40;">PSY</div>
+            <div><grey>Age: </grey>22<br><grey>City: </grey>Singapore<br><grey>Education: </grey>Bachelor<br><grey>Height: </grey>180cm</div>
+            <div class="bottom">
+              <button onclick="location.href = "profile.html"">Enter my heydate</button>
+            </div>
+          </div>
+        </div>
+        <!-- search form -->
+        <form class="right" id="quick_search" action="search_results.php" method="post"> 
+          <div class="right clear" style="margin-top:30px"><h1>Find your love here</h1></div>
+          <div class="right">
+            <cat>Gender:</cat>
+            <select>
+              <option value="m">Male</option>
+              <option value="f">Female</option>
+            </select>
+            <cat>Age:</cat> from 
+            <select>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+            </select>
+            to
+            <select>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>
+            <cat>City:</cat>
+            <select>
+              <optgroup label="China">
+                <option>Shanghai</option>
+              </optgroup>
+            </select>
+          </div>
+          <button type="submit" class="clear_right right" value="submit" style="margin-top:25">Search</button>
+          <a href="" class="right additional_button">Advanced Search</a>
+        </form>
+      ';
+      } else {
+        // if the user hasn't logged in
+        echo '<form method="post" action="index.php">
+           <table>
+           <tr><td>Username:</td>
+           <td><input type="text" name="name"></td></tr> 
+           <tr><td>Password:</td> 
+           <td><input type="password" name="password"></td></tr> 
+           <tr><td colspan="2" align="center"> 
+           <input type="submit" value="Log in"></td></tr> 
+           </table></form></section>';
+      }
+      ?>
+      </div>
+    </div>
 
-<nav>
-<a href="registration.php">Register</a>
-<?php 
-    if (isset($_SESSION['valid_user']))
-        echo '<a href="logout.php">Log out</a><br />';?>
-</nav>
+    <!-- recommend section -->
+    <div class="recommend"> 
+      <div class="sub_container left">
+        <?php
+        $query = 'SELECT * FROM users_account WHERE gender="Female"'
+                .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
+        $result = $db->query($query);
+        while($row = $result->fetch_assoc()){
+           /*
+           echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+           echo '<div id = "users">';
+           echo '<img src="users_profile_photo/'.
+                ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';
+           echo  $row['name'].'<br/>'.
+                 $row['city'].'<br/>'.
+                 $row['height'].'<br/>'.
+                 $row['education'].'<br/>';
+           echo "</div></a>";
+           */
 
-<section>
+           echo '
+           <div class="left findlover_box">
+             <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">
+             <div class="right profile_summary">
+               <label class="left" id="profile_name">'.$row['name'].'</label>
+               <div class="clear_left">'/*.$row['age'].', '*/.$row['city'].', '.$row['height'].', '.$row['education'].'</div>
+               <div class="bottom">
+                 <button>Like</button>
+                 <button>View</button>
+               </div>
+             </div>
+           </div>
+           ';
+        }
+        ?>
+      </div>
+    </div>
+  </div>
+
+
+<!--  original php code for search and login
 <?php
+/*
   if (isset($_SESSION['valid_userID']))
   {
     print_basic_info( $_SESSION['valid_userID'], $db);
@@ -120,12 +237,15 @@ if (isset($_POST['name']) && isset($_POST['password']))
            </table></form></section> ';
   
 
-  }
+  }*/
 ?>
+-->
 
+<!--  
 <div id="users_group">
     <div id="users_group_gender">
     <?php
+    /*
       
       $query = 'SELECT * FROM users_account WHERE gender="Female"'
               .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
@@ -146,7 +266,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
       $result = $db->query($query);
       include "display_smallprofile.php";
 
-
+      */
     ?>
     </div>
 </div>
@@ -156,11 +276,16 @@ Copyright © heydate.com
 
 
 <br />
-<a <?php if (isset($_SESSION['valid_user']))
-            echo 'href="members_only.php"';?>>
+<a <?php /*if (isset($_SESSION['valid_user']))
+            echo 'href="members_only.php"';*/?>>
 Members section</a>
+-->
 
-
+  <!-- footer -->
+  <div class="banner" id="banner_footer">
+    <mistral>"We accept the love we think we deserve."</mistral><br>
+    copyright &copy heydate.com 2015
+  </div>
 </body>
 </html>
 
