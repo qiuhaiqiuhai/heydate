@@ -16,7 +16,7 @@
 	</div>
 	<!-- main body -->
 	<div class="container">
-		<form class="sub_container clear" style="text-align:center" action="register.php" method="post">
+		<form class="sub_container clear" style="text-align:center" action="register.php" method="post" onsubmit="return checkOnSubmit();">
 			<div class="section_container"><h1>Welcome to <mistral>heydate</mistral></h1></div>
 			<div class="section_container">
 				<div class="column_container" style="width:37%">
@@ -24,9 +24,9 @@
 					<li class="text_right"><grey>Email </grey></li>
 					<li><input type="email" name="email" required="required" placeholder="harrypotter@hogwarts.com"></li>
 					<li class="text_right"><grey>Password </grey></li>
-					<li><input type="password" name="password" id="password" required="required"></li>
+					<li><input type="password" name="password" id="password" required="required" onkeyup="checkPass();checkConfirm();" ><br/><span id="passwordCheck"></span></li>
 					<li class="text_right"><grey>Retype Password </grey></li>
-					<li><input type="password" required="required" id="password2" name="password2" onkeyup="checkPass();"></li>
+					<li><input type="password" required="required" id="password2" name="password2" onkeyup="checkConfirm();" ><br/><span id="confirmMessage"></span></li>
 					<li class="text_right"><grey>Name </grey></li>
 					<li><input type="text" name="name" required="required" placeholder="Harry Potter"></li>
 					<li class="text_right"><grey>Gender </grey></li>
@@ -42,27 +42,29 @@
 					<li class="text_right"><grey>City </grey></li>
 					<li><input type="text" name="city" required="required" placeholder="Hogwarts"></li>
 					<li class="text_right"><grey>Education </grey></li>
-					<li><input type="text" name="education" required="required"></li>
+					<li><input type="text" name="education" required="required" ></li>
 					<li class="text_right"><grey>Height </grey></li>
-					<li><input type="number" name="height" required="required" min=0 max=250> cm</li>
+					<li><input type="number" name="height" required="required" min=0 max=250 > cm</li>
 					<li class="text_right"><grey>Photo<br>(optional)</grey></li>
 					<li><input type="file" accept="image/" name="photo"></li>
 				</div>
 			</div>
 			<div class="section_container">
-				<button type="submit">Register</button>
-				<button>Reset</button>
+				<button type=submit >Register</button>
+				<button type=reset  >Reset</button>
 			</div>
 		</form>
 	</div>
-	<?php  
-	if(isset($_GET['username_exist'])) 
-		echo "<script type='text/javascript'>alert('Username exists!');</script>";
-	?>
 	<!-- footer -->
 	<div class="banner" id="banner_footer">
 		<mistral>"We accept the love we think we deserve."</mistral><br>
 		copyright &copy heydate.com 2015
 	</div>
 </body>
+	<?php
+	session_start();  
+	if(isset($_SESSION['username_exist'])) 
+		echo "<script type='text/javascript'>alert('Username exists!');</script>";
+	session_destroy(); 
+	?>
 </html>
