@@ -137,7 +137,7 @@ include "members_only.php";
               // print 
               echo '
               <div class="clear section_container">
-                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="190" width="190"> <!-- profile photo -->
+                 <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
                 <div class="left column_container">';
 
               // user other photos
@@ -149,7 +149,7 @@ include "members_only.php";
 
               for ($i=0; $i <$num_results; $i++) {
                  $photo = $result->fetch_assoc();
-                 echo '<img onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small" src="users_photo/'.$photo['photo'].'" height="100">';
+                 echo '<div onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
                  //echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
               }
 
@@ -247,8 +247,7 @@ include "members_only.php";
         if ($match_result->num_rows>0) {
           while($row = $match_result->fetch_assoc()){
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-             echo '<img class="left img_small" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
         } else {
@@ -264,8 +263,7 @@ include "members_only.php";
         if ($viewyou_result->num_rows>0) {
           while($row = $viewyou_result->fetch_assoc()){
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-             echo '<img class="left img_small" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
         } else {
@@ -281,8 +279,7 @@ include "members_only.php";
         if ($youview_result->num_rows>0) {
           while($row = $youview_result->fetch_assoc()){
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-             echo '<img class="left img_small" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
         } else {
@@ -300,8 +297,7 @@ include "members_only.php";
              
              echo '<div class="findlover_box left">';
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
-             echo '<img class="left" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+             echo '<div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
              echo '
                <div class="left profile_summary">
