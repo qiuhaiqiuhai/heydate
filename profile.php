@@ -9,6 +9,7 @@ include "members_only.php";
   <title>my heydate</title>
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/profile.css">
+  <script src="JS/popUpWindow.js"></script>
 </head>
 <body>
 
@@ -148,14 +149,14 @@ include "members_only.php";
 
               for ($i=0; $i <$num_results; $i++) {
                  $photo = $result->fetch_assoc();
-                 echo '<img class="left clear_left img_small" src="users_photo/'.$photo['photo'].'" height="100">';
+                 echo '<img onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small" src="users_photo/'.$photo['photo'].'" height="100">';
                  //echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
               }
 
               echo '
                 </div>
                 <div class="left column_container" style="height:190; margin-left:20px">
-                  <div class="left" id="profile_name" style="font-size:40;width:240">'.$row['name'].'</div>
+                  <div class="left" id="profile_name" style="font-size:40;width:230">'.$row['name'].'</div>
                   <div class="right">';
 
               echo '<form action="profile.php" method=GET>
