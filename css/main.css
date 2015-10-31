@@ -222,3 +222,9 @@ h1 {
 	width: 28.5%;
 	min-height: 90px;
 }
+.image_container {
+    height: 180px;
+    width: 180px;
+    float:left;
+    background-position: center; 
+}
