@@ -1,88 +1,68 @@
 <html>
 <head>
-	<title>Registration page</title>
+	<title>Register</title>
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" href="css/register.css">
 	<script type="text/javascript" src="JS/pwconfirm.js"></script>
 </head>
-<body>		
-<h1><font color="blue">Registration Page</font></h1>
-<form action="register.php" method=POST enctype="multipart/form-data">
+<body>
+	<!-- top banner -->
+	<div class="banner" id="banner_top">
+		<a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+		<nav>
+			<a href="index.php">Home</a>
+			<a href="">Search</a>
+		</nav>
+	</div>
+	<!-- main body -->
+	<div class="container">
+		<form class="sub_container clear" style="text-align:center" action="register.php" method="post">
+			<div class="section_container"><h1>Welcome to <mistral>heydate</mistral></h1></div>
+			<div class="section_container">
+				<div class="column_container" style="width:37%">
+					<!-- <div class="section_container"><label class="left">Login information</label></div> -->
+					<li class="text_right"><grey>Email </grey></li>
+					<li><input type="email" name="email" required="required" placeholder="harrypotter@hogwarts.com"></li>
+					<li class="text_right"><grey>Password </grey></li>
+					<li><input type="password" name="password" id="password" required="required"></li>
+					<li class="text_right"><grey>Retype Password </grey></li>
+					<li><input type="password" required="required" id="password2" name="password2" onkeyup="checkPass();"></li>
+					<li class="text_right"><grey>Name </grey></li>
+					<li><input type="text" name="name" required="required" placeholder="Harry Potter"></li>
+					<li class="text_right"><grey>Gender </grey></li>
+					<li>
+						<input name="gender" type="radio" value="Male" checked="checked">Male
+						<input name="gender" type="radio" value="Female">Female
+					</li>
+				</div>
+				<div class="column_container">
+					<!-- <div class="section_container"><label class="left">Self Detail</label></div> -->
+					<li class="text_right"><grey>Birthday </grey></li>
+					<li><input type="date" name="birthdate" required="required"></li>
+					<li class="text_right"><grey>City </grey></li>
+					<li><input type="text" name="city" required="required" placeholder="Hogwarts"></li>
+					<li class="text_right"><grey>Education </grey></li>
+					<li><input type="text" name="education" required="required"></li>
+					<li class="text_right"><grey>Height </grey></li>
+					<li><input type="number" name="height" required="required" min=0 max=250> cm</li>
+					<li class="text_right"><grey>Photo<br>(optional)</grey></li>
+					<li><input type="file" accept="image/" name="photo"></li>
+				</div>
+			</div>
+			<div class="section_container">
+				<button type="submit">Register</button>
+				<button>Reset</button>
+			</div>
+		</form>
+	</div>
 	<?php  
 	if(isset($_GET['username_exist'])) 
-		echo "Username exist.<br/>";
+		echo "<script type='text/javascript'>alert('Username exists!');</script>";
 	?>
-
-
-	*Name:
-	<input type=text name="name" id="name" required="required" placeholder="your first and last name" value = 'test'><br /><br />
-	*E-mail:
-	<input type=email name="email" id="email" required="required" placeholder="you@yourdomain.com" value = 'test@test.com'><br /><br />
-
-	*Password:
-	<input type=password name=password id="password" required="required" placeholder="password" value = 'test'><br /><br />
-	*Password confirmation:
-	<input type=password name=password2 id="password2" required="required" placeholder="password" onkeyup="checkPass();" value = 'test'>
-	<span id="confirmMessage" class="confirmMessage"></span><br /><br/>
-
-	*Gender:
- 	<select name="gender" required="required" >
-	    <option value="Male">Male</option>
-	    <option value="Female">Female</option>
-	</select>
-	<br><br>
-	
-	*Birthday:
- 	<input type="date" name="birthdate" required="required" value="<?php echo date('Y-m-d'); ?>"
- 	><br /><br />
- 	
- 	<?php
-	$Cities = array(
-	   "Tokyo",
-	   "Mexico City",
-	   "New York City",
-	   "Mumbai",
-	   "Seoul",
-	   "Shanghai",
-	   "Lagos",
-	   "Sao Paulo",
-	   "Cairo",
-	   "London",
-	   "Singapore"
-	);
-	?>
-
- 	*City:
-	<select name="city" id="listBox" required="required">
-	   <?php foreach($Cities as $city){?>
-	   <option value=<?php echo $city; ?>> <?php echo $city; ?></option>
-	   <?php } ?>
-	</select>
-	<br /><br />
-
-	*Height(cm):
-	<input type=number name="height" value=170 min=0 max=250 required="required">
-	<br /><br />
-
-	*Education:
-	<input type=text name="education" required="required" placeholder="your education" value = 'test'><br /><br />
-	
-	Update your photo (Optional):
-	<input type="file" name="profilePhoto" accept="image/*" onchange="loadFile(event)">
-	<img id="output"/>
-	<script>
-	  var loadFile = function(event) {
-	    var output = document.getElementById('output');
-	    output.src = URL.createObjectURL(event.target.files[0]);
-	  };
-	</script>
-	<br/><br/>
-
-
-
-<input type=submit name=submit value=Submit onclick="return checkOnSubmit();">
-<input type=reset name=reset value="Reset">
-
-</form>
-<a href="index.php">Back to main page</a>
+	<!-- footer -->
+	<div class="banner" id="banner_footer">
+		<mistral>"We accept the love we think we deserve."</mistral><br>
+		copyright &copy heydate.com 2015
+	</div>
 </body>
 </html>
-

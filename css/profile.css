@@ -1,6 +1,11 @@
 .findlover_box{
     width: 99%;
 }
+
+li{
+	overflow-y: hidden; 
+}
+
 .recommend .profile_summary{
     margin-left: 20px;
 }

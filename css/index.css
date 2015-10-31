@@ -19,7 +19,11 @@
     padding-top: 0px;
     padding-bottom: 0px;
     margin-top: 10px;
-} 
+}
+
+.recommend a{
+    margin: 0;
+}
 
 .additional_button{
     margin-right:10px;

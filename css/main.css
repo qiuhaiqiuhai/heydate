@@ -116,7 +116,7 @@ nav a:hover{
 }
 
 .profile_summary {
-	margin-left: 5px;
+	margin-left: 10px;
 	color: black;
 	position: relative;
 	height: 180;
@@ -181,6 +181,7 @@ grey {
 	border-bottom-width: 1px;
 	border-bottom-style: dotted;
 	border-bottom-color: #e0e0e0;
+	/*margin: 0 2 0 2;*/
 }
 
 .findlover_box img {

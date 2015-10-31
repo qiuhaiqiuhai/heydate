@@ -1,5 +1,5 @@
 <?php
-@$db = new mysqli('localhost','admin', 'admin', 'heydatedb');
+@$db = new mysqli('localhost','root', '', 'heydatedb');
 // @ to ignore error message display //
 if ($db->connect_error){
 	echo "Database is not online"; 
@@ -9,6 +9,19 @@ if ($db->connect_error){
 
 if (!$db->select_db ("heydatedb"))
 	exit("<p>Unable to locate the heydatedb database</p>");
+
+$Cities = array(
+   "Tokyo",
+   "Mexico City",
+   "New York City",
+   "Mumbai",
+   "Seoul",
+   "Shanghai",
+   "Lagos",
+   "Sao Paulo",
+   "Cairo",
+   "London",
+   "Singapore");
 
 function print_basic_info($userID, $db) {
 // echo "<br>" .$query. "<br>";
@@ -36,6 +49,13 @@ function print_basic_info($userID, $db) {
     }else{
         echo '<img src=users_profile_photo/default_female.jpg>';
     }
+}
+
+function get_basic_info($userID, $db) {
+    $query = 'select * from users_account '."where userID=".$userID;
+    $result = $db->query($query);
+    $row = $result->fetch_assoc();
+    return $row;
 }
 
 function cal_age($birthdate) {

@@ -31,24 +31,24 @@ if (isset($_POST['name']) && isset($_POST['password']))
 <head>
   <title>heydate</title>
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
 <body>
   <!-- top banner -->
   <div class="banner" id="banner_top">
-    <a href="index.html"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+    <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
     <nav>
-      <a href="index.html">Home</a>
+      <a href="index.php">Home</a>
+      <a href="search_results.php">Search</a>
       <?php
       if (isset($_SESSION['valid_user'])) {
+        echo '<a href="">Inbox</a>';
+        echo '<a href="profile.php">My heydate</a>';
         echo '<a href="logout.php">Log out</a>';
       } else {
-        echo "<a href='register.html'>Register</a>";
+        echo "<a href='registration.php'>Register</a>";
       }
       ?>
-      <a href="">Inbox</a>
-      <a href="profile.html">My heydate</a>
-      <a href="search_results.html">Search</a>
     </nav>
   </div>
 
@@ -59,15 +59,16 @@ if (isset($_POST['name']) && isset($_POST['password']))
       <div class="section_container">
       <?php
       if (isset($_SESSION['valid_user'])) {
+        $row = get_basic_info($_SESSION['valid_userID'], $db);
         echo '   
         <!-- profile summary -->
         <div class="left homepage_profile"> 
-          <img class="left" src="img/male.jpg" height="180"> <!-- profile photo -->
+          <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="180"> <!-- profile photo -->
           <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
-            <div id="profile_name" style="font-size:40;">PSY</div>
-            <div><grey>Age: </grey>22<br><grey>City: </grey>Singapore<br><grey>Education: </grey>Bachelor<br><grey>Height: </grey>180cm</div>
+            <div id="profile_name" style="font-size:40;">'.$row['name'].'</div>
+            <div><grey>Age: </grey>'.cal_age($row['birthdate']).'<br><grey>City: </grey>'.$row['city'].'<br><grey>Education: </grey>'.$row['education'].'<br><grey>Height: </grey>'.$row['height'].'cm</div>
             <div class="bottom">
-              <button onclick="location.href = "profile.html"">Enter my heydate</button>
+              <button onclick="location.href = \'profile.php\'">Enter my heydate</button>
             </div>
           </div>
         </div>
@@ -121,10 +122,11 @@ if (isset($_POST['name']) && isset($_POST['password']))
 
     <!-- recommend section -->
     <div class="recommend"> 
+      <!-- female section -->
       <div class="sub_container left">
         <?php
         $query = 'SELECT * FROM users_account WHERE gender="Female"'
-                .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 4';
+                .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 8';
         $result = $db->query($query);
         while($row = $result->fetch_assoc()){
            /*
@@ -138,13 +140,46 @@ if (isset($_POST['name']) && isset($_POST['password']))
                  $row['education'].'<br/>';
            echo "</div></a>";
            */
-
            echo '
            <div class="left findlover_box">
-             <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">
-             <div class="right profile_summary">
+             <a href="browse_profile.php?customerID='.$row['userID'].'"><img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"></a>
+             <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
-               <div class="clear_left">'/*.$row['age'].', '*/.$row['city'].', '.$row['height'].', '.$row['education'].'</div>
+               <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>
+               <div class="bottom">
+                 <button>Like</button>
+                 <button>View</button>
+               </div>
+             </div>
+           </div>
+           ';
+        }
+        ?>
+      </div>
+      <!-- male section -->
+      <div class="sub_container right">
+        <?php
+        $query = 'SELECT * FROM users_account WHERE gender="Male"'
+                .(isset($_SESSION['valid_user'])?(' and name!="'.$_SESSION['valid_user'].'"'):'').' order by rand() LIMIT 8';
+        $result = $db->query($query);
+        while($row = $result->fetch_assoc()){
+           /*
+           echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+           echo '<div id = "users">';
+           echo '<img src="users_profile_photo/'.
+                ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';
+           echo  $row['name'].'<br/>'.
+                 $row['city'].'<br/>'.
+                 $row['height'].'<br/>'.
+                 $row['education'].'<br/>';
+           echo "</div></a>";
+           */
+           echo '
+           <div class="left findlover_box">
+             <a href="browse_profile.php?customerID='.$row['userID'].'"><img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"></a>
+             <div class="left profile_summary">
+               <label class="left" id="profile_name">'.$row['name'].'</label>
+               <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>
                <div class="bottom">
                  <button>Like</button>
                  <button>View</button>
