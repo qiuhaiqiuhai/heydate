@@ -1,5 +1,5 @@
 <?php
-@$db = new mysqli('localhost','admin', 'admin', 'heydatedb');
+@$db = new mysqli('localhost','root', '', 'heydatedb');
 // @ to ignore error message display //
 if ($db->connect_error){
 	echo "Database is not online"; 

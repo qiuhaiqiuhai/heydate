@@ -19,6 +19,7 @@ include "members_only.php";
 <a href="index.php">Main</a>
 <a href="logout.php">Logout</a>
 <a href="registration.php">Register</a>
+<a href="message_box.php">Inbox</a>
 </nav>
 
 <section>
@@ -190,6 +191,8 @@ photos:
       }
 
 ?>
+
+
     
     
 <?php 
