@@ -63,7 +63,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
         echo '   
         <!-- profile summary -->
         <div class="left homepage_profile"> 
-          <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="180" width="180"> <!-- profile photo -->
+          <div class="image_container_180" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
           <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
             <div id="profile_name" style="font-size:40;">'.$row['name'].'</div>
             <div><grey>Age: </grey>'.cal_age($row['birthdate']).'<br><grey>City: </grey>'.$row['city'].'<br><grey>Education: </grey>'.$row['education'].'<br><grey>Height: </grey>'.$row['height'].'cm</div>
@@ -142,7 +142,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
            */
            echo '
            <div class="left findlover_box">
-             <a href="browse_profile.php?customerID='.$row['userID'].'"><img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"></a>
+             <a href="browse_profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
              <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
                <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>
@@ -176,7 +176,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
            */
            echo '
            <div class="left findlover_box">
-             <a href="browse_profile.php?customerID='.$row['userID'].'"><img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"></a>
+             <a href="browse_profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
              <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
                <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>
