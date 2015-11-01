@@ -62,6 +62,17 @@ include "members_only.php";
               $result = $db->query($query);
 
               $num_results = $result->num_rows;
+              if ($num_results==0) {
+                 echo '<div onclick="showHide_photo(\'add_photo\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/add.jpeg);" ></div>';
+                 
+                 echo '<div class="display_photo" style="display:none;"id="add_photo"></br><button onclick="showHide_photo(\'add_photo\')" >Hide</button>';
+                 ?>
+                 <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
+                      <input type="file" name="photo" accept="image/*" >
+                      <input type=submit name=photo value=Upload >
+                  </form>
+                  <?php echo '</div>'; 
+              }
 
               for ($i=0; $i <$num_results; $i++) {
                  $photo = $result->fetch_assoc();
@@ -176,6 +187,17 @@ include "members_only.php";
               $result = $db->query($query);
 
               $num_results = $result->num_rows;
+              if ($num_results==0) {
+                 echo '<div onclick="showHide_photo(\'add_photo\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/add.jpeg);" ></div>';
+                 
+                 echo '<div class="display_photo" style="display:none;"id="add_photo"></br><button onclick="showHide_photo(\'add_photo\')" >Hide</button>';
+                 ?>
+                 <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
+                      <input type="file" name="photo" accept="image/*" >
+                      <input type=submit name=photo value=Upload >
+                  </form>
+                  <?php echo '</div>'; 
+              }
 
               for ($i=0; $i <$num_results; $i++) {
                  $photo = $result->fetch_assoc();
