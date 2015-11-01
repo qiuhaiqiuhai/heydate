@@ -11,3 +11,31 @@
 .section_container .img_small{
 	margin: 0 0 5 0;
 }
+.column_container button{
+	margin:10;
+}
+
+textarea{
+	float:left;
+	clear:both;
+	width: 90%;
+	height: 80;
+}
+table form{
+	margin: 0;
+	float: center;
+}
+table grey{
+	font-size: 12;
+}
+td{
+	width: 50%;
+	height: 35;
+	padding-right: 5;
+}
+table input{
+	width: 100%;
+}
+table select{
+	width: 100%;
+}

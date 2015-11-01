@@ -19,7 +19,7 @@ include "members_only.php";
     <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
     <nav>
       <a href="index.php">Home</a>
-      <a href="">Inbox</a>
+      <a href="inbox.php">Inbox</a>
       <a href="profile.php">My heydate</a>
       <a href="search_results.php">Search</a>
       <a href="logout.php">Log out</a>
@@ -55,7 +55,7 @@ include "members_only.php";
                         '<input type=submit name=profilePhoto value="Change Profile photo" >'.
                     '</form>  ';
               echo '</div>';
-              echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
+              echo '  <div class="left column_container " style="overflow-y: hidden;height: 190px;">';
               
               $query = 'select * from users_photo '
                        ."where userID=".$_SESSION['valid_userID']." order by photo desc ";
@@ -89,41 +89,42 @@ include "members_only.php";
               }
 
               echo '</div>
-                <div class="left column_container" style="height:190; width:310; margin-left:15px">
-
-                  <div class="right">';
+                <div class="left column_container" style="height:190; width:310; margin-left:15px">';
 
               echo '
-                  </div>
-                  <div class="left clear bottom" style="width:100%;">
-                    <li><grey>Name: </grey><input type=text name="name" id="name" required="required" form="submit_edit" value = "'.$row['name'].'"></li>
-                    <li><grey>Email: </grey><input type=email name="email" id="email" required="required" form="submit_edit" value = "'.$row['email'].'"></li>
-                    <li><grey>Password: </grey><input type=password name="password" id="password" required="required" form="submit_edit" value = "'.$row['name'].'"></li>
-                    <li><grey>Confirm Password: </grey><input type=password name=password2 id="password2" required="required" value = "'.$row['name'].'" onkeyup="checkPass();" ></li>
-                    <li><grey>Gender: </grey>
+                  <table class="left clear bottom" style="width:100%;">
+                    <tr><td><grey>Name: </grey><input type=text name="name" id="name" required="required" form="submit_edit" value = "'.$row['name'].'"></td>
+                    <td><grey>Email: </grey><input type=email name="email" id="email" required="required" form="submit_edit" value = "'.$row['email'].'"></td></tr>
+                    <tr><td><grey>Password: </grey><input type=password name="password" id="password" required="required" form="submit_edit" value = "'.$row['name'].'"></td>
+                    <td><grey>Confirm Password: </grey><input type=password name=password2 id="password2" required="required" value = "'.$row['name'].'" onkeyup="checkPass();" ></td></tr>
+                    <tr><td><grey>Gender: </grey>
                       <select name="gender" required="required" form="submit_edit" value= "'.$row['gender'].'">
                         <option value="Male">Male</option>
                         <option value="Female" '.(("Female"==$row['gender'])?' selected':'').'>Female</option>
                       </select>
-                    </li>
-                    <li><grey>Birthday: </grey><input type="date" name="birthdate" required="required" form="submit_edit" value="'.$row['birthdate'].'"
-                    ></li>
-                    <li><grey>City: </grey>
+                    </td>
+                    <td><grey>Birthday: </grey><input type="date" name="birthdate" required="required" form="submit_edit" value="'.$row['birthdate'].'"
+                    ></td></tr>
+                    <tr><td><grey>City: </grey>
                       <select name="city" id="listBox" required="required" form="submit_edit" value="'.$row['city'].'">';
                         foreach($Cities as $city){
                           echo '<option value='.$city.(($city==$row['city'])?' selected':'').'>'.$city.'</option>';
                         }
                         echo '</select>
-                    </li>
-                    <li><grey>Height: </grey><input type=number name="height" value='.$row['height'].' min=0 max=250 form="submit_edit" required="required">cm</li>
-                    <li><grey>Education: </grey><input type=text name="education" form="submit_edit" required="required" value = "'.$row['education'].'"></li>';
+                    </td>
+                    <td><grey>Height: </grey><input style="width:80%" type=number name="height" value='.$row['height'].' min=0 max=250 form="submit_edit" required="required"> cm</td></tr>
+                    <tr><td><grey>Education: </grey><select name="city" id="listBox" required="required" form="submit_edit" value="'.$row['education'].'">';
+                        foreach($Educations as $edu){
+                          echo '<option value='.$edu.(($edu==$row['education'])?' selected':'').'>'.$edu.'</option>';
+                        }
+                        echo '</select></td>';
 
-              echo '<li><form action="profile_action.php" method=POST id="submit_edit" onclick="return checkOnSubmit();">
-                <button type=submit name="submit_edit" value="submit" >Submit</button>
-                </form></li>';
+              echo '<td><form action="profile_action.php" method=POST id="submit_edit" onclick="return checkOnSubmit();">
+                <button class="bottom" type=submit name="submit_edit" value="submit" style="margin:0;">Submit</button>
+                </form></td></tr>';
 
               echo
-                  '</div>
+                  '</table>
                 </div>
               </div>';
 
@@ -180,7 +181,7 @@ include "members_only.php";
                         '<input type=submit name=profilePhoto value="Change Profile photo" >'.
                     '</form>  ';
               echo '</div>';
-              echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
+              echo '  <div class="left column_container " style="overflow-y: hidden;height: 190px;">';
               // user other photos
               $query = 'select * from users_photo '
                        ."where userID=".$_SESSION['valid_userID']." order by photo desc ";
@@ -217,7 +218,7 @@ include "members_only.php";
               echo '
                 </div>
                 <div class="left column_container" style="height:190; margin-left:20px">
-                  <div class="left" id="profile_name" style="font-size:40;width:219">'.$row['name'].'</div>
+                  <div class="left" id="profile_name" style="font-size:40;width:200">'.$row['name'].'</div>
                   <div class="right">';
 
               echo '<form action="profile.php" method=GET>
@@ -282,13 +283,6 @@ include "members_only.php";
 
     </div> 
     <!-- profile part end -->
-
-
-  
-
-
-  
-      
       
     <!-- sidebars -->
     <div class="sub_container right clear_right sidebar">
