@@ -249,3 +249,16 @@ h1 {
     background-position: center; 
     margin: 5 0 0 8;
 }
+
+.display_photo{
+
+    opacity: 0.9;
+    background: white;
+    position:fixed;
+    left: 350px;
+    top: 300px;    
+    z-index: 1;
+    padding: 10px;
+    text-align: center;
+
+}

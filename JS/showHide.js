@@ -20,3 +20,12 @@ function showHide_inbox(elementID){
     }
 }
 
+function showHide_photo(elementID){
+    var content = document.getElementById(elementID);
+
+    if (content.style.display == 'none') {
+        content.style.display = '';
+    }else{
+        content.style.display = 'none';
+    }
+}
