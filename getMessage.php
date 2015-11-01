@@ -15,7 +15,7 @@ if ($newMessage) {
 $query = 'SELECT * from users_message '
            ."where (senderID=".$user1." and receiverID =".$user2.")or".
             "(receiverID=".$user1." and senderID =".$user2.")".
-           'order by time desc';
+           'order by time';
 $message_history = $db->query($query);
 
 while ($row = $message_history->fetch_assoc()) {

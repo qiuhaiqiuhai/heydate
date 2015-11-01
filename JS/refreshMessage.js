@@ -19,4 +19,7 @@ function refreshMessage(user1, user2, message_area, textarea) {
 	xmlhttp.open("GET","getMessage.php?user1="+user1+"&user2="+user2+"&newMessage="+newMessage);
 	xmlhttp.send();
 	document.getElementById(textarea).value='';
+
+	setTimeout(function(){element = document.getElementById(message_area);
+	element.scrollTop = element.scrollHeight;},20);	
 }
