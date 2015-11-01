@@ -16,7 +16,7 @@
 	</div>
 	<!-- main body -->
 	<div class="container">
-		<form class="sub_container clear" style="text-align:center" action="register.php" method="post" onsubmit="return checkOnSubmit();">
+		<form class="sub_container clear" style="text-align:center" action="register.php" method="post" enctype="multipart/form-data" onsubmit="return checkOnSubmit();">
 			<div class="section_container"><h1>Welcome to <mistral>heydate</mistral></h1></div>
 			<div class="section_container">
 				<div class="column_container" style="width:37%">
@@ -46,7 +46,7 @@
 					<li class="text_right"><grey>Height </grey></li>
 					<li><input type="number" name="height" required="required" min=0 max=250 > cm</li>
 					<li class="text_right"><grey>Photo<br>(optional)</grey></li>
-					<li><input type="file" accept="image/" name="photo"></li>
+					<li><input type="file" accept="image/*" name="profilePhoto"></li>
 				</div>
 			</div>
 			<div class="section_container">

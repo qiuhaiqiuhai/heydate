@@ -63,5 +63,12 @@ $_SESSION['valid_userID'] = $row['userID'];
 photo_upload('profilePhoto', 'users_profile_photo/',$_SESSION['valid_userID'], $db, false);
 
 ?>
+<?php
+$to = "f35im@localhost";
+$subject = "Hi ".$_SESSION['valid_user'].", Thank you for registering on Heydate";
+$txt = "Hi ".$_SESSION['valid_user'].", are you ready to start finding the other half of your life?";
+$headers = "From: heydate@heydate.com\r\n";
 
+mail($to,$subject,$txt,$headers);
+?>
 <a href="index.php">Back to main page</a>
