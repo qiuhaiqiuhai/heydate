@@ -46,10 +46,16 @@ include "members_only.php";
               $action = $action.'?edit=Edit+Profile';
               $action_postfix = '&';
 
-              echo '
-              <div class="clear section_container">
-                <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
-                <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
+              echo '<div class="clear section_container">';
+              echo '<div onclick="showHide_photo(\'current_user_profile_photo\')" class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->';
+              echo '<div class="display_photo" style="display:none;"id="current_user_profile_photo"><img height=300 src="users_profile_photo/'.$row['profilePhoto'].'"></img></br><button onclick="showHide_photo(\'current_user_profile_photo\')" >Hide</button>';
+              //<!-- change profile photo -->
+              echo '<form action="'.$action.'" method=POST enctype="multipart/form-data">'.
+                        '<input type="file" name=profilePhoto accept="image/*">'.
+                        '<input type=submit name=profilePhoto value="Change Profile photo" >'.
+                    '</form>  ';
+              echo '</div>';
+              echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
               
               $query = 'select * from users_photo '
                        ."where userID=".$_SESSION['valid_userID']." order by photo desc ";
@@ -59,8 +65,16 @@ include "members_only.php";
 
               for ($i=0; $i <$num_results; $i++) {
                  $photo = $result->fetch_assoc();
-                 echo '<div onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
-                 //echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
+                 //echo '<div onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
+                 echo '<div onclick="showHide_photo(\''.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
+                 
+                 echo '<div class="display_photo" style="display:none;"id="'.$photo['photo'].'"><img height=300 src="users_photo/'.$photo['photo'].'"></img></br><button onclick="showHide_photo(\''.$photo['photo'].'\')" >Hide</button><button onclick="location.href=\''.$action.$action_postfix.'delete='.$photo['photo'].'\'">delete</button>';
+                 ?>
+                 <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
+                      <input type="file" name="photo" accept="image/*" >
+                      <input type=submit name=photo value=Upload >
+                  </form>
+                  <?php echo '</div>';   
               }
 
               echo '</div>
@@ -146,11 +160,16 @@ include "members_only.php";
 
             }else{
               // print 
-              echo '
-              <div class="clear section_container">
-                 <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
-                <div class="left column_container" style="overflow-y: scroll;height: 190px;">';
-
+              echo '<div class="clear section_container">';
+              echo '<div onclick="showHide_photo(\'current_user_profile_photo\')" class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->';
+              echo '<div class="display_photo" style="display:none;"id="current_user_profile_photo"><img height=300 src="users_profile_photo/'.$row['profilePhoto'].'"></img></br><button onclick="showHide_photo(\'current_user_profile_photo\')" >Hide</button>';
+              //<!-- change profile photo -->
+              echo '<form action="'.$action.'" method=POST enctype="multipart/form-data">'.
+                        '<input type="file" name=profilePhoto accept="image/*">'.
+                        '<input type=submit name=profilePhoto value="Change Profile photo" >'.
+                    '</form>  ';
+              echo '</div>';
+              echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
               // user other photos
               $query = 'select * from users_photo '
                        ."where userID=".$_SESSION['valid_userID']." order by photo desc ";
@@ -163,7 +182,14 @@ include "members_only.php";
                  //echo '<div onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
                  echo '<div onclick="showHide_photo(\''.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
                  
-                 echo '<div class="display_photo" style="display:none;"id="'.$photo['photo'].'"><img height=300 src="users_photo/'.$photo['photo'].'"></img></br><button onclick="showHide_photo(\''.$photo['photo'].'\')" >Hide</button><button onclick="location.href=\''.$action.$action_postfix.'delete='.$photo['photo'].'\'">delete</button></div>';
+                 echo '<div class="display_photo" style="display:none;"id="'.$photo['photo'].'"><img height=300 src="users_photo/'.$photo['photo'].'"></img></br><button onclick="showHide_photo(\''.$photo['photo'].'\')" >Hide</button><button onclick="location.href=\''.$action.$action_postfix.'delete='.$photo['photo'].'\'">delete</button>';
+                 ?>
+                 <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
+                      <input type="file" name="photo" accept="image/*" >
+                      <input type=submit name=photo value=Upload >
+                  </form>
+                  <?php echo '</div>';             
+
               }
 
               echo '
@@ -236,17 +262,10 @@ include "members_only.php";
     <!-- profile part end -->
 
 
-  <!-- change profile photo -->
-  <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
-      <input type="file" name=profilePhoto accept="image/*">
-      <input type=submit name=profilePhoto value="Change Profile photo" >
-  </form>  
+  
 
 
-  <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
-      <input type="file" name="photo" accept="image/*" >
-      <input type=submit name=photo value=Upload >
-  </form>
+  
       
       
     <!-- sidebars -->

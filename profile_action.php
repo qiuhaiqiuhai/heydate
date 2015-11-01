@@ -115,11 +115,11 @@ if(isset($_POST['submit_edit'])){
 		$action = $action.'?edit=Edit+Profile';
 	}
 		
-	//header('Location: '.$action);
+	header('Location: '.$action);
 
 }	
 
-header("Location: profile.php")
+//header("Location: profile.php")；
 	
 ?>
 
