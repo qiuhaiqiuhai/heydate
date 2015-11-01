@@ -11,12 +11,14 @@ function showHide(elementID){
 
 function showHide_inbox(elementID){
     var content = document.getElementById(elementID);
+    var hider = document.getElementById("hider"+elementID);
 
-    if (content.style.height = 100) {
-        content.style.height = 150;
-    }
-    if (content.style.height > 100) {
+    if (hider.style.display=="none") {
+        content.style.height = 260;
+        hider.style.display="";
+    } else {
         content.style.height = 100;
+        hider.style.display="none";
     }
 }
 

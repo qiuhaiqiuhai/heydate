@@ -41,7 +41,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
       <a href="index.php">Home</a>
       <?php
       if (isset($_SESSION['valid_user'])) {
-        echo '<a href="">Inbox</a>';
+        echo '<a href="inbox.php">Inbox</a>';
         echo '<a href="profile.php">My heydate</a>';
         echo '<a href="search_results.php">Search</a>';
         echo '<a href="logout.php">Log out</a>';

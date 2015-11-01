@@ -10,6 +10,13 @@
     border-bottom-style: dashed;
     border-bottom-color: #e0e0e0;
     height: 100;
+    margin-bottom: 10;
+    transition-duration: 0.3s;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.section_container a{
+    margin: 0;
 }
 .profile_summary{
     height: 100;
@@ -29,4 +36,47 @@
     right: 10;
     width: 100;
     top: 45;
+}
+.hider{
+    margin-top: 10;
+    transition-delay: 1s;
+    transition-duration: 1s;
+    overflow: auto;
+}
+.message_area{
+    overflow: auto;
+    height: 80;
+    overflow-x: hidden;
+    border-width: 2px;
+    border-style: dashed;
+    border-color: #e0e0e0;
+    padding:5;
+}
+message{
+    max-width: 60%;
+    margin-bottom: 5;
+    padding: 0 10 0 10;
+    border-radius: 5px;
+    height: 20
+    
+}
+#from{
+    text-align: left;
+    background-color: lightpink;
+}
+#to{
+    text-align: right;
+    background-color: lightblue;
+}
+#reply_box{
+    width: 100%;
+    overflow-x: hidden;
+    margin-top: 10;
+}
+#reply_box button{
+    right: 10;
+}
+textarea{
+    position: relative;
+    width: 85%;
 }

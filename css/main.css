@@ -37,6 +37,7 @@ body {
 	position: relative;
 	background-color: #ec407a;
 	color: white;
+    min-width: 1160px;
 }
 
 #banner_top {
@@ -248,4 +249,7 @@ h1 {
     float:left;
     background-position: center; 
     margin: 5 0 0 8;
+}
+textarea:focus{
+    outline-color: #ec407a;
 }

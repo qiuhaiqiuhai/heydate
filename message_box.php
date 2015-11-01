@@ -34,7 +34,7 @@ include "members_only.php";
 
 <?php 
 
-    $query = 'select * from users_account right join(select receiverID from
+    $query = 'SELECT * FROM users_account RIGHT JOIN(SELECT receiverID FROM
               (SELECT receiverID, time FROM `users_message` WHERE senderID='.$_SESSION['valid_userID'].'
               UNION
               SELECT senderID, time  FROM `users_message` WHERE receiverID='.$_SESSION['valid_userID'].') 
