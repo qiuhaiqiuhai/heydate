@@ -48,11 +48,21 @@ include "members_only.php";
               echo '
               <div class="clear section_container">
                 <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
-                <div class="left column_container">
-                  <img class="left clear_left img_small" src="img/male2.jpg">
-                  <img class="left clear_left img_small" src="img/male3.jpg">
-                  <img class="left clear_left img_small" src="img/male3.jpg">
-                </div>
+                <div class="left column_container">';
+              
+              $query = 'select * from users_photo '
+                       ."where userID=".$_SESSION['valid_userID']." order by photo desc LIMIT 3";
+              $result = $db->query($query);
+
+              $num_results = $result->num_rows;
+
+              for ($i=0; $i <$num_results; $i++) {
+                 $photo = $result->fetch_assoc();
+                 echo '<div onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
+                 //echo '<a href="'.$action.$action_postfix.'delete='.$row['photo'].'">delete</a>';
+              }
+
+              echo '</div>
                 <div class="left column_container" style="height:190; width:310; margin-left:20px">
 
                   <div class="right">';
@@ -142,7 +152,7 @@ include "members_only.php";
 
               // user other photos
               $query = 'select * from users_photo '
-                       ."where userID=".$_SESSION['valid_userID']." LIMIT 3";
+                       ."where userID=".$_SESSION['valid_userID']." order by photo desc LIMIT 3";
               $result = $db->query($query);
 
               $num_results = $result->num_rows;
