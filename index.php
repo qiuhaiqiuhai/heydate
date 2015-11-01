@@ -57,20 +57,37 @@ if (isset($_POST['name']) && isset($_POST['password']))
     <!-- profile summary and search -->
     <div class="sub_container"> 
       <div class="section_container">
-      <?php
-      if (isset($_SESSION['valid_user'])) {
-        $row = get_basic_info($_SESSION['valid_userID'], $db);
-        echo '   
         <!-- profile summary -->
-        <div class="left homepage_profile"> 
-          <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
-          <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
-            <div id="profile_name" style="font-size:40;">'.$row['name'].'</div>
-            <div><grey>Age: </grey>'.cal_age($row['birthdate']).'<br><grey>City: </grey>'.$row['city'].'<br><grey>Education: </grey>'.$row['education'].'<br><grey>Height: </grey>'.$row['height'].'cm</div>
-            <div class="bottom">
-              <button onclick="location.href = \'profile.php\'">Enter my heydate</button>
+        <div class="left homepage_profile">
+        <?php
+        if (isset($_SESSION['valid_user'])) {
+          $row = get_basic_info($_SESSION['valid_userID'], $db);
+          echo '   
+          
+            <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
+            <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
+              <div id="profile_name" style="font-size:40;">'.$row['name'].'</div>
+              <div><grey>Age: </grey>'.cal_age($row['birthdate']).'<br><grey>City: </grey>'.$row['city'].'<br><grey>Education: </grey>'.$row['education'].'<br><grey>Height: </grey>'.$row['height'].'cm</div>
+              <div class="bottom">
+                <button onclick="location.href = \'profile.php\'">Enter my heydate</button>
+              </div>
             </div>
-          </div>
+        ';
+        } else {
+          // if the user hasn't logged in
+          echo '
+             <form method="post" action="index.php">
+             <table class="bottom">
+             <tr><td colspan="2"><label>Please login here</label></td></tr>
+             <tr><td>Username:</td>
+             <td><input type="text" name="name"></td></tr> 
+             <tr><td>Password:</td> 
+             <td><input type="password" name="password"></td></tr> 
+             <tr><td colspan="2" align="center"> 
+             <button class="right" type="submit" value="Log in">Login</button></td></tr> 
+             </table></form></section>';
+        }
+        ?>
         </div>
         <!-- search form -->
         <form class="right" id="quick_search" action="search_results.php" method="post"> 
@@ -103,20 +120,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
           <button type="submit" class="clear_right right" value="submit" style="margin-top:25">Search</button>
           <a href="" class="right additional_button">Advanced Search</a>
         </form>
-      ';
-      } else {
-        // if the user hasn't logged in
-        echo '<form method="post" action="index.php">
-           <table>
-           <tr><td>Username:</td>
-           <td><input type="text" name="name"></td></tr> 
-           <tr><td>Password:</td> 
-           <td><input type="password" name="password"></td></tr> 
-           <tr><td colspan="2" align="center"> 
-           <input type="submit" value="Log in"></td></tr> 
-           </table></form></section>';
-      }
-      ?>
+      
       </div>
     </div>
 

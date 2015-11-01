@@ -83,6 +83,10 @@ nav a:hover{
 	text-decoration: underline;
 }
 
+li{
+	list-style-type: none;
+}
+
 .container {
 	padding: 30px 11.5% 30px 11.5%;
 	width: 77%;
