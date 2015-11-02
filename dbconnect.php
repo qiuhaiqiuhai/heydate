@@ -1,5 +1,5 @@
 <?php
-@$db = new mysqli('localhost','root', '', 'heydatedb');
+@$db = new mysqli('localhost','root', '', 'f35im');
 // @ to ignore error message display //
 if ($db->connect_error){
 	echo "Database is not online"; 
@@ -7,8 +7,8 @@ if ($db->connect_error){
 	// above 2 statments same as die() //
 	}
 
-if (!$db->select_db ("heydatedb"))
-	exit("<p>Unable to locate the heydatedb database</p>");
+if (!$db->select_db ("f35im"))
+	exit("<p>Unable to locate the f35im database</p>");
 
 $Cities = array(
    "Tokyo",

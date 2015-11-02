@@ -2,7 +2,37 @@
 include "dbconnect.php";
 include "members_only.php";
 ?>
+<?php 
+    if(isset($_POST['search'])){
+        $gender = $_POST['gender'];
+        $min_age = $_POST['min_age'];
+        $max_age = $_POST['max_age'];
+        $city = $_POST['city'];
+        
+        $date=date_create();
+        date_add($date,date_interval_create_from_date_string('-'.$max_age.' years'));
+        $bday_upbound = date_format($date, "Y-m-d");
+        $date=date_create();
+        date_add($date,date_interval_create_from_date_string('-'.$min_age.' years'));
+        $bday_lowbound = date_format($date, "Y-m-d");
+        $birthdate_range ='';// ' ( birthdate between "'.$bday_lowbound.'" and "'.$bday_upbound.'" ) AND ';
 
+        // expand part
+        $min_height = $_POST['min_height'];
+        $query_min_height = ($min_height==0)?'':' AND height>'.$min_height;
+        $max_height = $_POST['max_height'];
+        $query_max_height = ($max_height==0)?'':' AND height<'.$max_height;
+        $education = $_POST['education'];
+        $query_education = ($education=="Any")?'':' AND education="'.$education.'"';
+
+        $query = 'SELECT * FROM users_account WHERE '.$birthdate_range.' gender="'.$gender.'" AND city="'.$city.'"'.$query_min_height.$query_max_height.$query_education;
+//echo $query;
+    } else {
+        $row = get_basic_info($_SESSION["valid_userID"], $db);
+        $gender = ($row['gender']=="Male")?"Female":"Male";
+        $query = 'SELECT * FROM users_account WHERE gender="'.$gender.'"';
+    }
+?>  
 
 <html>
 <head>
@@ -33,8 +63,8 @@ include "members_only.php";
         <div class="wrapper">
           <div class="left" style="margin-top:5">
             <select name="gender">
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
+              <option value="Male" <?php echo $gender=='Male'?'selected':''; ?> >Male</option>
+              <option value="Female" <?php echo $gender=='Female'?'selected':''; ?> >Female</option>
             </select>
             from
             <select name="min_age">
@@ -87,35 +117,7 @@ include "members_only.php";
       </form>
 
 
-    <?php 
-    if(isset($_POST['search'])){
-        $gender = $_POST['gender'];
-        $min_age = $_POST['min_age'];
-        $max_age = $_POST['max_age'];
-        $city = $_POST['city'];
-        
-        $date=date_create();
-        date_add($date,date_interval_create_from_date_string('-'.$max_age.' years'));
-        $bday_upbound = date_format($date, "Y-m-d");
-        date_add($date,date_interval_create_from_date_string('-'.$min_age.' years'));
-        $bday_lowbound = date_format($date, "Y-m-d");
-
-        // expand part
-        $min_height = $_POST['min_height'];
-        $query_min_height = ($min_height==0)?'':' AND height>'.$min_height;
-        $max_height = $_POST['max_height'];
-        $query_max_height = ($max_height==0)?'':' AND height<'.$max_height;
-        $education = $_POST['education'];
-        $query_education = ($education=="Any")?'':' AND education="'.$education.'"';
-
-        $query = 'SELECT * FROM users_account WHERE gender="'.$gender.'" AND city="'.$city.'"'.$query_min_height.$query_max_height.$query_education;
-
-    } else {
-        $row = get_basic_info($_SESSION["valid_userID"], $db);
-        $gender = ($row['gender']=="Male")?"Female":"Male";
-        $query = 'SELECT * FROM users_account WHERE gender="'.$gender.'"';
-    }
-    ?>       
+     
 
 <!-- <div id="search">
     <h2>Advanced Search</h2>

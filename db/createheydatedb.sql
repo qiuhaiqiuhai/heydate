@@ -1,5 +1,5 @@
-create database heydatedb;
-use heydatedb;
+create database f35im;
+use f35im;
 create table users_account 
 (	userID int unsigned not null auto_increment primary key,
 	name varchar(20) not null, 
