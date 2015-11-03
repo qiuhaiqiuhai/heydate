@@ -29,7 +29,7 @@ $result = $db->query($query);
 
 if ($result->num_rows >0 )
   {
-  	$_SESSION['username_exist'] = true;
+  	$_SESSION['username_exist'] = $name;
   	header('Location: registration.php');
   	exit();
 

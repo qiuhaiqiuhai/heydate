@@ -260,7 +260,7 @@ textarea:focus{
 }
 
 .display_photo{
-    opacity: 0.9;
+    
     background: white;
     position:fixed;
     left: 350px;

@@ -64,7 +64,7 @@
 	<?php
 	session_start();  
 	if(isset($_SESSION['username_exist'])) 
-		echo "<script type='text/javascript'>alert('Username exists!');</script>";
+		echo "<script type='text/javascript'>alert('Username \"".$_SESSION['username_exist']."\" exists!');</script>";
 	session_destroy(); 
 	?>
 </html>

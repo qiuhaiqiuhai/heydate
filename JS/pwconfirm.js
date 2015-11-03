@@ -10,7 +10,7 @@ function checkPass()
     var goodColor = "#66cc66";
     var badColor = "#ff6666";
 
-    var pos = pass1.value.search(/^(?=\w*\d)(?=\w*[A-Z][^A-Z]+[A-Z])\w{8,}$/);
+    var pos = pass1.value.search(/^(?=\w*\d)(?=\w*[A-Z])\w{8,}$/);
 
     if(pos != 0){
         password_validate=false;
