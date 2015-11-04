@@ -6,21 +6,40 @@ include "members_only.php";
 
 <html>
 <head>
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/profile.css">
 </head>
 <body>
 
-<header>
-<h1>heydate</h1>
-</header>
+<div class="banner" id="banner_top">
+    <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
+    <nav>
+      <a href="index.php">Home</a>
+      <a href="logout.php">Logout</a>
+      <a href="registration.php">Register</a>
+      <a href="">Inbox</a>
+      <a href="profile.php">My heydate</a>
+      <a href="search_results.php">Search</a>
+      Hello, <?php echo $_SESSION['valid_user']; ?>
+    </nav>
+</div>
 
-<nav>
-<a href="index.php">Main</a>
-<a href="logout.php">Logout</a>
-<a href="registration.php">Register</a>
-<a href="profile.php">Personal Profile</a>
-Hello, <?php echo $_SESSION['valid_user']; ?>
-</nav>
+photos:
+
+<?php 
+  $query = 'select * from users_photo '
+           ."where userID=".$customerID ;
+  $result = $db->query($query);
+
+  $num_results = $result->num_rows;
+
+  for ($i=0; $i <$num_results; $i++) {
+     $row = $result->fetch_assoc();
+     echo '<img src="users_photo/'.$row['photo'].'" height="100">';     
+  }
+
+
+?>
 
 <section>
 <?php 
@@ -114,22 +133,6 @@ description: <br/>
 
 ?>
 </p>
-photos:
-
-<?php 
-  $query = 'select * from users_photo '
-           ."where userID=".$customerID ;
-  $result = $db->query($query);
-
-  $num_results = $result->num_rows;
-
-  for ($i=0; $i <$num_results; $i++) {
-     $row = $result->fetch_assoc();
-     echo '<img src="users_photo/'.$row['photo'].'" height="100">';     
-  }
-
-
-?>
 
     
 </section>

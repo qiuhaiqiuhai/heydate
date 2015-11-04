@@ -21,6 +21,10 @@ if (isset($_POST['name']) && isset($_POST['password']))
     $row = $result->fetch_assoc();
     $_SESSION['valid_user'] = $name;
     $_SESSION['valid_userID'] = $row['userID'];     
+  }else{
+    echo '<script language="javascript">';
+    echo 'alert("Invalid username or password!")';
+    echo '</script>';
   }
   
 }

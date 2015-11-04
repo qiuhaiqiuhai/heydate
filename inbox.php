@@ -38,11 +38,11 @@ include "members_only.php";
     </div>
     <div class="sub_container right" id="message_container">
     	<?php
-    	$query = 'select * from users_account right join(select receiverID from
+    	$query = 'select * from (select * from users_account right join(select receiverID, time from
     	          (SELECT receiverID, time FROM `users_message` WHERE senderID='.$_SESSION['valid_userID'].'
     	          UNION
     	          SELECT senderID, time  FROM `users_message` WHERE receiverID='.$_SESSION['valid_userID'].') 
-    	          as X group by receiverID order by time DESC)as Y on userID=receiverID';
+    	          as X order by time DESC)as Y on userID=receiverID order by time DESC) as Z group by userID order by time DESC';
     	$Contacters = $db->query($query);
     	while($row1 = $Contacters->fetch_assoc()){
     		$contact=get_basic_info($row1['receiverID'],$db);

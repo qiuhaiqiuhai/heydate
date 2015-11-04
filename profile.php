@@ -74,7 +74,7 @@ include "members_only.php";
               $action_postfix = '&';
 
               echo '<div class="clear section_container">';
-              echo '<div onclick="showHide_photo(\'current_user_profile_photo\')" class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->';
+              echo '<div onclick="showHide_photo(\'current_user_profile_photo\')" class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> <!-- profile photo -->';
               echo '<div class="display_photo" style="display:none;"id="current_user_profile_photo"><img height=300 src="users_profile_photo/'.$row['profilePhoto'].'"></img></br><button onclick="showHide_photo(\'current_user_profile_photo\')" >Hide</button>';
               //<!-- change profile photo -->
               echo '<form action="'.$action.'" method=POST enctype="multipart/form-data">'.
@@ -82,7 +82,7 @@ include "members_only.php";
                         '<input type=submit name=profilePhoto value="Change Profile photo" >'.
                     '</form>  ';
               echo '</div>';
-              echo '  <div class="left column_container " style="overflow-y: hidden;height: 190px;">';
+              echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
               
               $query = 'select * from users_photo '
                        ."where userID=".$_SESSION['valid_userID']." order by photo desc ";
@@ -202,7 +202,7 @@ include "members_only.php";
             }else{
               // print 
               echo '<div class="clear section_container">';
-              echo '<div onclick="showHide_photo(\'current_user_profile_photo\')" class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->';
+              echo '<div onclick="showHide_photo(\'current_user_profile_photo\')" class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> <!-- profile photo -->';
               echo '<div class="display_photo" style="display:none;"id="current_user_profile_photo"><img height=300 src="users_profile_photo/'.$row['profilePhoto'].'"></img></br><button onclick="showHide_photo(\'current_user_profile_photo\')" >Hide</button>';
               //<!-- change profile photo -->
               echo '<form action="'.$action.'" method=POST enctype="multipart/form-data">'.
@@ -210,7 +210,7 @@ include "members_only.php";
                         '<input type=submit name=profilePhoto value="Change Profile photo" >'.
                     '</form>  ';
               echo '</div>';
-              echo '  <div class="left column_container " style="overflow-y: hidden;height: 190px;">';
+              echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
               // user other photos
               $query = 'select * from users_photo '
                        ."where userID=".$row['userID']." order by photo desc ";
@@ -247,7 +247,7 @@ include "members_only.php";
 
               echo '
                 </div>
-                <div class="left column_container" style="height:190; margin-left:20px">
+                <div class="left column_container" style="height:190; margin-left:15px">
                   <div class="left" id="profile_name" style="font-size:40;width:200">'.$row['name'].'</div>
                   <div class="right">';
 

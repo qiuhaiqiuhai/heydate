@@ -111,7 +111,6 @@ if(isset($_POST['submit_edit'])){
 	header('Location: '.$action);
 }	
 
-header("Location: profile.php");
 	
 ?>
 
