@@ -2,6 +2,10 @@
 
 include "dbconnect.php";
 session_start();
+$isLogin=false;
+
+if(isset($_SESSION['valid_user']))
+  $isLogin=true;
 
 if (isset($_POST['name']) && isset($_POST['password']))
 {
@@ -20,10 +24,13 @@ if (isset($_POST['name']) && isset($_POST['password']))
     // if they are in the database register the user id
     $row = $result->fetch_assoc();
     $_SESSION['valid_user'] = $name;
-    $_SESSION['valid_userID'] = $row['userID'];     
+    $_SESSION['valid_userID'] = $row['userID'];  
+    $isLogin=true;   
   }else{
     echo '<script language="javascript">';
-    echo 'alert("Invalid username or password!")';
+    echo 'alert("Invalid username or password!");';
+    
+    echo 'setTimeout(function(){document.getElementById("username").focus();},10);';
     echo '</script>';
   }
   
@@ -36,8 +43,19 @@ if (isset($_POST['name']) && isset($_POST['password']))
   <title>heydate</title>
   <link rel="stylesheet" type="text/css" href="css/main.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
+  <script type="text/javascript" src="JS/checkLogin.js"></script>
+  <script type="text/javascript" src="JS/showHide.js"></script>
+  <script> var isLogin = <?php echo json_encode($isLogin); ?>; </script>
 </head>
 <body>
+  <?php 
+    if(isset($_SESSION['new_user'])){
+      echo '<div class="display_photo" style="display:;"id="welcome_message"></br><button onclick="showHide_photo(\'welcome_message\')" >Got it!</button></div>';
+                  
+      unset($_SESSION['new_user']);
+    }
+  
+  ?>
   <!-- top banner -->
   <div class="banner" id="banner_top">
     <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
@@ -68,7 +86,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
           $row = get_basic_info($_SESSION['valid_userID'], $db);
           echo '   
           
-            <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> <!-- profile photo -->
+            <div class="image_container_190" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> <!-- profile photo -->
             <div class="profile_summary left" style="margin-left:20"> <!-- profile words -->
               <div id="profile_name" style="font-size:40;">'.$row['name'].'</div>
               <div><grey>Age: </grey>'.cal_age($row['birthdate']).'<br><grey>City: </grey>'.$row['city'].'<br><grey>Education: </grey>'.$row['education'].'<br><grey>Height: </grey>'.$row['height'].'cm</div>
@@ -82,9 +100,9 @@ if (isset($_POST['name']) && isset($_POST['password']))
           echo '
              <form method="post" action="index.php">
              <table class="bottom">
-             <tr><td colspan="2"><label>Please login here</label></td></tr>
+             <tr><td colspan="2"><label>Please login here:</label></td></tr>
              <tr><td>Username:</td>
-             <td><input type="text" name="name"></td></tr> 
+             <td><input type="text" name="name" id="username" ></td></tr> 
              <tr><td>Password:</td> 
              <td><input type="password" name="password"></td></tr> 
              <tr><td colspan="2" align="center"> 
@@ -94,7 +112,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
         ?>
         </div>
         <!-- search form -->
-        <form class="right" id="quick_search" action="search_results.php" method="post"> 
+        <form class="right" id="quick_search" action="search_results.php" method="post" onsubmit="return checkLogin(isLogin);"> 
           <div class="right clear" style="margin-top:30px"><h1>Find your love here</h1></div>
           <div class="right">
             <cat>Gender:</cat>
@@ -122,7 +140,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
             </select>
           </div>
           <button type="submit" class="clear_right right" value="submit" style="margin-top:25">Search</button>
-          <a href="" class="right additional_button">Advanced Search</a>
+          <a href="" class="right additional_button" onclick="return checkLogin(isLogin);" >Advanced Search</a>
         </form>
       
       </div>
@@ -150,15 +168,15 @@ if (isset($_POST['name']) && isset($_POST['password']))
            */
            echo '
            <div class="left findlover_box">
-             <a href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
+             <a onclick="return checkLogin(isLogin);" href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
              <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
-               <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>
-               <div class="bottom">
-                 <button>Like</button>
-                 <button>View</button>
-               </div>
-             </div>
+               <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>';
+               // <div class="bottom">
+               //   <button>Like</button>
+               //   <button>View</button>
+               // </div>
+           echo '</div>
            </div>
            ';
         }
@@ -184,15 +202,15 @@ if (isset($_POST['name']) && isset($_POST['password']))
            */
            echo '
            <div class="left findlover_box">
-             <a href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
+             <a onclick="return checkLogin(isLogin);" href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
              <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
-               <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>
-               <div class="bottom">
-                 <button>Like</button>
-                 <button>View</button>
-               </div>
-             </div>
+               <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>';
+               // <div class="bottom">
+               //   <button>Like</button>
+               //   <button>View</button>
+               // </div>
+           echo '</div>
            </div>
            ';
         }
