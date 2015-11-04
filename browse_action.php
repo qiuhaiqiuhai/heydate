@@ -35,17 +35,16 @@ if(isset($_POST['status_change'])){
 
 
 if(isset($_POST['message'])){
-  $message = $_POST['message'];
 
+  $message = $_POST['message'];
   $query = 'insert into users_message (senderID, receiverID, message, time) values ('.
            $_SESSION['valid_userID'].','.$customerID.',"'.$message.'", CURRENT_TIMESTAMP)';
-
   $result = $db->query($query);
-      if (!$result) 
-        echo $query." failed.";
+  if (!$result) echo $query." failed.";
+  echo "<script type='text/javascript'>alert('Message has been sent!');</script>";
 }
 
-header('Location: browse_profile.php?customerID='.$customerID);
+header('Location: profile.php?customerID='.$customerID);
 	
 ?>
 
