@@ -11,6 +11,7 @@ if (!$db->select_db ("f35im"))
 	exit("<p>Unable to locate the f35im database</p>");
 
 $Cities = array(
+   "Any",
    "Tokyo",
    "Mexico City",
    "New York City",
@@ -31,7 +32,8 @@ $Educations = array(
     "Bachelor",
     "Master",
     "PhD",
-    "MBA"
+    "MBA",
+    "Others"
     );
 
 function print_basic_info($userID, $db) {

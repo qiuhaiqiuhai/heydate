@@ -11,6 +11,7 @@ include "members_only.php";
   <link rel="stylesheet" type="text/css" href="css/profile.css">
   <script src="JS/popUpWindow.js"></script>
   <script src="JS/showHide.js"></script>
+  <script type="text/javascript" src="JS/pwconfirm.js"></script>
 </head>
 <body>
 
@@ -67,8 +68,7 @@ include "members_only.php";
 
             // edit profile
             if(isset($_GET['edit'])){
-              if(isset($_GET['username_exist']))
-                echo 'username exist';
+
               
               $action = $action.'?edit=Edit+Profile';
               $action_postfix = '&';
@@ -124,8 +124,8 @@ include "members_only.php";
                   <table class="left clear bottom" style="width:100%;">
                     <tr><td><grey>Name: </grey><input type=text name="name" id="name" required="required" form="submit_edit" value = "'.$row['name'].'"></td>
                     <td><grey>Email: </grey><input type=email name="email" id="email" required="required" form="submit_edit" value = "'.$row['email'].'"></td></tr>
-                    <tr><td><grey>Password: </grey><input type=password name="password" id="password" required="required" form="submit_edit" value = "'.$row['name'].'"></td>
-                    <td><grey>Confirm Password: </grey><input type=password name=password2 id="password2" required="required" value = "'.$row['name'].'" onkeyup="checkPass();" ></td></tr>
+                    <tr><td><grey>Password: </grey><input type=password name="password" id="password" required="required"  onkeyup="checkPass();checkConfirm();" form="submit_edit" ></td>
+                    <td><grey>Confirm Password: </grey><input type=password name=password2 id="password2" required="required" onkeyup="checkConfirm();" ></td></tr>
                     <tr><td><grey>Gender: </grey>
                       <select name="gender" required="required" form="submit_edit" value= "'.$row['gender'].'">
                         <option value="Male">Male</option>
@@ -142,7 +142,7 @@ include "members_only.php";
                         echo '</select>
                     </td>
                     <td><grey>Height: </grey><input style="width:80%" type=number name="height" value='.$row['height'].' min=0 max=250 form="submit_edit" required="required"> cm</td></tr>
-                    <tr><td><grey>Education: </grey><select name="city" id="listBox" required="required" form="submit_edit" value="'.$row['education'].'">';
+                    <tr><td><grey>Education: </grey><select name="education" id="listBox" required="required" form="submit_edit" value="'.$row['education'].'">';
                         foreach($Educations as $edu){
                           echo '<option value='.$edu.(($edu==$row['education'])?' selected':'').'>'.$edu.'</option>';
                         }
@@ -291,7 +291,7 @@ include "members_only.php";
                 echo '<div class="display_photo" style="display:none;"id="send_message"></br>
                 <form action="browse_action.php" method="post">
                 <input type="hidden" name="customerID" value='.$customerID.'>
-                <textarea name="message" ows="4" placeholder="Type message here..." style="width:300"></textarea></br>
+                <textarea name="message" ows="4" placeholder="Type message here..." style="width:300" required></textarea></br>
                 <button onclick="showHide_photo(\'send_message\')" >Cancel</button>
                 <button type="submit" name="send">Send</button></div>
                 </form>';
@@ -426,12 +426,12 @@ include "members_only.php";
              echo '
                <div class="left profile_summary">
                  <label class="left" id="profile_name">'.$row['name'].'</label>
-                 <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['education'].', '.$row['height'].'cm</div>
-                 <div class="bottom">
-                   <button>Like</button>
-                   <button>View</button>
-                 </div>
-               </div>
+                 <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['education'].', '.$row['height'].'cm</div>';
+                 // <div class="bottom">
+                 //   <button>Like</button>
+                 //   <button>View</button>
+                 // </div>
+             echo  '</div>
              </div>
              ';
           }
@@ -455,3 +455,8 @@ include "members_only.php";
 
 </body>
 </html>
+<?php 
+if(isset($_SESSION['username_exist'])){
+  echo "<script type='text/javascript'>alert('Username \"".$_SESSION['username_exist']."\" exists!');</script>";
+  unset($_SESSION['username_exist']);
+} ?>

@@ -15,13 +15,17 @@ function checkPass()
     if(pos != 0){
         password_validate=false;
         pass1.style.backgroundColor = badColor;
-        message.style.color = badColor;
-        message.innerHTML = "Bad Passwords";
+        if(message!=null){
+            message.style.color = badColor;
+            message.innerHTML = "Bad Passwords";
+        }
     }else{
         password_validate=true;
         pass1.style.backgroundColor = goodColor;
-        message.style.color = goodColor;
-        message.innerHTML = "Good Passwords";
+        if(message!=null){
+            message.style.color = goodColor;
+            message.innerHTML = "Good Passwords";
+        }
     }
 }
 
@@ -38,13 +42,17 @@ function checkConfirm()
     if(pass1.value == pass2.value){
         password_Confirm=true;
         pass2.style.backgroundColor = goodColor;
-        message.style.color = goodColor;
-        message.innerHTML = "Passwords Match!";
+        if(message!=null){
+            message.style.color = goodColor;
+            message.innerHTML = "Passwords Match!";
+        }
     }else{
         password_Confirm=false;
         pass2.style.backgroundColor = badColor;
-        message.style.color = badColor;
-        message.innerHTML = "Passwords Do Not Match!";
+        if(message!=null){
+            message.style.color = badColor;
+            message.innerHTML = "Passwords Do Not Match!";
+        }
     }
 }
 
