@@ -3,30 +3,44 @@ include "dbconnect.php";
 include "members_only.php";
 ?>
 <?php 
-    if(isset($_POST['search'])){
+    $gender = null;
+    $min_age = null;
+    $max_age = null;
+    $city = null;
+    
+    // expand part
+    $min_height = null;  
+    $max_height = null;    
+    $education = null;
+   
+   if(isset($_POST['search'])||isset($_POST['advanced_search'])){
         $gender = $_POST['gender'];
         $min_age = $_POST['min_age'];
         $max_age = $_POST['max_age'];
         $city = $_POST['city'];
+        $query_city = ($city=="Any"||$city==null)?'':' AND city="'.$city.'"';
+
         
         $date=date_create();
         date_add($date,date_interval_create_from_date_string('-'.$max_age.' years'));
-        $bday_upbound = date_format($date, "Y-m-d");
+        $bday_lowbound = date_format($date, "Y-m-d");
         $date=date_create();
         date_add($date,date_interval_create_from_date_string('-'.$min_age.' years'));
-        $bday_lowbound = date_format($date, "Y-m-d");
-        $birthdate_range ='';// ' ( birthdate between "'.$bday_lowbound.'" and "'.$bday_upbound.'" ) AND ';
+        $bday_upbound = date_format($date, "Y-m-d");
+        $birthdate_range =' ( birthdate between "'.$bday_lowbound.'" and "'.$bday_upbound.'" ) AND ';
 
         // expand part
-        $min_height = $_POST['min_height'];
-        $query_min_height = ($min_height==0)?'':' AND height>'.$min_height;
-        $max_height = $_POST['max_height'];
-        $query_max_height = ($max_height==0)?'':' AND height<'.$max_height;
-        $education = $_POST['education'];
-        $query_education = ($education=="Any")?'':' AND education="'.$education.'"';
+        if(isset($_POST['advanced_search'])){
+          $min_height = $_POST['min_height'];
+          $max_height = $_POST['max_height'];
+          $education = $_POST['education'];
+        }
+        $query_min_height = ($min_height==0)?'':' AND height>='.$min_height;
+        $query_max_height = ($max_height==0)?'':' AND height<='.$max_height;
+        $query_education = ($education=="Any"||$education==null)?'':' AND education="'.$education.'"';
 
-        $query = 'SELECT * FROM users_account WHERE '.$birthdate_range.' gender="'.$gender.'" AND city="'.$city.'"'.$query_min_height.$query_max_height.$query_education;
-//echo $query;
+        $query = 'SELECT * FROM users_account WHERE '.$birthdate_range.' gender="'.$gender.'" '.$query_city.' '.$query_min_height.$query_max_height.$query_education;
+echo $query;
     } else {
         $row = get_basic_info($_SESSION["valid_userID"], $db);
         $gender = ($row['gender']=="Male")?"Female":"Male";
@@ -68,15 +82,28 @@ include "members_only.php";
             </select>
             from
             <select name="min_age">
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
+              <?php 
+                for($i=1; $i<=40 ; $i++){
+                  echo '<option value="'.$i.'"';
+                  if($i==$min_age)
+                    echo 'selected';
+                  echo '>'.$i.'</option>';
+
+                }
+              ?>
+          
             </select>
             to
             <select name="max_age">
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
+              <?php 
+                for($i=1; $i<=40 ; $i++){
+                  echo '<option value="'.$i.'"';
+                  if($i==$max_age)
+                    echo 'selected';
+                  echo '>'.$i.'</option>';
+
+                }
+              ?>
             </select>
             in
             <select name="city" id="listBox" required="required">
@@ -85,27 +112,35 @@ include "members_only.php";
               } ?>
             </select>
           </div>
-          <button class="right" type="submit" name="search">Search</button>
+          <button class="right" type="submit" name="advanced_search">Search</button>
           <button type="button" class="right" id="more_button" onclick="showHide('expand')">more</button>
         </div>
         <div id="expand" class="clear" style="display:none">
           Height from
           <select name="min_height">
-            <option value=0>Any</option>
-            <option value=150>150</option>
-            <option value=160>160</option>
-            <option value=170>170</option>
-            <option value=180>180</option>
-            <option value=190>190</option>
+            <option value=0 >Any</option>
+            <?php 
+                for($i=100; $i<=250 ; $i+=10){
+                  echo '<option value="'.$i.'"';
+                  if($i==$min_height)
+                    echo 'selected';
+                  echo '>'.$i.'</option>';
+
+                }
+            ?>
           </select>
           cm to
           <select name="max_height">
-            <option value=0>Any</option>
-            <option value=150>150</option>
-            <option value=160>160</option>
-            <option value=170>170</option>
-            <option value=180>180</option>
-            <option value=190>190</option>
+            <option value=0 >Any</option>
+            <?php 
+                for($i=100; $i<=250 ; $i+=10){
+                  echo '<option value="'.$i.'"';
+                  if($i==$max_height)
+                    echo 'selected';
+                  echo '>'.$i.'</option>';
+
+                }
+            ?>
           </select>
           cm  Education
           <select name="education" id="listBox" required="required">
@@ -173,14 +208,11 @@ include "members_only.php";
 
                echo '
                <div class="result_box left">
-                <a href="browse_profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
+                <a href="profile.php?customerID='.$row['userID'].'" ><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
                 <div class="profile_summary">
                   <label id="profile_name">'.$row['name'].'</label>
                   <div>'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['education'].', '.$row['height'].'cm</div>
-                  <div class="bottom">
-                    <button>Like</button>
-                    <button>View</button>
-                  </div>
+                
                 </div>
                </div>
                ';
@@ -261,10 +293,7 @@ include "members_only.php";
                <div class="left profile_summary">
                  <label class="left" id="profile_name">'.$row['name'].'</label>
                  <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['education'].', '.$row['height'].'cm</div>
-                 <div class="bottom">
-                   <button>Like</button>
-                   <button>View</button>
-                 </div>
+               
                </div>
              </div>
              ';

@@ -51,7 +51,9 @@ if(isset($_POST['submit_edit'])){
 
 		if ($result->num_rows >0 )
 		  {
-		  	header('Location: profile.php?edit=Edit+Profile&username_exist=1');
+		  	//header('Location: profile.php?edit=Edit+Profile&username_exist=1');
+		  	$_SESSION['username_exist']=$name;
+		  	header('Location: profile.php?edit=Edit+Profile');
 		  	exit();
 
 		  }

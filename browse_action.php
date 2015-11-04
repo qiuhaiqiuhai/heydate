@@ -42,6 +42,8 @@ if(isset($_POST['message'])){
   $result = $db->query($query);
   if (!$result) echo $query." failed.";
   echo "<script type='text/javascript'>alert('Message has been sent!');</script>";
+  header('Location: inbox.php');
+  exit();
 }
 
 header('Location: profile.php?customerID='.$customerID);

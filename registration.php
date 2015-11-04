@@ -1,3 +1,6 @@
+<?php 
+include "dbconnect.php";
+?>
 <html>
 <head>
 	<title>Register</title>
@@ -40,11 +43,26 @@
 					<li class="text_right"><grey>Birthday </grey></li>
 					<li><input type="date" name="birthdate" required="required" value="2000-01-01"></li>
 					<li class="text_right"><grey>City </grey></li>
-					<li><input type="text" name="city" required="required" placeholder="Hogwarts"></li>
+					<li>
+						<select name="city" id="listBox" required="required">
+			              <?php foreach($Cities as $citytmp){
+			               if($citytmp!="Any")
+			               	echo '<option value="'.$citytmp.'"">'.$citytmp.'</option>';
+			              } ?>
+			            </select>
+					</li>
 					<li class="text_right"><grey>Education </grey></li>
-					<li><input type="text" name="education" required="required" ></li>
+					<li>
+						<select name="education" id="listBox" required="required">
+				            <?php foreach($Educations as $edutmp){
+				            	if($edutmp!="Any")
+				            	    echo '<option value="'.$edutmp.'">'.$edutmp.'</option>';
+				            } ?>
+				          </select>
+
+					</li>
 					<li class="text_right"><grey>Height </grey></li>
-					<li><input type="number" name="height" required="required" min=0 max=250 > cm</li>
+					<li><input type="number" name="height" required="required" min=0 max=250 value=170> cm</li>
 					<li class="text_right"><grey>Photo<br>(optional)</grey></li>
 					<li><input type="file" accept="image/*" name="profilePhoto"></li>
 				</div>

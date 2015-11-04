@@ -116,31 +116,43 @@ if (isset($_POST['name']) && isset($_POST['password']))
           <div class="right clear" style="margin-top:30px"><h1>Find your love here</h1></div>
           <div class="right">
             <cat>Gender:</cat>
-            <select>
-              <option value="m">Male</option>
-              <option value="f">Female</option>
+            <select name="gender">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
             </select>
             <cat>Age:</cat> from 
-            <select>
-              <option value="20">20</option>
-              <option value="21">21</option>
-              <option value="22">22</option>
+            <select name="min_age">
+              <?php 
+                for($i=1; $i<=40 ; $i++){
+                  echo '<option value="'.$i.'"';
+                  if($i==20)
+                    echo 'selected';
+                  echo '>'.$i.'</option>';
+
+                }
+              ?>
             </select>
             to
-            <select>
-              <option value="21">21</option>
-              <option value="22">22</option>
-              <option value="23">23</option>
+            <select name="max_age">
+              <?php 
+                for($i=1; $i<=40 ; $i++){
+                  echo '<option value="'.$i.'"';
+                  if($i==20)
+                    echo 'selected';
+                  echo '>'.$i.'</option>';
+
+                }
+              ?>
             </select>
-            <cat>City:</cat>
+            in
+            <select name="city">
+            <?php foreach($Cities as $citytmp){
+               echo '<option value='.$citytmp.'>'.$citytmp.'</option>';
+              } ?>
             <select>
-              <optgroup label="China">
-                <option>Shanghai</option>
-              </optgroup>
-            </select>
           </div>
-          <button type="submit" class="clear_right right" value="submit" style="margin-top:25">Search</button>
-          <a href="" class="right additional_button" onclick="return checkLogin(isLogin);" >Advanced Search</a>
+          <button type="submit" name="search"  class="clear_right right" value="submit" style="margin-top:25">Search</button>
+          <a href="search_results.php" class="right additional_button" onclick="return checkLogin(isLogin);" >Advanced Search</a>
         </form>
       
       </div>
