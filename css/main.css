@@ -264,7 +264,7 @@ textarea:focus{
     background: white;
     position:fixed;
     left: 350px;
-    top: 300px;    
+    top: 20%;    
     z-index: 1;
     padding: 10px;
     text-align: center;
