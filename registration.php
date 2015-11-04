@@ -38,7 +38,7 @@
 				<div class="column_container">
 					<!-- <div class="section_container"><label class="left">Self Detail</label></div> -->
 					<li class="text_right"><grey>Birthday </grey></li>
-					<li><input type="date" name="birthdate" required="required"></li>
+					<li><input type="date" name="birthdate" required="required" value="2000-01-01"></li>
 					<li class="text_right"><grey>City </grey></li>
 					<li><input type="text" name="city" required="required" placeholder="Hogwarts"></li>
 					<li class="text_right"><grey>Education </grey></li>

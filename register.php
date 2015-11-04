@@ -57,7 +57,8 @@ if ($result->num_rows >0 )
 // if they are in the database register the user id
 $row = $result->fetch_assoc();
 $_SESSION['valid_user'] = $name;
-$_SESSION['valid_userID'] = $row['userID'];     
+$_SESSION['valid_userID'] = $row['userID'];  
+$_SESSION['new_user'] = true;     
 }   
 
 photo_upload('profilePhoto', 'users_profile_photo/',$_SESSION['valid_userID'], $db, false);
@@ -70,5 +71,7 @@ $txt = "Hi ".$_SESSION['valid_user'].", are you ready to start finding the other
 $headers = "From: heydate@heydate.com\r\n";
 
 mail($to,$subject,$txt,$headers);
+
+header('Location: index.php');
 ?>
 <a href="index.php">Back to main page</a>
