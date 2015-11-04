@@ -48,7 +48,7 @@ include "members_only.php";
     		$contact=get_basic_info($row1['receiverID'],$db);
 
     		echo "		  <div class=\"section_container\" id=".$contact["userID"].">\n"; 
-    		echo "            <a href=\"browse_profile.php?customerID=".$contact['userID']."\"><div class=\"image_container_100\" style=\"background-image: url(users_profile_photo/".($contact['profilePhoto']!=Null?$contact['profilePhoto']:'default_male.jpg').");\"></div></a>";
+    		echo "            <a href=\"profile.php?customerID=".$contact['userID']."\"><div class=\"image_container_100\" style=\"background-image: url(users_profile_photo/".($contact['profilePhoto']!=Null?$contact['profilePhoto']:'default_male.jpg').");\"></div></a>";
     		echo "            <div class=\"profile_summary\">\n"; 
     		echo "              <label id=\"profile_name\">".$contact["name"]."</label>\n"; 
     		echo "              <div id=\"profile_brief\">".cal_age($contact['birthdate']).", ".$contact['city'].", ".$contact['height']."cm, ".$contact['education']."</div>\n"; 

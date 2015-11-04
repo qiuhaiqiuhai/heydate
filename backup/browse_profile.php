@@ -137,18 +137,18 @@ description: <br/>
     
 </section>
 
-<form action="browse_action.php?" method="post">
+  <form action="browse_action.php?" method="post">
   <input type="hidden" name="customerID" value=<?php echo $customerID; ?>>
-  <button type="submit" name="status_change" value= <?php 
+  <button type="submit" name="status_change" value= 
+  <?php 
   
   if($status_active=='Like'){
       echo '"Dislike" >Dislike';
   }else{
       echo '"Like" >Like';
   }
-
-?></button>
-</form> 
+  ?></button>
+  </form> 
 
 <form action="browse_action.php" method="post">
   <input type="hidden" name="customerID" value=<?php echo $customerID; ?>>

@@ -93,13 +93,8 @@ if(isset($_POST['submit_edit'])){
 				$sql = "INSERT into users_description (userID, description, type) 
 					values ( $userID , '$type_value','$type' )";
 				$result = $db->query($sql);
-
 			}
-				
-
 		}
-
-		
 	}
 
 
@@ -109,14 +104,11 @@ if(isset($_POST['submit_edit'])){
 	<?php 
 
 }else{
-	
 	$action='profile.php';
 	if(isset($_GET['edit'])){
 		$action = $action.'?edit=Edit+Profile';
-	}
-		
+	}	
 	header('Location: '.$action);
-
 }	
 
 	

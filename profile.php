@@ -34,7 +34,34 @@ include "members_only.php";
 
         <!-- edit or print profile -->
         <?php 
-            $row=get_basic_info($_SESSION['valid_userID'],$db);
+            if (isset($_GET['customerID'])) {
+              $customerID = $_GET['customerID'];
+
+              // update view relationship status
+              $status_active = 'no status';
+              $query = 'select status from users_relationship '
+                     ."where userID1=".$_SESSION['valid_userID'].
+                     ' and userID2='.$customerID;
+
+              $result = $db->query($query);    
+              if($result->num_rows >0 ){
+                $row = $result->fetch_assoc();
+                $status_active = $row['status'];
+                $query = 'Update users_relationship set statusTime=CURRENT_TIMESTAMP '
+                     ."where userID1=".$_SESSION['valid_userID'].
+                     ' and userID2='.$customerID;
+              }else{
+                $query = 'insert into users_relationship (userID1, userID2, status) '
+                     ."values (".$_SESSION['valid_userID'].','.$customerID.',"Viewed")';
+              }
+              $result = $db->query($query);
+              if (!$result) echo $query."failed.";
+              $row=get_basic_info($customerID, $db);
+            } else {
+              $row=get_basic_info($_SESSION['valid_userID'],$db);
+            }
+
+            // for edit
             $action = "profile_action.php";
             $action_postfix = '?';
 
@@ -62,17 +89,6 @@ include "members_only.php";
               $result = $db->query($query);
 
               $num_results = $result->num_rows;
-              if ($num_results==0) {
-                 echo '<div onclick="showHide_photo(\'add_photo\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/add.jpeg);" ></div>';
-                 
-                 echo '<div class="display_photo" style="display:none;"id="add_photo"></br><button onclick="showHide_photo(\'add_photo\')" >Hide</button>';
-                 ?>
-                 <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
-                      <input type="file" name="photo" accept="image/*" >
-                      <input type=submit name=photo value=Upload >
-                  </form>
-                  <?php echo '</div>'; 
-              }
 
               for ($i=0; $i <$num_results; $i++) {
                  $photo = $result->fetch_assoc();
@@ -86,6 +102,19 @@ include "members_only.php";
                       <input type=submit name=photo value=Upload >
                   </form>
                   <?php echo '</div>';   
+              }
+
+              if ($num_results<3) {
+                for ($i=$num_results; $i<=3 ; $i++) { 
+                  echo '<div onclick="showHide_photo(\'add_photo\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/add.jpg);" ></div>';
+                  echo '<div class="display_photo" style="display:none;"id="add_photo"></br><button onclick="showHide_photo(\'add_photo\')" >Hide</button>';
+                  ?>
+                  <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
+                      <input type="file" name="photo" accept="image/*" >
+                      <input type=submit name=photo value=Upload >
+                  </form>
+                  <?php echo '</div>'; 
+                }
               }
 
               echo '</div>
@@ -120,7 +149,7 @@ include "members_only.php";
                         echo '</select></td>';
 
               echo '<td><form action="profile_action.php" method=POST id="submit_edit" onclick="return checkOnSubmit();">
-                <button class="bottom" type=submit name="submit_edit" value="submit" style="margin:0;">Submit</button>
+                <button class="bottom" type=submit name="submit_edit" value="submit" style="margin:0">Submit</button>
                 </form></td></tr>';
 
               echo
@@ -184,27 +213,15 @@ include "members_only.php";
               echo '  <div class="left column_container " style="overflow-y: scroll;height: 190px;">';
               // user other photos
               $query = 'select * from users_photo '
-                       ."where userID=".$_SESSION['valid_userID']." order by photo desc ";
+                       ."where userID=".$row['userID']." order by photo desc ";
               $result = $db->query($query);
 
               $num_results = $result->num_rows;
-              if ($num_results==0) {
-                 echo '<div onclick="showHide_photo(\'add_photo\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/add.jpeg);" ></div>';
-                 
-                 echo '<div class="display_photo" style="display:none;"id="add_photo"></br><button onclick="showHide_photo(\'add_photo\')" >Hide</button>';
-                 ?>
-                 <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
-                      <input type="file" name="photo" accept="image/*" >
-                      <input type=submit name=photo value=Upload >
-                  </form>
-                  <?php echo '</div>'; 
-              }
-
-              for ($i=0; $i <$num_results; $i++) {
+              
+              for ($i=0; $i<$num_results; $i++) {
                  $photo = $result->fetch_assoc();
                  //echo '<div onclick="popUpWindow(\'users_photo/'.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
                  echo '<div onclick="showHide_photo(\''.$photo['photo'].'\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/'.$photo['photo'].');" ></div>';
-                 
                  echo '<div class="display_photo" style="display:none;"id="'.$photo['photo'].'"><img height=300 src="users_photo/'.$photo['photo'].'"></img></br><button onclick="showHide_photo(\''.$photo['photo'].'\')" >Hide</button><button onclick="location.href=\''.$action.$action_postfix.'delete='.$photo['photo'].'\'">delete</button>';
                  ?>
                  <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
@@ -215,15 +232,57 @@ include "members_only.php";
 
               }
 
+              if ($num_results<3) {
+                for ($i=$num_results; $i<=3 ; $i++) { 
+                  echo '<div onclick="showHide_photo(\'add_photo\')" class="left clear_left img_small image_container_60" style="background-image: url(users_photo/add.jpg);" ></div>';
+                  echo '<div class="display_photo" style="display:none;"id="add_photo"></br><button onclick="showHide_photo(\'add_photo\')" >Hide</button>';
+                  ?>
+                  <form action=<?php echo '"'.$action.'"'; ?> method=POST enctype="multipart/form-data">
+                      <input type="file" name="photo" accept="image/*" >
+                      <input type=submit name=photo value=Upload >
+                  </form>
+                  <?php echo '</div>'; 
+                }
+              }
+
               echo '
                 </div>
                 <div class="left column_container" style="height:190; margin-left:15px">
                   <div class="left" id="profile_name" style="font-size:40;width:200">'.$row['name'].'</div>
                   <div class="right">';
 
-              echo '<form action="profile.php" method=GET>
+              // display different buttons for browse page
+              if (isset($_GET['customerID'])) {
+
+                // like
+                echo '
+                <form action="browse_action.php?" method="post">
+                <input type="hidden" name="customerID" value="'.$customerID.'">
+                <button type="submit" name="status_change" value= ';
+                
+                if($status_active=='Like'){
+                    echo '"Dislike" >Dislike';
+                }else{
+                    echo '"Like" >Like';
+                }
+                echo '</button>
+                </form>
+                ';
+
+                // send message
+                echo '<button onclick="showHide_photo(\'send_message\')">Chat</button>';
+                echo '<div class="display_photo" style="display:none;"id="send_message"></br>
+                <form action="browse_action.php" method="post">
+                <input type="hidden" name="customerID" value='.$customerID.'>
+                <textarea name="message" ows="4" placeholder="Type message here..." style="width:300"></textarea></br>
+                <button onclick="showHide_photo(\'send_message\')" >Cancel</button>
+                <button type="submit" name="send">Send</button></div>
+                </form>';
+              } else {
+                echo '<form action="profile.php" method=GET>
                 <button type=submit name="edit" value="Edit Profile">edit my profile</button>
-                </form>';   
+                </form>';
+              }   
               echo '
                   </div>
                   <div class="left clear bottom" style="width:100%;">
@@ -237,7 +296,7 @@ include "members_only.php";
 
               // fetch descriptions
               $query = 'select * from users_description '
-                     ."where userID=".$_SESSION['valid_userID'];
+                     ."where userID=".$row['userID'];
 
               $result = $db->query($query);
               $Intro = "No introduction yet.";
@@ -294,7 +353,7 @@ include "members_only.php";
         <?php
         if ($match_result->num_rows>0) {
           while($row = $match_result->fetch_assoc()){
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
@@ -310,7 +369,7 @@ include "members_only.php";
         <?php
         if ($viewyou_result->num_rows>0) {
           while($row = $viewyou_result->fetch_assoc()){
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
@@ -326,7 +385,7 @@ include "members_only.php";
         <?php
         if ($youview_result->num_rows>0) {
           while($row = $youview_result->fetch_assoc()){
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
@@ -344,7 +403,7 @@ include "members_only.php";
           while($row = $recommend_result->fetch_assoc()){
              
              echo '<div class="findlover_box left">';
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
              echo '

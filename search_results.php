@@ -204,7 +204,7 @@ include "members_only.php";
         <?php
         if ($match_result->num_rows>0) {
           while($row = $match_result->fetch_assoc()){
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
@@ -220,7 +220,7 @@ include "members_only.php";
         <?php
         if ($viewyou_result->num_rows>0) {
           while($row = $viewyou_result->fetch_assoc()){
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
@@ -236,7 +236,7 @@ include "members_only.php";
         <?php
         if ($youview_result->num_rows>0) {
           while($row = $youview_result->fetch_assoc()){
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
           }
@@ -254,7 +254,7 @@ include "members_only.php";
           while($row = $recommend_result->fetch_assoc()){
              
              echo '<div class="findlover_box left">';
-             echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
+             echo '<a href="profile.php?customerID='.$row['userID'].'">';
              echo '<div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
              echo "</a>";
              echo '
