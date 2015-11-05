@@ -14,7 +14,7 @@ include "dbconnect.php";
 		<a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
 		<nav>
 			<a href="index.php">Home</a>
-			<a href="">Search</a>
+			
 		</nav>
 	</div>
 	<!-- main body -->
