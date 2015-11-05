@@ -44,6 +44,7 @@ include "members_only.php";
     	          SELECT senderID, time  FROM `users_message` WHERE receiverID='.$_SESSION['valid_userID'].') 
     	          as X order by time DESC)as Y on userID=receiverID order by time DESC) as Z group by userID order by time DESC';
     	$Contacters = $db->query($query);
+      $isfirst=true;
     	while($row1 = $Contacters->fetch_assoc()){
     		$contact=get_basic_info($row1['receiverID'],$db);
 
@@ -64,6 +65,14 @@ include "members_only.php";
     		echo "                </div>\n"; 
     		echo "            </div>\n"; 
     		echo "        </div>\n";
+        //echo $_SERVER['HTTP_REFERER'];
+
+        
+        if($isfirst&&strpos($_SERVER['HTTP_REFERER'],"customerID")){
+          $isfirst=false;
+          echo '<script> document.getElementById("read").click(); </script>';
+        }
+
     	}
     	?>
     </div>

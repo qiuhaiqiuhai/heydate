@@ -64,7 +64,7 @@ echo $query;
     <a href="index.php"><img src="img/logo.png" height="120" width="160" style="margin-left: 11.5%"></a>
     <nav>
       <a href="index.php">Home</a>
-      <a href="">Inbox</a>
+      <a href="inbox.php">Inbox</a>
       <a href="profile.php">My heydate</a>
       <a href="search_results.php">Search</a>
       <a href="logout.php">Log out</a>

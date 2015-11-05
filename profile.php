@@ -292,7 +292,7 @@ include "members_only.php";
                 <form action="browse_action.php" method="post">
                 <input type="hidden" name="customerID" value='.$customerID.'>
                 <textarea name="message" ows="4" placeholder="Type message here..." style="width:300" required></textarea></br>
-                <button onclick="showHide_photo(\'send_message\')" >Cancel</button>
+                <button type="reset" onclick="showHide_photo(\'send_message\')" >Cancel</button>
                 <button type="submit" name="send">Send</button></div>
                 </form>';
               } else {
