@@ -24,10 +24,13 @@ include "members_only.php";
         $date=date_create();
         date_add($date,date_interval_create_from_date_string('-'.$max_age.' years'));
         $bday_lowbound = date_format($date, "Y-m-d");
+        $query_bday_lowbound= ($max_age==0)?'':' AND birthdate >="'.$bday_lowbound.'"';
+
         $date=date_create();
         date_add($date,date_interval_create_from_date_string('-'.$min_age.' years'));
         $bday_upbound = date_format($date, "Y-m-d");
-        $birthdate_range =' ( birthdate between "'.$bday_lowbound.'" and "'.$bday_upbound.'" ) AND ';
+        $query_bday_upbound= ($min_age==0)?'':' AND birthdate <="'.$bday_upbound.'"';
+
 
         // expand part
         if(isset($_POST['advanced_search'])){
@@ -39,7 +42,7 @@ include "members_only.php";
         $query_max_height = ($max_height==0)?'':' AND height<='.$max_height;
         $query_education = ($education=="Any"||$education==null)?'':' AND education="'.$education.'"';
 
-        $query = 'SELECT * FROM users_account WHERE '.$birthdate_range.' gender="'.$gender.'" '.$query_city.' '.$query_min_height.$query_max_height.$query_education;
+        $query = 'SELECT * FROM users_account WHERE userID <> '.$_SESSION['valid_userID'].$query_bday_lowbound.$query_bday_upbound.' and gender="'.$gender.'" '.$query_city.' '.$query_min_height.$query_max_height.$query_education;
 echo $query;
     } else {
         $row = get_basic_info($_SESSION["valid_userID"], $db);
@@ -82,6 +85,7 @@ echo $query;
             </select>
             from
             <select name="min_age">
+              <option value=0 >Any</option>
               <?php 
                 for($i=1; $i<=40 ; $i++){
                   echo '<option value="'.$i.'"';
@@ -95,6 +99,7 @@ echo $query;
             </select>
             to
             <select name="max_age">
+              <option value=0 >Any</option>
               <?php 
                 for($i=1; $i<=40 ; $i++){
                   echo '<option value="'.$i.'"';
