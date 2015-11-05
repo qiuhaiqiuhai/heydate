@@ -173,7 +173,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
            echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
            echo '<div id = "users">';
            echo '<img src="users_profile_photo/'.
-                ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';
+                ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'" height="80">';
            echo  $row['name'].'<br/>'.
                  $row['city'].'<br/>'.
                  $row['height'].'<br/>'.
@@ -182,7 +182,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
            */
            echo '
            <div class="left findlover_box">
-             <a onclick="return checkLogin(isLogin);" href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
+             <a onclick="return checkLogin(isLogin);" href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div></a>
              <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
                <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>';
@@ -207,7 +207,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
            echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
            echo '<div id = "users">';
            echo '<img src="users_profile_photo/'.
-                ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'" height="80">';
+                ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'" height="80">';
            echo  $row['name'].'<br/>'.
                  $row['city'].'<br/>'.
                  $row['height'].'<br/>'.
@@ -216,7 +216,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
            */
            echo '
            <div class="left findlover_box">
-             <a onclick="return checkLogin(isLogin);" href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div></a>
+             <a onclick="return checkLogin(isLogin);" href="profile.php?customerID='.$row['userID'].'"><div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div></a>
              <div class="left profile_summary">
                <label class="left" id="profile_name">'.$row['name'].'</label>
                <div class="clear_left">'.cal_age($row['birthdate']).', '.$row['city'].', '.$row['height'].'cm, '.$row['education'].'</div>';

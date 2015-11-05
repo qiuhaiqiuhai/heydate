@@ -44,7 +44,7 @@ include "members_only.php";
 
               echo '
               <div class="clear section_container">
-                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="190"> <!-- profile photo -->
+                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'"height="190"> <!-- profile photo -->
                 <div class="left column_container">
                   <img class="left clear_left img_small" src="img/male2.jpg">
                   <img class="left clear_left img_small" src="img/male3.jpg">
@@ -126,7 +126,7 @@ include "members_only.php";
               // {
               //     echo '<img src=users_profile_photo/'.$row['profilePhoto'].' height="100">';
               // }elseif($row['gender'] == 'Male'){
-              //     echo '<img src=users_profile_photo/default_male.jpg>';
+              //     echo '<img src=users_profile_photo/default_'.$row['gender'].'.jpg>';
               // }else{
               //     echo '<img src=users_profile_photo/default_female.jpg>';
               // }
@@ -134,7 +134,7 @@ include "members_only.php";
               // print 
               echo '
               <div class="clear section_container">
-                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'"height="190"> <!-- profile photo -->
+                <img class="left" src="users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'"height="190"> <!-- profile photo -->
                 <div class="left column_container">
                   <img class="left clear_left img_small" src="img/male2.jpg">
                   <img class="left clear_left img_small" src="img/male3.jpg">
@@ -286,7 +286,7 @@ include "members_only.php";
           while($row = $match_result->fetch_assoc()){
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
              echo '<img class="left img_small" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'">';
              echo "</a>";
           }
         } else {
@@ -303,7 +303,7 @@ include "members_only.php";
           while($row = $viewyou_result->fetch_assoc()){
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
              echo '<img class="left img_small" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'">';
              echo "</a>";
           }
         } else {
@@ -320,7 +320,7 @@ include "members_only.php";
           while($row = $youview_result->fetch_assoc()){
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
              echo '<img class="left img_small" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'">';
              echo "</a>";
           }
         } else {
@@ -339,7 +339,7 @@ include "members_only.php";
              echo '<div class="findlover_box left">';
              echo '<a href="browse_profile.php?customerID='.$row['userID'].'">';
              echo '<img class="left" src="users_profile_photo/'.
-                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').'">';
+                  ($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').'">';
              echo "</a>";
              echo '
                <div class="left profile_summary">

@@ -371,7 +371,7 @@ include "members_only.php";
         if ($match_result->num_rows>0) {
           while($row = $match_result->fetch_assoc()){
              echo '<a href="profile.php?customerID='.$row['userID'].'">';
-             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
+             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> ';
              echo "</a>";
           }
         } else {
@@ -387,7 +387,7 @@ include "members_only.php";
         if ($viewyou_result->num_rows>0) {
           while($row = $viewyou_result->fetch_assoc()){
              echo '<a href="profile.php?customerID='.$row['userID'].'">';
-             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
+             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> ';
              echo "</a>";
           }
         } else {
@@ -403,7 +403,7 @@ include "members_only.php";
         if ($youview_result->num_rows>0) {
           while($row = $youview_result->fetch_assoc()){
              echo '<a href="profile.php?customerID='.$row['userID'].'">';
-             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
+             echo '<div class="left small_img image_container_60" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> ';
              echo "</a>";
           }
         } else {
@@ -421,7 +421,7 @@ include "members_only.php";
              
              echo '<div class="findlover_box left">';
              echo '<a href="profile.php?customerID='.$row['userID'].'">';
-             echo '<div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_male.jpg').');"></div> ';
+             echo '<div class="image_container_100" style="background-image: url(users_profile_photo/'.($row['profilePhoto']!=Null?$row['profilePhoto']:'default_'.$row['gender'].'.jpg').');"></div> ';
              echo "</a>";
              echo '
                <div class="left profile_summary">

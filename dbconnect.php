@@ -58,7 +58,7 @@ function print_basic_info($userID, $db) {
     {
         echo '<img src=users_profile_photo/'.$row['profilePhoto'].' height="100">';
     }elseif($row['gender'] == 'Male'){
-        echo '<img src=users_profile_photo/default_male.jpg>';
+        echo '<img src=users_profile_photo/default_'.$row['gender'].'.jpg>';
     }else{
         echo '<img src=users_profile_photo/default_female.jpg>';
     }
