@@ -122,6 +122,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
             </select>
             <cat>Age:</cat> from 
             <select name="min_age">
+              <option value=0 >Any</option>
               <?php 
                 for($i=1; $i<=40 ; $i++){
                   echo '<option value="'.$i.'"';
@@ -134,6 +135,7 @@ if (isset($_POST['name']) && isset($_POST['password']))
             </select>
             to
             <select name="max_age">
+              <option value=0 >Any</option>
               <?php 
                 for($i=1; $i<=40 ; $i++){
                   echo '<option value="'.$i.'"';
